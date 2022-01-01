@@ -6,14 +6,14 @@ class Cashier(DBModel):
     TABLE = "cashier"
 
     def __init__(self, name, last_name, email, phone, password, _id=None) -> None:
-        self.alias_for("_id", "id")
+        self.alias_for("_Cashier__id", "id")
         self.name = name
         self.last_name = last_name
         self.email = email
         self.phone = phone
         self.password = password
         if _id:
-            self._id = _id
+            self.__id = _id
 
 
 class CafeTable(DBModel):
@@ -84,4 +84,3 @@ class Receipt(DBModel):
 # time_t = datetime.now() + timedelta(minutes=10)
 # item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
 # db = DBManager().create(item)
-print(Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111", "0234832", 1).with_alias_dict())
