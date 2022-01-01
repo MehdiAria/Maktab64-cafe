@@ -11,14 +11,14 @@ class Cashier(DBModel):
         self.password = password
 
 
-class Cafe_table(DBModel):
+class CafeTable(DBModel):
     def __init__(self, id, number, space) -> None:
         self.id = id
         self.number = number
         self.space = space
 
 
-class menu_items(DBModel):
+class MenuItems(DBModel):
 
     def __init__(self,id, discount, name, price, img_url, serving_time) -> None:
         self.id = id
