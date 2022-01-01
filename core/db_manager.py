@@ -7,9 +7,24 @@ from abc import ABC
 class DBModel(ABC):  # abstract base Database model
     TABLE: str  # table name
     PK: str  # primary key column of the table
+    aliases = {}
 
     def __str__(self) -> str:
         return f"<{self.__class__.__name__} {vars(self)}>"
+
+    @classmethod
+    def alias_for(cls, attr, alias):
+        cls.aliases[attr] = alias
+
+    def with_alias_dict(self):
+        base_dict = vars(self)
+        for i in self.aliases.keys():
+            print(i)
+            if i in base_dict.keys():
+                value = base_dict[i]
+                base_dict.pop(i)
+                base_dict[self.aliases[i]] = value
+        return base_dict
 
 
 class DBManager:
@@ -54,8 +69,9 @@ class DBManager:
                 return id
 
     def read(self, model_class: type, pk):
+        assert issubclass(model_class, DBModel)
         with self.conn:
-            with self.get_cursor() as curs:
+            with self.__get_cursor() as curs:
                 curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
                 res = curs.fetchone()
                 return model_class(**dict(res))
