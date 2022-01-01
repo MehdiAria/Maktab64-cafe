@@ -20,5 +20,11 @@ class DBManager:
         self.conn: connection = psycopg2.connect(dbname=self.database, user=self.user, host=self.host, port=self.port,
                                                  password=self.password)
 
+    def read(self, model_ins: DBModel):
+        with self.conn:
+            with self.get_cursor() as curs:
+                curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
+                res = curs.fetchone()
+                return model_class(**dict(res))
 
 db1 = DBManager()
