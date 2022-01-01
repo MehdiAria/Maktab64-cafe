@@ -1,6 +1,7 @@
 from core.db_manager import DBModel
 from datetime import datetime
 
+
 class Cashier(DBModel):
     def __init__(self, id, name, last_name, email, phone, password) -> None:
         self.id = id
@@ -20,7 +21,7 @@ class CafeTable(DBModel):
 
 class MenuItems(DBModel):
 
-    def __init__(self,id, discount, name, price, img_url, serving_time) -> None:
+    def __init__(self, id, discount, name, price, img_url, serving_time) -> None:
         self.id = id
         self.name = name
         self.discount = discount
@@ -40,14 +41,20 @@ class Category(DBModel):
         self.category_id = category_id
 
 
-
-
 class Order(DBModel):
-    def __init__(self,id, item_id, number_items, receipt_id, status_id, table_id):
+    def __init__(self, id, item_id, number_items, receipt_id, status_id, table_id):
         self.id = id
         self.item_id = item_id
         self.number_items = number_items
         self.receipt_id = receipt_id
         self.status_id = status_id
         self.table_id = table_id
+        self.time_stamp = datetime.now()
+
+
+class Receipt(DBModel):
+    def __init__(self, id, total_price, final_price) -> None:
+        self.id = id
+        self.total_price = total_price
+        self.final_price = final_price
         self.time_stamp = datetime.now()
