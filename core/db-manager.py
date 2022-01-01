@@ -11,8 +11,6 @@ class DBModel(ABC):  # abstract base Database model
         return f"<{self.__class__.__name__} {vars(self)}>"
 
 
-
-
 class DBManager:
     DEFAULT_HOST = "tyke.db.elephantsql.com"
     DEFAULT_USER = "gcjyvums"
@@ -31,21 +29,6 @@ class DBManager:
         self.conn: connection = psycopg2.connect(dbname=self.database, user=self.user, host=self.host, port=self.port,
                                                  password=self.password)
 
-    def read(self, model_ins: DBModel):
-        with self.conn:
-            with self.get_cursor() as curs:
-                curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
-                res = curs.fetchone()
-                return model_class(**dict(res))
-    def delete(self, model_instance: DBModel) -> None:
-        assert isinstance(model_instance, DBModel)
-        with self.conn:
-            curs = self.__get_cursor()
-            with curs:
-                model_pk_value = getattr(model_instance, model_instance.PK)
-                curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
-                delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
-
     def create(self, model_instance: DBModel) -> int:
         with self.conn:
             assert isinstance(model_instance, DBModel)
@@ -62,6 +45,22 @@ class DBManager:
                 id = int(curs.fetchone()['id'])
                 setattr(model_instance, 'id', id)
                 return id
+
+    def read(self, model_ins: DBModel):
+        with self.conn:
+            with self.get_cursor() as curs:
+                curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
+                res = curs.fetchone()
+                return model_class(**dict(res))
+
+    def delete(self, model_instance: DBModel) -> None:
+        assert isinstance(model_instance, DBModel)
+        with self.conn:
+            curs = self.__get_cursor()
+            with curs:
+                model_pk_value = getattr(model_instance, model_instance.PK)
+                curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
+                delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
 
 
 db1 = DBManager()
