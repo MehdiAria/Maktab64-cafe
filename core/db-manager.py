@@ -1,5 +1,6 @@
 import psycopg2
 from psycopg2._psycopg import connection, cursor
+from psycopg2 import extras
 from abc import ABC
 
 
