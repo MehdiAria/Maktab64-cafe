@@ -54,7 +54,7 @@ class DBManager:
         with self.conn:
             assert isinstance(model_instance, DBModel)
             curs = self.__get_cursor()
-            model_vars = vars(model_instance)
+            model_vars = model_instance.with_alias_dict() if model_instance.aliases else vars(model_instance)
             model_fields_str = ",".join(
                 model_vars.keys())
             model_values_str = ",".join(["%s"] * len(model_vars))

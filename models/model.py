@@ -84,3 +84,5 @@ class Receipt(DBModel):
 # time_t = datetime.now() + timedelta(minutes=10)
 # item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
 # db = DBManager().create(item)
+cashier = Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111", "0234832")
+DBManager().create(cashier)
