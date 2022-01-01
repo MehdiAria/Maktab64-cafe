@@ -27,9 +27,16 @@ class DBManager:
         self.user = user
         self.host = host
         self.port = port
-
         self.conn: connection = psycopg2.connect(dbname=self.database, user=self.user, host=self.host, port=self.port,
                                                  password=self.password)
+
+    def __del__(self):
+        self.conn.close()  # Close the connection on delete
+
+    def __get_cursor(self) -> cursor:
+        # Changing the fetch output from Tuple to Dict utilizing RealDictCursor cursor factory
+        return self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
 
     def read(self, model_ins: DBModel):
         with self.conn:
