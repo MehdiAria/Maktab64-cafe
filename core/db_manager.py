@@ -102,14 +102,17 @@ class DBManager:
                 curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
                 delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
 
-    def read_all(self, model_class: type) -> DBModel:  # get
+    def read_all(self, model_class: type):  # get
         assert issubclass(model_class, DBModel)
         with self.conn:
             curs = self.__get_cursor()
+            res = []
             with curs:
                 curs.execute(f"""SELECT * FROM  {model_class.TABLE};""")
-                res = curs.fetchall()
-                return res  # returns an instance of the Model with inserted values
+                models_ = curs.fetchall()
+                for i in models_:
+                    res.append(model_class(**dict(i)))
+            return res  # returns an instance of the Model with inserted values
 
 
 db1 = DBManager()

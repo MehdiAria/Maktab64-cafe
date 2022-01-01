@@ -1,9 +1,16 @@
 import unittest as ut
 from models.model import *
 from core.db_manager import DBManager
+from psycopg2.extras import RealDictRow
 
 
 class TestAlias(ut.TestCase):
+    def setUp(self) -> None:
+        from random import randint
+        cashiers = DBManager().read_all(Cashier)
+        cashiers: RealDictRow
+        print(cashiers)
+        # cashier_id = cashiers[randint(0, len(cashiers))]._id
     def test_alias_cashier(self):
         pass
         # db = DBManager()
@@ -21,4 +28,4 @@ class TestAlias(ut.TestCase):
 
 class TestDBManager(ut.TestCase):
     def test_read_data(self):
-        self.assertIsInstance(DBManager().read(Cashier, 1), Cashier)
+        self.assertIsInstance(DBManager().read(Cashier, 5), Cashier)
