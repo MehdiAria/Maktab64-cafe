@@ -1,5 +1,16 @@
 import psycopg2
 from psycopg2._psycopg import connection, cursor
+from abc import ABC
+
+
+class DBModel(ABC):  # abstract base Database model
+    TABLE: str  # table name
+    PK: str  # primary key column of the table
+
+    def __str__(self) -> str:
+        return f"<{self.__class__.__name__} {vars(self)}>"
+
+
 
 
 class DBManager:
@@ -26,5 +37,16 @@ class DBManager:
                 curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
                 res = curs.fetchone()
                 return model_class(**dict(res))
+    def delete(self, model_instance: DBModel) -> None:
+        assert isinstance(model_instance, DBModel)
+        with self.conn:
+            curs = self.__get_cursor()
+            with curs:
+                model_pk_value = getattr(model_instance, model_instance.PK)
+                curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
+                delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
+
+
+
 
 db1 = DBManager()
