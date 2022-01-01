@@ -78,11 +78,18 @@ class Receipt(DBModel):
         self.time_stamp = datetime.now()
         self.id = id
 
-
 # cat = Category("cake")
 # db1 = DBManager().create(cat)
 # time_t = datetime.now() + timedelta(minutes=10)
 # item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
 # db = DBManager().create(item)
-cashier = Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111", "0234832")
-DBManager().create(cashier)
+# cashier = Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111", "0234832")
+# DBManager().create(cashier)
+# tbl = CafeTable(1, 3, 1)
+# dbt = DBManager().create(tbl)
+# stat = Status('error', 'Error from server!', 1)
+# dbs = DBManager().create(stat)
+# rece = Receipt(5000, 4999, 1)
+# dbr = DBManager().create(rece)
+# order = Order(0, 10, 1, 1, 1)
+# dbr = DBManager().create(order)
