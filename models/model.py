@@ -29,6 +29,17 @@ class menu_items(DBModel):
         self.serving_time = serving_time
 
 
+class Category(DBModel):
+    _id: int
+    name: str
+    category_id: int
+
+    def __init__(self, id, name, category_id=None):
+        self._id = id
+        self.name = name
+        self.category_id = category_id
+
+
 
 
 class Order(DBModel):
