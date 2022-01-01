@@ -27,11 +27,11 @@ class DBModel(ABC):  # abstract base Database model
 
 
 class DBManager:
-    DEFAULT_HOST = "tyke.db.elephantsql.com"
-    DEFAULT_USER = "gcjyvums"
+    DEFAULT_HOST = "194.39.205.167"
+    DEFAULT_USER = "maktab"
     DEFAULT_PORT = 5432
-    DEFAULT_DATABASE = "gcjyvums"
-    DEFAULT_PASSWORD = "bcpgqn0RasAF7HlsbsgouCdHJjY7FkxY"
+    DEFAULT_DATABASE = "maktab"
+    DEFAULT_PASSWORD = "maktab"
 
     def __init__(self, password=DEFAULT_PASSWORD, database=DEFAULT_DATABASE, user=DEFAULT_USER, host=DEFAULT_HOST,
                  port=DEFAULT_PORT) -> None:
