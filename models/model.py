@@ -31,24 +31,24 @@ class MenuItems(DBModel):
     TABLE = 'menu_items'
     PK: str = "id"
 
-    def __init__(self, category_id, discount, name, price, image_url, serving_time, id=0) -> None:
+    def __init__(self, category_id, discount, name, price, image_url, serving_time, id=None) -> None:
         self.category_id = category_id
         self.name = name
         self.discount = discount
         self.price = price
         self.image_url = image_url
         self.serving_time = serving_time
-        self.id = id
+        if id: self.id = id
 
 
 class Status(DBModel):
     TABLE = "status"
     PK: str = "id"
 
-    def __init__(self, name, description, id=0):
+    def __init__(self, name, description, id=None):
         self.name = name
         self.description = description
-        self.id = id
+        if id: self.id = id
 
 
 class Category(DBModel):
