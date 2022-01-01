@@ -20,5 +20,16 @@ class DBManager:
         self.conn: connection = psycopg2.connect(dbname=self.database, user=self.user, host=self.host, port=self.port,
                                                  password=self.password)
 
+    def update(self, model_instance: DBModel) -> None:
+        assert isinstance(model_instance, DBModel)
+        with self.conn:
+            curs = self.__get_cursor()
+            with curs:
+                model_vars = vars(model_instance)
+                model_pk_value = getattr(model_instance, model_instance.PK)  # value of pk (for ex. 'id' in patient)
+                model_set_values = [f"{field} = %s" for field in model_vars]  # -> ['first_name=%s', 'last_name'=%s,...]
+                model_values_tuple = tuple(model_vars.values())
+                curs.execute(f"""UPDATE {model_instance.TABLE} SET {','.join(model_set_values)}
+                    WHERE {model_instance.PK} = {model_pk_value};""", model_values_tuple)
 
 db1 = DBManager()
