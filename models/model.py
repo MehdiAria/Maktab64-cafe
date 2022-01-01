@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 class Cashier(DBModel):
     TABLE = "cashier"
+    PK: str = "id"
 
     def __init__(self, name, last_name, email, phone, password, _id=None) -> None:
         self.alias_for("_Cashier__id", "id")
@@ -18,6 +19,7 @@ class Cashier(DBModel):
 
 class CafeTable(DBModel):
     TABLE = "cafe_table"
+    PK: str = "id"
 
     def __init__(self, number, space, id) -> None:
         self.number = number
@@ -27,6 +29,7 @@ class CafeTable(DBModel):
 
 class MenuItems(DBModel):
     TABLE = 'menu_items'
+    PK: str = "id"
 
     def __init__(self, category_id, discount, name, price, image_url, serving_time, id=0) -> None:
         self.category_id = category_id
@@ -40,6 +43,7 @@ class MenuItems(DBModel):
 
 class Status(DBModel):
     TABLE = "status"
+    PK: str = "id"
 
     def __init__(self, name, description, id=0):
         self.name = name
@@ -49,6 +53,7 @@ class Status(DBModel):
 
 class Category(DBModel):
     TABLE = "categories"
+    PK: str = "id"
 
     def __init__(self, name, category_id=None, id=0):
         self.name = name
@@ -58,6 +63,7 @@ class Category(DBModel):
 
 class Order(DBModel):
     TABLE = "orders"
+    PK: str = "id"
 
     def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=0):
         self.item_id = item_id
@@ -71,12 +77,14 @@ class Order(DBModel):
 
 class Receipt(DBModel):
     TABLE = "receipt"
+    PK: str = "id"
 
     def __init__(self, total_price, final_price, id=0) -> None:
         self.total_price = total_price
         self.final_price = final_price
         self.time_stamp = datetime.now()
         self.id = id
+
 
 # cat = Category("cake")
 # db1 = DBManager().create(cat)
@@ -91,5 +99,6 @@ class Receipt(DBModel):
 # dbs = DBManager().create(stat)
 # rece = Receipt(5000, 4999, 1)
 # dbr = DBManager().create(rece)
-# order = Order(0, 10, 1, 1, 1)
+order = Order(0, 10, 1, 1, 1)
 # dbr = DBManager().create(order)
+dbdel = DBManager().delete(order)  # for_test
