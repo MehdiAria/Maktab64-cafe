@@ -19,7 +19,6 @@ class DBModel(ABC):  # abstract base Database model
     def with_alias_dict(self):
         base_dict = vars(self)
         for i in self.aliases.keys():
-            print(i)
             if i in base_dict.keys():
                 value = base_dict[i]
                 base_dict.pop(i)

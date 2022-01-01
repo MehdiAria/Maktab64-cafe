@@ -5,13 +5,15 @@ from datetime import datetime, timedelta
 class Cashier(DBModel):
     TABLE = "cashier"
 
-    def __init__(self, name, last_name, email, phone, password, id=0) -> None:
+    def __init__(self, name, last_name, email, phone, password, _id=None) -> None:
+        self.alias_for("_id", "id")
         self.name = name
         self.last_name = last_name
         self.email = email
         self.phone = phone
         self.password = password
-        self.id = id
+        if _id:
+            self._id = _id
 
 
 class CafeTable(DBModel):
@@ -71,7 +73,6 @@ class Receipt(DBModel):
     TABLE = "receipt"
 
     def __init__(self, total_price, final_price, id=0) -> None:
-
         self.total_price = total_price
         self.final_price = final_price
         self.time_stamp = datetime.now()
@@ -80,6 +81,7 @@ class Receipt(DBModel):
 
 # cat = Category("cake")
 # db1 = DBManager().create(cat)
-time_t = datetime.now() + timedelta(minutes=10)
-item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
-db = DBManager().create(item)
+# time_t = datetime.now() + timedelta(minutes=10)
+# item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
+# db = DBManager().create(item)
+print(Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111", "0234832", 1).with_alias_dict())
