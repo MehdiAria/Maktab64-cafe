@@ -3,8 +3,8 @@ from datetime import datetime
 
 
 class Cashier(DBModel):
-    def __init__(self, id, name, last_name, email, phone, password) -> None:
-        self.id = id
+    def __init__(self, _id, name, last_name, email, phone, password) -> None:
+        self._id = id
         self.name = name
         self.last_name = last_name
         self.email = email
@@ -13,16 +13,16 @@ class Cashier(DBModel):
 
 
 class CafeTable(DBModel):
-    def __init__(self, id, number, space) -> None:
-        self.id = id
+    def __init__(self, _id, number, space) -> None:
+        self._id = _id
         self.number = number
         self.space = space
 
 
 class MenuItems(DBModel):
 
-    def __init__(self, id, discount, name, price, img_url, serving_time) -> None:
-        self.id = id
+    def __init__(self, _id, discount, name, price, img_url, serving_time) -> None:
+        self._id = id
         self.name = name
         self.discount = discount
         self.price = price
@@ -49,15 +49,15 @@ class Category(DBModel):
     name: str
     category_id: int
 
-    def __init__(self, id, name, category_id=None):
-        self._id = id
+    def __init__(self, _id, name, category_id=None):
+        self._id = _id
         self.name = name
         self.category_id = category_id
 
 
 class Order(DBModel):
-    def __init__(self, id, item_id, number_items, receipt_id, status_id, table_id):
-        self.id = id
+    def __init__(self, _id, item_id, number_items, receipt_id, status_id, table_id):
+        self._id = id
         self.item_id = item_id
         self.number_items = number_items
         self.receipt_id = receipt_id
@@ -67,8 +67,9 @@ class Order(DBModel):
 
 
 class Receipt(DBModel):
-    def __init__(self, id, total_price, final_price) -> None:
-        self.id = id
+    def __init__(self, _id, total_price, final_price) -> None:
+        self._id = _id
         self.total_price = total_price
         self.final_price = final_price
         self.time_stamp = datetime.now()
+
