@@ -6,7 +6,7 @@ from abc import ABC
 
 class DBModel(ABC):  # abstract base Database model
     TABLE: str  # table name
-    PK: str  # primary key column of the table
+    PK: str = "id"  # primary key column of the table
     aliases = {}
 
     def __str__(self) -> str:
