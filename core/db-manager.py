@@ -11,8 +11,6 @@ class DBModel(ABC):  # abstract base Database model
         return f"<{self.__class__.__name__} {vars(self)}>"
 
 
-
-
 class DBManager:
     DEFAULT_HOST = "tyke.db.elephantsql.com"
     DEFAULT_USER = "gcjyvums"
@@ -60,6 +58,7 @@ class DBManager:
                 curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
                 res = curs.fetchone()
                 return model_class(**dict(res))
+
     def update(self, model_instance: DBModel) -> None:
         assert isinstance(model_instance, DBModel)
         with self.conn:
@@ -72,7 +71,6 @@ class DBManager:
                 curs.execute(f"""UPDATE {model_instance.TABLE} SET {','.join(model_set_values)}
                     WHERE {model_instance.PK} = {model_pk_value};""", model_values_tuple)
 
-
     def delete(self, model_instance: DBModel) -> None:
         assert isinstance(model_instance, DBModel)
         with self.conn:
@@ -81,8 +79,6 @@ class DBManager:
                 model_pk_value = getattr(model_instance, model_instance.PK)
                 curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
                 delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
-
-
 
 
 db1 = DBManager()
