@@ -46,7 +46,22 @@ class DBManager:
                 curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
                 delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
 
-
+    def create(self, model_instance: DBModel) -> int:
+        with self.conn:
+            assert isinstance(model_instance, DBModel)
+            curs = self.__get_cursor()
+            model_vars = vars(model_instance)
+            model_fields_str = ",".join(
+                model_vars.keys())
+            model_values_str = ",".join(["%s"] * len(model_vars))
+            model_values_tuple = tuple(model_vars.values())
+            with curs:
+                curs.execute(
+                    f"""INSERT INTO {model_instance.TABLE}({model_fields_str}) VALUES ({model_values_str}) RETURNING ID;""",
+                    model_values_tuple)
+                id = int(curs.fetchone()['id'])
+                setattr(model_instance, 'id', id)
+                return id
 
 
 db1 = DBManager()
