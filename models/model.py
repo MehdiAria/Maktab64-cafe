@@ -9,3 +9,14 @@ class Cashier(DBModel):
         self.email = email
         self.phone = phone
         self.password = password
+
+
+class Category(DBModel):
+    _id: int
+    name: str
+    category_id: int
+
+    def __init__(self, id, name, category_id=None):
+        self._id = id
+        self.name = name
+        self.category_id = category_id
