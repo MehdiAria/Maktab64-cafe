@@ -1,15 +1,15 @@
 import unittest as ut
 from models.model import *
 from core.db_manager import DBManager
-from psycopg2.extras import RealDictRow
 
 
 class TestAlias(ut.TestCase):
     def setUp(self) -> None:
         from random import randint
-        # cashiers = DBManager().read_all(Cashier)
-        print(DBManager().read(Cashier, 5))
-        # cashier_id = cashiers[randint(0, len(cashiers))]._id
+        db = DBManager()
+        cashiers = db.read_all(Cashier)
+        del db
+        self.cashier_id = cashiers[randint(0, len(cashiers))]._id
 
     def test_alias_cashier(self):
         pass
@@ -25,7 +25,7 @@ class TestAlias(ut.TestCase):
         # self.assertNotIn("_Cashier__id", Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111",
         #                                          "0234832", 1).with_alias_dict().keys())
 
-
-class TestDBManager(ut.TestCase):
     def test_read_data(self):
-        self.assertIsInstance(DBManager().read(Cashier, 5), Cashier)
+        self.assertIsInstance(DBManager().read(Cashier, self.cashier_id), Cashier)
+
+
