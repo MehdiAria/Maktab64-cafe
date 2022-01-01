@@ -21,8 +21,9 @@ class CafeTable(DBModel):
 
 class MenuItems(DBModel):
 
-    def __init__(self, _id, discount, name, price, img_url, serving_time) -> None:
+    def __init__(self, _id, category_id, discount, name, price, img_url, serving_time) -> None:
         self._id = id
+        self.category_id = category_id
         self.name = name
         self.discount = discount
         self.price = price
