@@ -20,5 +20,16 @@ class DBManager:
         self.conn: connection = psycopg2.connect(dbname=self.database, user=self.user, host=self.host, port=self.port,
                                                  password=self.password)
 
+    def delete(self, model_instance: DBModel) -> None:
+        assert isinstance(model_instance, DBModel)
+        with self.conn:
+            curs = self.__get_cursor()
+            with curs:
+                model_pk_value = getattr(model_instance, model_instance.PK)
+                curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
+                delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
+
+
+
 
 db1 = DBManager()
