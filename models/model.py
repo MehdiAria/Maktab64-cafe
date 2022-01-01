@@ -5,15 +5,15 @@ from datetime import datetime, timedelta
 class Cashier(DBModel):
     TABLE = "cashier"
 
-    def __init__(self, name, last_name, email, phone, password, id=None) -> None:
+    def __init__(self, name, last_name, email, phone, password, _id=None) -> None:
         self.alias_for("_Cashier__id", "id")
         self.name = name
         self.last_name = last_name
         self.email = email
         self.phone = phone
         self.password = password
-        if id:
-            self.__id = id
+        if _id:
+            self.__id = _id
 
 
 class CafeTable(DBModel):
@@ -92,6 +92,7 @@ class Receipt(DBModel):
 # dbs = DBManager().create(stat)
 # rece = Receipt(5000, 4999, 1)
 # dbr = DBManager().create(rece)
-# order = Order(0, 10, 1, 1, 1)
+order = Order(0, 10, 1, 1, 1)
 # dbr = DBManager().create(order)
+dbdel = DBManager().delete(order)  # for_test
 
