@@ -54,7 +54,7 @@ class DBManager:
         with self.conn:
             assert isinstance(model_instance, DBModel)
             curs = self.__get_cursor()
-            model_vars = model_instance.with_alias_dict() if model_instance.aliases else vars(model_instance)
+            model_vars = model_instance.with_alias_dict()
             model_fields_str = ",".join(
                 model_vars.keys())
             model_values_str = ",".join(["%s"] * len(model_vars))
@@ -64,7 +64,7 @@ class DBManager:
                     f"""INSERT INTO {model_instance.TABLE}({model_fields_str}) VALUES ({model_values_str}) RETURNING ID;""",
                     model_values_tuple)
                 id = int(curs.fetchone()['id'])
-                setattr(model_instance, 'id', id)
+                setattr(model_instance, '_id', id)
                 return id
 
     def read(self, model_class: type, pk):
@@ -72,7 +72,13 @@ class DBManager:
         with self.conn:
             with self.__get_cursor() as curs:
                 curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
+                reverse_alias = {value: key for key, value in model_class.aliases.items()}
                 res = curs.fetchone()
+                for i in reverse_alias.keys():
+                    if i in res.keys():
+                        value = res[i]
+                        res.pop(i)
+                        res[reverse_alias[i]] = value
                 return model_class(**dict(res))
 
     def update(self, model_instance: DBModel) -> None:
