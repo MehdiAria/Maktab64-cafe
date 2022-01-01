@@ -30,6 +30,20 @@ class MenuItems(DBModel):
         self.serving_time = serving_time
 
 
+class Table(DBModel):
+    def __init__(self, _id, number, space):
+        self.id = _id
+        self.number = number
+        self.space = space
+
+
+class Status(DBModel):
+    def __init__(self, _id, name, description):
+        self.id = _id
+        self.name = name
+        self.description = description
+
+
 class Category(DBModel):
     _id: int
     name: str
