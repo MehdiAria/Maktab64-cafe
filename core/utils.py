@@ -1,4 +1,4 @@
-def alias_to_model(res, reverse_alias: dict):
+def alias_for_model(res, reverse_alias: dict):
     for i in reverse_alias.keys():
         if i in res.keys():
             value = res[i]

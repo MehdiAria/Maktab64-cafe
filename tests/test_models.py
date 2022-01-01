@@ -7,8 +7,10 @@ from psycopg2.extras import RealDictRow
 class TestAlias(ut.TestCase):
     def setUp(self) -> None:
         from random import randint
-        cashiers = DBManager().read_all(Cashier)
+        # cashiers = DBManager().read_all(Cashier)
+        print(DBManager().read(Cashier, 5))
         # cashier_id = cashiers[randint(0, len(cashiers))]._id
+
     def test_alias_cashier(self):
         pass
         # db = DBManager()

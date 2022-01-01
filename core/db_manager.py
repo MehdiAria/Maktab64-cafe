@@ -2,7 +2,7 @@ import psycopg2
 from psycopg2._psycopg import connection, cursor
 from psycopg2 import extras
 from abc import ABC
-from core.utils import alias_to_model
+from core.utils import alias_for_model
 
 class DBModel(ABC):  # abstract base Database model
     TABLE: str  # table name
@@ -74,11 +74,7 @@ class DBManager:
                 curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
                 res = curs.fetchone()
                 reverse_alias = {value: key for key, value in model_class.aliases.items()}
-                for i in reverse_alias.keys():
-                    if i in res.keys():
-                        value = res[i]
-                        res.pop(i)
-                        res[reverse_alias[i]] = value
+                res = alias_for_model(res, reverse_alias)
                 return model_class(**dict(res))
 
     def update(self, model_instance: DBModel) -> None:
@@ -112,7 +108,7 @@ class DBManager:
                 models_dict = curs.fetchall()
                 for i in models_dict:
                     reverse_alias = {value: key for key, value in model_class.aliases.items()}
-                    i = alias_to_model(i, reverse_alias)
+                    i = alias_for_model(i, reverse_alias)
                     res.append(model_class(**dict(i)))
             return res  # returns an instance of the Model with inserted values
 
