@@ -37,22 +37,6 @@ class DBManager:
         # Changing the fetch output from Tuple to Dict utilizing RealDictCursor cursor factory
         return self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-
-    def read(self, model_ins: DBModel):
-        with self.conn:
-            with self.get_cursor() as curs:
-                curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
-                res = curs.fetchone()
-                return model_class(**dict(res))
-    def delete(self, model_instance: DBModel) -> None:
-        assert isinstance(model_instance, DBModel)
-        with self.conn:
-            curs = self.__get_cursor()
-            with curs:
-                model_pk_value = getattr(model_instance, model_instance.PK)
-                curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
-                delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
-
     def create(self, model_instance: DBModel) -> int:
         with self.conn:
             assert isinstance(model_instance, DBModel)
@@ -76,16 +60,6 @@ class DBManager:
                 curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
                 res = curs.fetchone()
                 return model_class(**dict(res))
-
-    def delete(self, model_instance: DBModel) -> None:
-        assert isinstance(model_instance, DBModel)
-        with self.conn:
-            curs = self.__get_cursor()
-            with curs:
-                model_pk_value = getattr(model_instance, model_instance.PK)
-                curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
-                delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
-
     def update(self, model_instance: DBModel) -> None:
         assert isinstance(model_instance, DBModel)
         with self.conn:
@@ -97,6 +71,18 @@ class DBManager:
                 model_values_tuple = tuple(model_vars.values())
                 curs.execute(f"""UPDATE {model_instance.TABLE} SET {','.join(model_set_values)}
                     WHERE {model_instance.PK} = {model_pk_value};""", model_values_tuple)
+
+
+    def delete(self, model_instance: DBModel) -> None:
+        assert isinstance(model_instance, DBModel)
+        with self.conn:
+            curs = self.__get_cursor()
+            with curs:
+                model_pk_value = getattr(model_instance, model_instance.PK)
+                curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
+                delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
+
+
 
 
 db1 = DBManager()
