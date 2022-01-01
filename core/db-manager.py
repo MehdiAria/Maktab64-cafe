@@ -70,7 +70,7 @@ class DBManager:
                 setattr(model_instance, 'id', id)
                 return id
 
-    def read(self, model_ins: DBModel):
+    def read(self, model_class: type, pk):
         with self.conn:
             with self.get_cursor() as curs:
                 curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
@@ -85,6 +85,18 @@ class DBManager:
                 model_pk_value = getattr(model_instance, model_instance.PK)
                 curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
                 delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
+
+    def update(self, model_instance: DBModel) -> None:
+        assert isinstance(model_instance, DBModel)
+        with self.conn:
+            curs = self.__get_cursor()
+            with curs:
+                model_vars = vars(model_instance)
+                model_pk_value = getattr(model_instance, model_instance.PK)  # value of pk (for ex. 'id' in patient)
+                model_set_values = [f"{field} = %s" for field in model_vars]  # -> ['first_name=%s', 'last_name'=%s,...]
+                model_values_tuple = tuple(model_vars.values())
+                curs.execute(f"""UPDATE {model_instance.TABLE} SET {','.join(model_set_values)}
+                    WHERE {model_instance.PK} = {model_pk_value};""", model_values_tuple)
 
 
 db1 = DBManager()
