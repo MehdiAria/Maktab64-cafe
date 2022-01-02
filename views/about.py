@@ -6,7 +6,7 @@ def about():
     text = """
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet assumenda delectus doloremque fugit, maiores perferendis quas similique ullam velit vero? Atque excepturi exercitationem illum quia.
     """
-    img=""
+    img = ""
     date = {
         'title': title,
         'text': text,
