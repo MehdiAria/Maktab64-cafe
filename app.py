@@ -1,5 +1,11 @@
 from flask import Flask, render_template, url_for
+
+
+
+
 app = Flask(__name__, template_folder="templates")
+
+# JINJA_ENVIRONMENT.globals['STATIC_PREFIX'] = '/'
 
 @app.route('/')
 def base():  # put application's code here
