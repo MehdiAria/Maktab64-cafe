@@ -1,13 +1,19 @@
 {% extends "base_layout/_base.html" %}
-<link rel="styleheet" href="{{ url_for('static', filename='css/about.css') }}">
+
 {% block body %}
-    <div>
-        <img src="{{ url_for('static', filename='images/about.jpg') }}" alt="">
-    </div>
-    <h1>{{ data.title }}</h1>
-    <div>
-        <p>
-            {{ data.text }}
-        </p>
+
+    <div class="text-md-center">
+        <div id="img" style="margin: 1rem">
+            <img src="{{ url_for('static', filename='images/about.jpg') }}" alt="">
+        </div>
+        <h1 id="tit">{{ data.title }}</h1>
+        <div id="par">
+            <p class="font-weight-normal">
+                {{ data.text }}
+            </p>
+        </div>
+        <div class="blockquote-footer">
+            Created for maktab-64 course
+        </div>
     </div>
 {% endblock %}
