@@ -28,15 +28,19 @@ class CafeTable(DBModel):
 
 class MenuItems(DBModel):
     TABLE = 'menu_items'
+    aliases = {"_id": "id"}
 
-    def __init__(self, category_id, discount, name, price, image_url, serving_time, id=None) -> None:
+    def __init__(self, category_id, discount, name, price, image_url, serving_time, _id=None) -> None:
         self.category_id = category_id
         self.name = name
         self.discount = discount
         self.price = price
         self.image_url = image_url
         self.serving_time = serving_time
-        if id: self.id = id
+        if _id:
+            self.id = _id
+
+
 
 
 class Status(DBModel):
