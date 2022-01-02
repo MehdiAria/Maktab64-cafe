@@ -12,6 +12,6 @@ def base():  # put application's code here
 
 
 app.add_url_rule("/index", "home", index)
-
+app.add_url_rule("/menu", "menu", menu)
 if __name__ == '__main__':
     app.run(debug=True)
