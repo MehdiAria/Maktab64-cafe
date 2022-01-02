@@ -113,7 +113,7 @@ class DBManager:
                     res.append(model_class(**dict(i)))
             return res  # returns an instance of the Model with inserted values
 
-    def query(self, query: str, fetch: any = None):
+    def Query(self, query: str, fetch: any = None):
         with self.conn:
             curs = self.__get_cursor()
             with curs:
