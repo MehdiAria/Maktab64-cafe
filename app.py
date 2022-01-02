@@ -3,9 +3,7 @@ from views.menu_views import *
 
 app = Flask(__name__, template_folder="templates")
 
-
 # JINJA_ENVIRONMENT.globals['STATIC_PREFIX'] = '/'
-
 
 
 app.add_url_rule("/", "home", index)
