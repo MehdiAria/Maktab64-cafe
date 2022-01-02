@@ -1,4 +1,13 @@
 {% extends "base_layout/_base.html" %}
+<link rel="styleheet" href="{{ url_for('static', filename='css/about.css') }}">
 {% block body %}
-
+    <div>
+        <img src="{{ url_for('static', filename='images/about.jpg') }}" alt="">
+    </div>
+    <h1>{{ data.title }}</h1>
+    <div>
+        <p>
+            {{ data.text }}
+        </p>
+    </div>
 {% endblock %}
