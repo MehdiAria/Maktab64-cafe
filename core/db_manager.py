@@ -4,6 +4,7 @@ from psycopg2 import extras
 from abc import ABC
 from core.utils import alias_for_model
 
+
 class DBModel(ABC):  # abstract base Database model
     TABLE: str  # table name
     PK: str = "id"  # primary key column of the table
@@ -111,6 +112,18 @@ class DBManager:
                     i = alias_for_model(i, reverse_alias)
                     res.append(model_class(**dict(i)))
             return res  # returns an instance of the Model with inserted values
+
+    def query(self, query: str, fetch: any = None):
+        with self.conn:
+            curs = self.__get_cursor()
+            with curs:
+                curs.execute(query)
+                if type(fetch) == int:
+                    models_dict = curs.fetchmany(fetch)
+                    return models_dict
+                elif fetch == 'all':
+                    models_dict = curs.fetchall()
+                    return models_dict
 
 
 db1 = DBManager()
