@@ -96,3 +96,5 @@ class Receipt(DBModel):
 # order = Order(0, 10, 1, 1, 1)
 # dbr = DBManager().create(order)
 # dbdel = DBManager().delete(order)  # for_test
+# print(DBManager().query("SELECT * FROM cashier", fetch="all"))
+# print(len(DBManager().query("SELECT * FROM cashier", fetch=2)))

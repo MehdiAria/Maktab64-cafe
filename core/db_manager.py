@@ -118,6 +118,9 @@ class DBManager:
             curs = self.__get_cursor()
             with curs:
                 curs.execute(query)
+                if fetch == "one":
+                    models_dict = curs.fetchone()
+                    return models_dict
                 if type(fetch) == int:
                     models_dict = curs.fetchmany(fetch)
                     return models_dict
