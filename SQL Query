@@ -1,0 +1,73 @@
+create table cafe_table
+(
+    id     serial primary key,
+    number int,
+    space  int
+);
+
+////////////////////////////
+
+create table cashier
+(
+    id     serial primary key,
+    name varchar(20),
+    last_name  varchar(20),
+    phone varchar(20),
+    email varchar(50),
+    password varchar(20)
+);
+
+/////////////////////////
+
+create table status
+(
+    id     serial primary key,
+    name varchar(20),
+    description  varchar(50)
+);
+
+///////////////////////
+
+create table receipt
+(
+    id serial primary key,
+    total_price numeric,
+    final_price numeric,
+    time_stamp timestamp default current_timestamp
+);
+
+////////////////////
+
+create table categories
+(
+    id serial primary key,
+    name varchar(20),
+    category_id int references categories(id)
+);
+
+////////////////////
+
+create table menu_items
+(
+    id serial primary key,
+    category_id int not null references categories(id),
+    discount numeric,
+    name varchar(20),
+    price numeric,
+    image_url varchar(200),
+    serving_time varchar(50)
+);
+
+///////////////////
+
+create table orders
+(
+    id serial primary key,
+    table_id int not null references cafe_table(id),
+    receipt_id int references receipt(id),
+    status_id int not null references status(id),
+    item_id int not null references menu_items(id),
+    time_stamp timestamp default CURRENT_TIMESTAMP,
+    number_item int
+);
+
