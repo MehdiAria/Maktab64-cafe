@@ -9,5 +9,6 @@ def index():
 
 def menu():
     items = db.read_all(MenuItems)
+    print(items)
     data = {"items": items}
     return render_template("menu.html", data=data)
