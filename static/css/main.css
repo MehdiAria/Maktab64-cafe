@@ -6,3 +6,20 @@ body{
 .test{
     background-color: chocolate;
 }
+
+body{
+        background-color: rgb(49,49,49);
+    }
+    .onav{
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .welcome{
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+
