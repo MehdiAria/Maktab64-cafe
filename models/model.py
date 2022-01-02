@@ -40,6 +40,23 @@ class MenuItems(DBModel):
         if _id:
             self.id = _id
 
+    @classmethod
+    def read_with_category(cls):
+        db = DBManager()
+        menu_items = db.read_all(cls)
+        items_category_dict = {}
+        for item in menu_items:
+            item: cls
+            category_id = item.category_id
+            category = db.read(Category, category_id)
+            category: Category
+            category_name = category.name
+            items_category_dict[category_name] = []
+
+        for item in menu_items:
+            pass
+
+
 
 
 
@@ -82,7 +99,6 @@ class Receipt(DBModel):
         self.final_price = final_price
         self.time_stamp = datetime.now()
         self.id = id
-
 
 # cat = Category("cake")
 # db1 = DBManager().create(cat)
