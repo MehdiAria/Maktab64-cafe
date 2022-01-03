@@ -13,6 +13,9 @@ def menu():
     data = Category.category_item()
     return render_template("menu.html", data=data)
 
+def panel():
+    return render_template('panel.html')
+
 
 
 # def order(table_id):
