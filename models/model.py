@@ -161,4 +161,4 @@ class Receipt(DBModel):
     #                                        fetch="all")
 
 
-print(Category.category_item())
+# print(Category.category_item())
