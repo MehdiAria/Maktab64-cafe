@@ -25,9 +25,5 @@ class TestAlias(ut.TestCase):
         # self.assertNotIn("_Cashier__id", Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111",
         #                                          "0234832", 1).with_alias_dict().keys())
 
-
-
     def test_read_data(self):
         self.assertIsInstance(DBManager().read(Cashier, 1), Cashier)
-
-
