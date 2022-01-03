@@ -1,18 +1,11 @@
 <div class="container-fluid">
     <div class="row adfadf">
-    <h1 class="bg-success">salam</h1>
         {% for category in data %}
-            
-{#            <div class="card bg-light col-{{ 12//(data | length) }} m-3">#}
-{#                <div class="card-body">#}
-{#                    <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top" style="line-height: 5vh">#}
-{#                    <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>#}
-{#                    <button class="btn btn-secondary mt-4 w-100">Add To Cart</button>#}
-{#                </div>#}
-{#            </div>#}
-            {% if category is mapping %}
-                {% for child_category in category %}
-                    {% for item in child_category %}
+            {% if data[category] is mapping %}
+                <h1 class="bg-secondary p-4">{{ category }}</h1>
+                {% for child_category in data[category] %}
+                    <h1 class="bg-info p-3">{{ child_category }}</h1>
+                    {% for item in data[category][child_category] %}
                         <div class="card bg-light col-{{ 12//(data | length) }} m-3">
                             <div class="card-body">
                                 <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
@@ -22,6 +15,18 @@
                             </div>
                         </div>
                     {% endfor %}
+                {% endfor %}
+            {% else %}
+                <h1 class="bg-secondary p-4">{{ category }}</h1>
+                {% for item in data[category] %}
+                    <div class="card bg-light col-{{ 12//(data | length) }} m-3">
+                        <div class="card-body">
+                            <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
+                                 style="line-height: 5vh">
+                            <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>
+                            <button class="btn btn-secondary mt-4 w-100">Add To Cart</button>
+                        </div>
+                    </div>
                 {% endfor %}
             {% endif %}
         {% endfor %}
