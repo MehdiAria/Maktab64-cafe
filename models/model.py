@@ -20,8 +20,8 @@ class Cashier(DBModel):
 class CafeTable(DBModel):
     TABLE = "cafe_table"
 
-    def __init__(self, number, space, id) -> None:
-        self.number = number
+    def __init__(self, is_empty, space, id) -> None:
+        self.is_empty = is_empty
         self.space = space
         self.id = id
 
@@ -165,5 +165,3 @@ class Receipt(DBModel):
 #     fetch="all")
 # for item in items_category_dict:
 #     print(dict(item))
-
-print(DBManager().read_filter(CafeTable, "is_empty = true"))
