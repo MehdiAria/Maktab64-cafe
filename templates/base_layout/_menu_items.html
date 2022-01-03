@@ -60,26 +60,29 @@
                 <h4 class="modal-title">Adding items to cart</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="dropdown">
-                <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
-                    Select Your Table
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Table 1</a></li>
-                    <li><a class="dropdown-item" href="#">Table 2</a></li>
-                    <li><a class="dropdown-item" href="#">Table 3</a></li>
-                    <li><a class="dropdown-item" href="#">Table 4</a></li>
-                    <li><a class="dropdown-item" href="#">Table 5/a></li>
-                </ul>
-            </div>
+
             <!-- Modal body -->
             <div class="modal-body">
-                <lable>Count:</lable>
-                <input type="number" class="form-control">
+                <form action="" method="POST">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
+                            Select Your Table
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Table 1</a></li>
+                            <li><a class="dropdown-item" href="#">Table 2</a></li>
+                            <li><a class="dropdown-item" href="#">Table 3</a></li>
+                            <li><a class="dropdown-item" href="#">Table 4</a></li>
+                            <li><a class="dropdown-item" href="#">Table 5</a></li>
+                        </ul>
+                    </div>
+                    <lable>Count:</lable>
+                    <input type="number" class="form-control">
 
 
-                <input style="border: 0;background: white" class="form-control" type="text" name="item_type"
-                       id="item_type" disabled>
+                    <input style="border: 0;background: white" class="form-control" type="text" name="item_type"
+                           id="item_type" disabled>
+                </form>
 
             </div>
 
