@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template,request
 from core.db_manager import DBManager
 from models.model import *
 
@@ -12,3 +12,8 @@ def index():
 def menu():
     data = Category.category_item()
     return render_template("menu.html", data=data)
+
+# def order(table_id):
+#     if request.method=='GET':
+#         pass
+#     elif request.method=='POST':
