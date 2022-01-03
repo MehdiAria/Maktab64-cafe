@@ -1,4 +1,4 @@
-from flask import render_template,request
+from flask import render_template, request
 from core.db_manager import DBManager
 from models.model import *
 
@@ -15,6 +15,12 @@ def menu():
     return render_template("menu.html", data=data, tables=empty_tables)
 
 
+def login():
+    return render_template('login.html')
+
+
+def panel():
+    return render_template('panel.html')
 
 # def order(table_id):
 #     if request.method=='GET':
