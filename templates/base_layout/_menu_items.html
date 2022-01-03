@@ -1,26 +1,10 @@
 <div class="container-fluid">
     <div class="row adfadf">
         {% for category in data %}
-        <h3>category: {{ category }}</h3>
-        {% if category is mapping %}
-            {% for child_category in category %}
-                {% for item in child_category %}
-                    <div class="card bg-light col-{{ 12//(data | length) }} m-3">
-                        <div class="card-body">
-                            <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
-                                 style="line-height: 5vh">
-                            <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>
-                            <button class="btn btn-secondary mt-4 w-100">Add To Cart</button>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
             {% if data[category] is mapping %}
                 {% for child_category in data[category] %}
+                    <h1 class="bg-info">{{ child_category }}</h1>
                     {% for item in data[category][child_category] %}
-                        <h1>{{ child_category }}</h1>
                         <div class="card bg-light col-{{ 12//(data | length) }} m-3">
                             <div class="card-body">
                                 <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
