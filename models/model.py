@@ -99,19 +99,19 @@ class Category(DBModel):
                         items_list.append(i)
                 if items_list:  # it means that some items have this category_id
                     c_items_dict[c.name] = items_list  # "category": [...]
-                else:
+                else:  # in this case -> "base_category": {"child_category": [...] }
                     for child_c in categories:
                         child_c: Category
                         if child_c.category_id == c._id and (child_c._id in items_id):
-                            z_list = []
-                            for z in items:
+                            m_list = []
+                            for m in items:
                                 z: MenuItems
-                                if z.category_id == child_c._id:
-                                    z_list.append(z)
+                                if m.category_id == child_c._id:
+                                    m_list.append(m)
                             if c.name in c_items_dict.keys():
-                                c_items_dict[c.name][child_c.name] = z_list
+                                c_items_dict[c.name][child_c.name] = m_list
                             else:
-                                c_items_dict[c.name] = {child_c.name: z_list}
+                                c_items_dict[c.name] = {child_c.name: m_list}
         return c_items_dict
 
 
