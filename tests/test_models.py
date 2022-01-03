@@ -6,9 +6,8 @@ from core.db_manager import DBManager
 class TestAlias(ut.TestCase):
     def setUp(self) -> None:
         from random import randint
-        db = DBManager()
-        cashiers = db.read_all(Cashier)
-        del db
+        self.db = DBManager()
+        cashiers = self.db.read_all(Cashier)
         self.cashier_id = cashiers[randint(0, len(cashiers))]._id
 
     def test_alias_cashier(self):
@@ -27,3 +26,8 @@ class TestAlias(ut.TestCase):
 
     def test_read_data(self):
         self.assertIsInstance(DBManager().read(Cashier, 1), Cashier)
+
+    def test_read_all_filter(self):
+        self.assertIsInstance(self.db.read_filter(CafeTable, "is_empty = true"), list)
+        self.assertIs(self.db.read_filter(CafeTable, "is empty_true")[0], CafeTable)
+        self.assertIs(self.db.read_filter(CafeTable, "is empty_true")[-1], CafeTable)
