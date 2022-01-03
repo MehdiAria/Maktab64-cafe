@@ -75,11 +75,12 @@ class Status(DBModel):
 
 class Category(DBModel):
     TABLE = "categories"
+    aliases = {"_id": "id"}
 
-    def __init__(self, name, category_id=None, id=0):
+    def __init__(self, name, category_id=None, _id=0):
         self.name = name
         self.category_id = category_id
-        self.id = id
+        self._id = _id
 
 
 class Order(DBModel):
@@ -104,25 +105,25 @@ class Receipt(DBModel):
         self.time_stamp = datetime.now()
         self.id = id
 
-# cat = Category("cake")
-# db1 = DBManager().create(cat)
-# time_t = datetime.now() + timedelta(minutes=10)
-# item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
-# db = DBManager().create(item)
-# cashier = Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111", "0234832")
-# DBManager().create(cashier)
-# tbl = CafeTable(1, 3, 1)
-# dbt = DBManager().create(tbl)
-# stat = Status('error', 'Error from server!', 1)
-# dbs = DBManager().create(stat)
-# rece = Receipt(5000, 4999, 1)
-# dbr = DBManager().create(rece)
-# order = Order(0, 10, 1, 1, 1)
-# dbr = DBManager().create(order)
-# dbdel = DBManager().delete(order)  # for_test
-# print(DBManager().query("SELECT * FROM cashier", fetch="all"))
-# print(len(DBManager().query("SELECT * FROM cashier", fetch=2)))
-# db= DBManager()
-# items_category_dict = db.query("SELECT menu_items.name, menu_items.image_url, menu_items.price,"
-#                                        "categories.name FROM menu_items INNER JOIN categories ON menu_items.id = categories.id",
-#                                        fetch="all")
+    # cat = Category("cake")
+    # db1 = DBManager().create(cat)
+    # time_t = datetime.now() + timedelta(minutes=10)
+    # item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
+    # db = DBManager().create(item)
+    # cashier = Cashier("cashier", "cashier_id", "example@gmail.com", "0987654321111", "0234832")
+    # DBManager().create(cashier)
+    # tbl = CafeTable(1, 3, 1)
+    # dbt = DBManager().create(tbl)
+    # stat = Status('error', 'Error from server!', 1)
+    # dbs = DBManager().create(stat)
+    # rece = Receipt(5000, 4999, 1)
+    # dbr = DBManager().create(rece)
+    # order = Order(0, 10, 1, 1, 1)
+    # dbr = DBManager().create(order)
+    # dbdel = DBManager().delete(order)  # for_test
+    # print(DBManager().query("SELECT * FROM cashier", fetch="all"))
+    # print(len(DBManager().query("SELECT * FROM cashier", fetch=2)))
+    # db= DBManager()
+    # items_category_dict = db.query("SELECT menu_items.name, menu_items.image_url, menu_items.price,"
+    #                                        "categories.name FROM menu_items INNER JOIN categories ON menu_items.id = categories.id",
+    #                                        fetch="all")
