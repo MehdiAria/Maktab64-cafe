@@ -70,19 +70,16 @@
                         </button>
                         <ul class="dropdown-menu">
                             {% for i in tables %}
-                                <li><a class="dropdown-item" href="#">Table {{ i.id }}   Space: {{ i.space }}</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="tableIdSet(this.id)" id={{ i.id }}>Table {{ i.id }} Space: {{ i.space }}</a></li>
                             {% endfor %}
-                            {#                            <li><a class="dropdown-item" href="#">Table 1</a></li>#}
-                            {#                            <li><a class="dropdown-item" href="#">Table 2</a></li>#}
-                            {#                            <li><a class="dropdown-item" href="#">Table 3</a></li>#}
-                            {#                            <li><a class="dropdown-item" href="#">Table 4</a></li>#}
-                            {#                            <li><a class="dropdown-item" href="#">Table 5</a></li>#}
                         </ul>
                     </div>
                     <lable>Count:</lable>
                     <input type="number" class="form-control">
                     <input style="border: 0;background: white" class="form-control" type="text" name="item_type"
                            id="item_type" disabled>
+                    <input style="border: 0;background: white" class="form-control" type="text" name="table_id"
+                           id="table_id" disabled>
                 </form>
 
             </div>
@@ -104,5 +101,8 @@
         let elem = $(`#${ItemValue}`).attr('id')
         $(`#item_type`).val(elem)
     }
-
+    function tableIdSet(TableIdValue) {
+        let elem = $(`#${TableIdValue}`).attr('id')
+        $(`#table_id`).val(elem)
+    }
 </script>
