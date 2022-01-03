@@ -44,20 +44,24 @@ class MenuItems(DBModel):
     def read_with_category(cls):
         db = DBManager()
         menu_items = db.read_all(cls)
+        categories = db.read_all(Category)
         items_category_dict = {}
-        for item in menu_items:
-            item: cls
-            category_id = item.category_id
-            category = db.read(Category, category_id)
-            category: Category
-            category_name = category.name
-            items_category_dict[category_name] = []
+        items_category_dict = db.query("SELECT menu_items.name, menu_items.img_url, menu_items.price,"
+                                       "categories.name FROM menu_items INNER JOIN categories ON menu_items.id = categories.id",
+                                       fetch="all")
+        print(items_category_dict)
+        # for i in categories:
+        #     i: Category
+        #     items_category_dict[i.name] = []
+        # for item in menu_items:
+        #     item: cls
+        #     category_id = item.category_id
+        #     category: Category
+        #     category_name = category.name
+        #     items_category_dict[category_name].append(item)
 
-        for item in menu_items:
-            pass
-
-
-
+        # for item in menu_items:
+        #     pass
 
 
 class Status(DBModel):
@@ -118,3 +122,7 @@ class Receipt(DBModel):
 # dbdel = DBManager().delete(order)  # for_test
 # print(DBManager().query("SELECT * FROM cashier", fetch="all"))
 # print(len(DBManager().query("SELECT * FROM cashier", fetch=2)))
+# db= DBManager()
+# items_category_dict = db.query("SELECT menu_items.name, menu_items.image_url, menu_items.price,"
+#                                        "categories.name FROM menu_items INNER JOIN categories ON menu_items.id = categories.id",
+#                                        fetch="all")
