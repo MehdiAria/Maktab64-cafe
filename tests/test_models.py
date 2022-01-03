@@ -27,3 +27,6 @@ class TestAlias(ut.TestCase):
 
     def test_read_data(self):
         self.assertIsInstance(DBManager().read(Cashier, 1), Cashier)
+
+    def test_read_all_filter(self):
+        self.assertIsInstance(DBManager().read_filter(CafeTable, "is_empty = true"), list)

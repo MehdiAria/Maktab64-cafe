@@ -166,3 +166,4 @@ class Receipt(DBModel):
 # for item in items_category_dict:
 #     print(dict(item))
 
+print(DBManager().read_filter(CafeTable, "is_empty = true"))
