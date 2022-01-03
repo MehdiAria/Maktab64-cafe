@@ -10,6 +10,5 @@ def index():
 
 
 def menu():
-    items = db.read_all(MenuItems)
-    data = {"items": items}
+    data = Category.category_item()
     return render_template("menu.html", data=data)
