@@ -16,6 +16,7 @@
                     {% endfor %}
                 {% endfor %}
             {% else %}
+                <h1 class="bg-info">{{ category }}</h1>
                 {% for item in data[category] %}
                     <div class="card bg-light col-{{ 12//(data | length) }} m-3">
                         <div class="card-body">
