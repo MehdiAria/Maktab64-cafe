@@ -13,7 +13,8 @@ def menu():
     data = Category.category_item()
     return render_template("menu.html", data=data)
 
-
+def login():
+    return render_template()
 
 # def order(table_id):
 #     if request.method=='GET':
