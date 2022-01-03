@@ -2,8 +2,9 @@
     <div class="row adfadf">
         {% for category in data %}
             {% if data[category] is mapping %}
+                <h1 class="bg-secondary p-4">{{ category }}</h1>
                 {% for child_category in data[category] %}
-                    <h1 class="bg-info">{{ child_category }}</h1>
+                    <h1 class="bg-info p-3">{{ child_category }}</h1>
                     {% for item in data[category][child_category] %}
                         <div class="card bg-light col-{{ 12//(data | length) }} m-3">
                             <div class="card-body">
@@ -16,7 +17,7 @@
                     {% endfor %}
                 {% endfor %}
             {% else %}
-                <h1 class="bg-info">{{ category }}</h1>
+                <h1 class="bg-secondary p-4">{{ category }}</h1>
                 {% for item in data[category] %}
                     <div class="card bg-light col-{{ 12//(data | length) }} m-3">
                         <div class="card-body">
