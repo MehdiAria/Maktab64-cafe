@@ -70,26 +70,30 @@
                         </button>
                         <ul class="dropdown-menu">
                             {% for i in tables %}
-                                <li><a class="dropdown-item" href="#" onclick="tableIdSet(this.id)" id={{ i.id }}>Table {{ i.id }} Space: {{ i.space }}</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="tableIdSet(this.id)"
+                                       id={{ i.id }}>Table {{ i.id }} Space: {{ i.space }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
                     <lable>Count:</lable>
                     <input type="number" class="form-control">
-                    <span class="badge badge-primary">Item</span><input style="border: 0;background: white" class="form-control w-75" type="text" name="item_type"
-                           id="item_type" disabled>
+                    <span class="badge badge-primary">Item</span><input style="border: 0;background: white"
+                                                                        class="form-control w-75" type="text"
+                                                                        name="item_type"
+                                                                        id="item_type" disabled>
 
 
-                    <span class="badge badge-primary">Table</span><input style="border: 0;background: white" class="form-control w-75" type="text" name="table_id"
-                           id="table_id" disabled>
+                    <span class="badge badge-primary">Table</span><input style="border: 0;background: white"
+                                                                         class="form-control w-75" type="text"
+                                                                         name="table_id"
+                                                                         id="table_id" disabled>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <input type="button" class="btn btn-success" value="Add to card">
+                    </div>
                 </form>
-
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <input type="button" class="btn btn-success" value="Add to card">
             </div>
 
 
@@ -103,6 +107,7 @@
         let elem = $(`#${ItemValue}`).attr('id')
         $(`#item_type`).val(elem)
     }
+
     function tableIdSet(TableIdValue) {
         let elem = $(`#${TableIdValue}`).attr('id')
         $(`#table_id`).val(elem)
