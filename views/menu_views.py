@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, Response
 from core.db_manager import DBManager
 from models.model import *
 
@@ -22,7 +22,9 @@ def login():
 def panel():
     return render_template('panel.html')
 
-# def order(table_id):
-#     if request.method=='GET':
-#         pass
-#     elif request.method=='POST':
+
+def order(table_id):
+    if request.method == 'GET':
+        pass
+    elif request.method == 'POST':
+        return Response('Your order created!', 201)
