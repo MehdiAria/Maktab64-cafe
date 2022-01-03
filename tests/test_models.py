@@ -8,7 +8,7 @@ class TestAlias(ut.TestCase):
         from random import randint
         self.db = DBManager()
         cashiers = self.db.read_all(Cashier)
-        self.cashier_id = cashiers[randint(0, len(cashiers))]._id
+        self.cashier_id = cashiers[randint(0, len(cashiers)-1)]._id
 
     def test_alias_cashier(self):
         pass
@@ -29,5 +29,5 @@ class TestAlias(ut.TestCase):
 
     def test_read_all_filter(self):
         self.assertIsInstance(self.db.read_filter(CafeTable, "is_empty = true"), list)
-        self.assertIs(self.db.read_filter(CafeTable, "is empty_true")[0], CafeTable)
-        self.assertIs(self.db.read_filter(CafeTable, "is empty_true")[-1], CafeTable)
+        self.assertIsInstance(self.db.read_filter(CafeTable, "is_empty = true")[0], CafeTable)
+        self.assertIsInstance(self.db.read_filter(CafeTable, "is_empty = true")[-1], CafeTable)

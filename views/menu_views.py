@@ -11,7 +11,8 @@ def index():
 
 def menu():
     data = Category.category_item()
-    return render_template("menu.html", data=data)
+    empty_tables = CafeTable.empty_table()
+    return render_template("menu.html", data=data, tables=empty_tables)
 
 
 
