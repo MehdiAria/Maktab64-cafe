@@ -1,8 +1,9 @@
 <div class="onav">
     <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4">
-            <h4 class="text-white">Collapsed content</h4>
-            <span class="text-muted">Toggleable via the navbar brand.</span>
+        <div class="bg-dark p-4" style="display: flex!important;flex-direction: row!important;justify-content: space-around!important;">
+            <a href="{{ url_for('home') }}"><h5 class="text-white">Home</h5></a>
+            <a href="{{ url_for('about') }}"><h5 class="text-white">About</h5></a>
+            <a href="{{ url_for('menu') }}"><h5 class="text-white">Menu</h5></a>
         </div>
     </div>
     <nav class="navbar navbar-dark bg-dark">
