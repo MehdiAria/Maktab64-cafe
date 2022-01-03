@@ -15,6 +15,10 @@ def menu():
 
 def login():
     return render_template()
+def panel():
+    return render_template('panel.html')
+
+
 
 # def order(table_id):
 #     if request.method=='GET':
