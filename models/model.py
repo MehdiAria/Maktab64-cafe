@@ -88,17 +88,17 @@ class Category(DBModel):
         categories = db.read_all(Category)
         items = db.read_all(MenuItems)
         items_id = [i.category_id for i in items]
-        b_dict = {}
+        c_items_dict = {}
         for c in categories:
             c: Category
-            if not c.category_id:  # selecting base categories
+            if not c.category_id:  # selecting just base categories
                 items_list = []
                 for i in items:
                     i: MenuItems
                     if i.category_id == c._id:
                         items_list.append(i)
-                if items_list:
-                    b_dict[c.name] = items_list
+                if items_list:  # it means that some items have this category_id
+                    c_items_dict[c.name] = items_list  # "category": [...]
                 else:
                     for child_c in categories:
                         child_c: Category
@@ -108,15 +108,11 @@ class Category(DBModel):
                                 z: MenuItems
                                 if z.category_id == child_c._id:
                                     z_list.append(z)
-                            print(child_c.name, z_list)
-                            if c.name in b_dict.keys():
-                                b_dict[c.name][child_c.name] = z_list
+                            if c.name in c_items_dict.keys():
+                                c_items_dict[c.name][child_c.name] = z_list
                             else:
-                                b_dict[c.name]={child_c.name: z_list}
-                            print(b_dict)
-
-        return b_dict
-
+                                c_items_dict[c.name] = {child_c.name: z_list}
+        return c_items_dict
 
 
 class Order(DBModel):
@@ -163,5 +159,6 @@ class Receipt(DBModel):
     # items_category_dict = db.query("SELECT menu_items.name, menu_items.image_url, menu_items.price,"
     #                                        "categories.name FROM menu_items INNER JOIN categories ON menu_items.id = categories.id",
     #                                        fetch="all")
+
 
 print(Category.category_item())
