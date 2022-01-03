@@ -27,4 +27,5 @@ def order(table_id):
     if request.method == 'GET':
         pass
     elif request.method == 'POST':
-        return Response('Your order created!', 201)
+        # return Response('Your order created!', 201)
+        return 'ok',201
