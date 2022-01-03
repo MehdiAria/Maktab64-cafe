@@ -129,4 +129,14 @@ class DBManager:
                     return models_dict
 
 
+    def read_filter(self, model_class: type, condition):
+        assert issubclass(model_class, DBModel)
+        model_dict = self.query(f"SELECT * FROM {model_class.TABLE} WHERE {condition}", fetch='all')
+        res = []
+        for i in model_dict:
+            res.append(model_class(**dict(i)))
+
+
+
+
 db1 = DBManager()
