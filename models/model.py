@@ -82,6 +82,42 @@ class Category(DBModel):
         self.category_id = category_id
         self._id = _id
 
+    @classmethod
+    def category_item(cls):
+        db = DBManager()
+        categories = db.read_all(Category)
+        items = db.read_all(MenuItems)
+        items_id = [i.category_id for i in items]
+        b_dict = {}
+        for c in categories:
+            c: Category
+            if not c.category_id:  # selecting base categories
+                items_list = []
+                for i in items:
+                    i: MenuItems
+                    if i.category_id == c._id:
+                        items_list.append(i)
+                if items_list:
+                    b_dict[c.name] = items_list
+                else:
+                    for child_c in categories:
+                        child_c: Category
+                        if child_c.category_id == c._id and (child_c._id in items_id):
+                            z_list = []
+                            for z in items:
+                                z: MenuItems
+                                if z.category_id == child_c._id:
+                                    z_list.append(z)
+                            print(child_c.name, z_list)
+                            if c.name in b_dict.keys():
+                                b_dict[c.name][child_c.name] = z_list
+                            else:
+                                b_dict[c.name]={child_c.name: z_list}
+                            print(b_dict)
+
+        return b_dict
+
+
 
 class Order(DBModel):
     TABLE = "orders"
@@ -127,3 +163,5 @@ class Receipt(DBModel):
     # items_category_dict = db.query("SELECT menu_items.name, menu_items.image_url, menu_items.price,"
     #                                        "categories.name FROM menu_items INNER JOIN categories ON menu_items.id = categories.id",
     #                                        fetch="all")
+
+print(Category.category_item())
