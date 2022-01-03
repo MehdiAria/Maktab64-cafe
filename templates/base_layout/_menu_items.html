@@ -63,7 +63,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{ url_for('order') }}" method="POST" id="idForm">
                     <div class="dropdown">
                         <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
                             Select Your Table
@@ -91,7 +91,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <input type="button" class="btn btn-success" value="Add to card">
+                        <input type="submit" class="btn btn-success" value="Add to card" onclick="">
                     </div>
                 </form>
             </div>
@@ -112,4 +112,27 @@
         let elem = $(`#${TableIdValue}`).attr('id')
         $(`#table_id`).val(elem)
     }
+
+    function order() {
+
+        $("#idForm").submit(function (e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+            var form = $(this);
+            var url = form.attr('action');
+            console.log(form.serialize())
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
+
+                success: function (data) {
+                    alert(data); // show response from the php script.
+                }
+            });
+        });
+    }
+
+
+
+
 </script>
