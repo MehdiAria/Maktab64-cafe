@@ -70,7 +70,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             {% for i in tables %}
-                                <li>Table<input value="{{ i.id }}" name="table_id"></li>
+                                <li><a class="dropdown-item" href="#">Table {{ i.id }}   Space: {{ i.space }}</a></li>
                             {% endfor %}
                             {#                            <li><a class="dropdown-item" href="#">Table 1</a></li>#}
                             {#                            <li><a class="dropdown-item" href="#">Table 2</a></li>#}
