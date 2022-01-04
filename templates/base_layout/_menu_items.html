@@ -91,7 +91,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" onclick="order()">Add To Cart</button>
+                        <input type="button" class="btn btn-success" value="Add to card" onclick="order()">
                     </div>
                 </form>
                 <div id="msg">
@@ -159,8 +159,37 @@
     {#            alert(data); // show response from the php script.#}
     {#            alert(response); // show response from the php script.#}
     {#        }})#}
+    {#$("#idForm").ajaxForm({url: 'http://127.0.0.1:5000/order/1', type: 'post', success: function (data,response) {#}
+    {#            alert(data); // show response from the php script.#}
+    {#            alert(response); // show response from the php script.#}
+    {#        }})#}
 
 
+    function order() {
+        let form = $('#idForm')
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/order/1",
+            data: form.serialize(),
+            success: function (response) {
+                alert(response); // show response from the php script.
+            }
+        })
+    }
+
+
+    {#function order() {#}
+    {#    alert("ok")#}
+    {#    let form = $('#idForm')#}
+    {#    $.ajax({#}
+    {#        type: "POST",#}
+    {#        url: form.attr("action"),#}
+    {#        data: form.serialize(),#}
+    {#        success: function (data, response) {#}
+    {#            alert(data); // show response from the php script.#}
+    {#            alert(response); // show response from the php script.#}
+    {#        }#}
+    {#    })#}
     {#function order(){#}
     {#    let form = $('#idForm')#}
     {#    $.ajax({#}
@@ -173,6 +202,19 @@
     {#        }#}
     {#    })#}
 
+
+    {#$("#idForm").submit(function (e) {#}
+    {#    e.preventDefault(); // avoid to execute the actual submit of the form.#}
+    {#    var form = $(this);#}
+    {#    var url = form.attr('action');#}
+    {#    $.ajax({#}
+    {#        type: "POST",#}
+    {#        url: url,#}
+    {#        data: form.serialize(), // serializes the form's elements.#}
+    {#        success: function (data) {#}
+    {#            alert(data); // show response from the php script.#}
+    {#        }#}
+    {#    });#}
 
     {#$("#idForm").submit(function (e) {#}
     {#    e.preventDefault(); // avoid to execute the actual submit of the form.#}
