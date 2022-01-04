@@ -1,6 +1,7 @@
 from flask import render_template, request, Response
 from core.db_manager import DBManager
 from models.model import *
+from datetime import datetime, timedelta
 
 db = DBManager()
 
@@ -44,7 +45,7 @@ def order(table_id):
             order1 = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(order1)
-            resp = Response()
-            resp.set_cookie("receipt_id", f"{receipt._id}")
+            resp = Response("your order is added!")
+            resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now()+timedelta(days=1))
             return resp
         return 'good', 201
