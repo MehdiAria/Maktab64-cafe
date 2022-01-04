@@ -138,17 +138,16 @@ class Receipt(DBModel):
     aliases = {"_id": "id"}
     total_price: str
     final_price: str
+    _id: None
     time_stamp: datetime
 
     def __init__(self, total_price, final_price, _id=None) -> None:
         self.total_price = total_price
         self.final_price = final_price
         self.time_stamp = datetime.now()
-        if _id: self._id = _id
+        if _id:
+            self._id = _id
 
-    @classmethod
-    def all_vars(cls):
-        return vars(cls)
 
     # cat = Category("cake")
 
@@ -180,9 +179,10 @@ class Receipt(DBModel):
 #     fetch="all")
 # for item in items_category_dict:
 #     print(dict(item))
-import inspect
-
-attributes = inspect.getmembers(Order)
-b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
-print(vars(Receipt)['__annotations__'])
+# import inspect
+#
+# attributes = inspect.getmembers(Order)
+# b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
+# print(vars(Receipt)['__annotations__'])
+print(Receipt.class_aliases())
 # print(Order.__class__.__dict__)
