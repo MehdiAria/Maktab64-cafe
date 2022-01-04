@@ -28,5 +28,12 @@ def order(table_id):
         pass
     elif request.method == 'POST':
         # return Response('Your order created!', 201)
-        print(request.form)
-        return 'good',201
+        receipt_id = request.cookies.get('receipt_id', None)
+        order_dict = request.form
+        if receipt_id:
+            order1 = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
+                       status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt_id)
+        else:
+            receipt = Receipt(0, 0)
+        return 'good', 201
+
