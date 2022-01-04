@@ -28,11 +28,11 @@ def order(table_id):
     if request.method == 'GET':
         res = request.cookies
         # print(res)
-        db.query(
-            f"SELECT orders.id, item_id, number_item, receipt_id, status_id, table_id FROM orders INNER JOIN receipt ON orders.receipt_id={res['receipt_id']};",
-            fetch='all')
+        order_list = db.read_filter_nowhere(Order,
+                                            f"SELECT orders.id, item_id, number_item, receipt_id, status_id, table_id FROM orders INNER JOIN receipt ON orders.receipt_id={res['receipt_id']};")
 
-        data = {'receipt': res.get('receipt_id')}
+        data = {'receipt': res.get('receipt_id'),
+                'order': order_list}
         return render_template('order.html', data=data)
     elif request.method == 'POST':
         # return Response('Your order created!', 201)
