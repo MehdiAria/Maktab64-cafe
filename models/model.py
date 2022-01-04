@@ -20,10 +20,14 @@ class Cashier(DBModel):
 class CafeTable(DBModel):
     TABLE = "cafe_table"
 
-    def __init__(self, number, space, id) -> None:
-        self.number = number
+    def __init__(self, is_empty, space, id) -> None:
+        self.is_empty = is_empty
         self.space = space
         self.id = id
+
+    @classmethod
+    def empty_table(cls):
+        return DBManager().read_filter(cls, 'is_empty=true')
 
 
 class MenuItems(DBModel):
@@ -118,24 +122,26 @@ class Category(DBModel):
 class Order(DBModel):
     TABLE = "orders"
 
-    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=0):
+    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=None):
         self.item_id = item_id
         self.number_item = number_item
         self.receipt_id = receipt_id
         self.status_id = status_id
         self.table_id = table_id
         self.time_stamp = datetime.now()
-        self.id = id
+        if id:
+            self.id = id
 
 
 class Receipt(DBModel):
     TABLE = "receipt"
+    aliases = {"_id": "id"}
 
-    def __init__(self, total_price, final_price, id=0) -> None:
+    def __init__(self, total_price, final_price, _id=None) -> None:
         self.total_price = total_price
         self.final_price = final_price
         self.time_stamp = datetime.now()
-        self.id = id
+        if _id: self._id = _id
 
 # cat = Category("cake")
 # db1 = DBManager().create(cat)
@@ -165,4 +171,3 @@ class Receipt(DBModel):
 #     fetch="all")
 # for item in items_category_dict:
 #     print(dict(item))
-

@@ -1,0 +1,8 @@
+{% extends "base_layout/_base.html" %}
+
+{% block body %}
+    <h1>receipt ID: {{ data.receipt }}</h1>
+    {% for i in data.order %}
+        <h2>Count: {{ i.number_item }} Table ID: {{ i.table_id }} Item ID: {{ i.item_id }}</h2>
+    {% endfor %}
+{% endblock %}
