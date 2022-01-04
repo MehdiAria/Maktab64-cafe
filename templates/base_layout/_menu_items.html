@@ -26,7 +26,8 @@
                                      style="line-height: 5vh">
                                 <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>
                                 <button type="button" class="btn btn-secondary mt-4 w-100" data-bs-toggle="modal"
-                                        data-bs-target="#myModal" onclick="func(this.id)" id="{{ item.name }}">
+                                        data-bs-target="#myModal" onclick="func(this.id)"
+                                        id="{{ item.id }} {{ item.name }}">
                                     {#                                <button class="btn btn-secondary mt-4 w-100" data-toggle="modal" data-target="#modal">#}
                                     Add To Cart
                                 </button>
@@ -77,18 +78,16 @@
                         </ul>
                     </div>
                     <lable>Count:</lable>
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" name="number_id" id="count">
                     <span class="badge badge-primary">Item</span><input style="border: 0;background: white"
                                                                         class="form-control w-75" type="text"
                                                                         name="item_type"
                                                                         id="item_type" disabled>
-
-
+                    <input type="number" class="d-none" id="item_id" name="item_id">
                     <span class="badge badge-primary">Table</span><input style="border: 0;background: white"
                                                                          class="form-control w-75" type="text"
                                                                          name="table_id"
                                                                          id="table_id" disabled>
-
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -108,8 +107,12 @@
 
 <script>
     function func(ItemValue) {
-        let elem = $(`#${ItemValue}`).attr('id')
+        let elem = ItemValue.slice(" ")
+        $(`#item_id`).val(elem[0])
         $(`#item_type`).val(elem)
+        {#console.log(elem.val())#}
+        {#console.log($(`#item_id`).val())#}
+
     }
 
     function tableIdSet(TableIdValue) {
@@ -130,12 +133,17 @@
         let count = elem.val()
         let tbl = $(`#table_id`)
         let t_id = tbl.val()
+        let item_id = $(`#item_id`)
+        let i_id = item_id.val()
+        alert(count)
         $.ajax({
             type: "POST",
             url: 'http://127.0.0.1:5000/order/1',
             data: {
-                'count': count,
-                'table': t_id,
+                'number_item': count,
+                'table_id': t_id,
+                "item_id": i_id,
+
             },
             success: function (response) {
                 let parrent = $("#msg")
