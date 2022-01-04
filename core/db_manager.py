@@ -151,8 +151,14 @@ class DBManager:
             res.append(model_class(**dict(i)))
         return res
 
-    # def join_filter(self, model_class: type, *args):
-    #     start_query = f"SELECT{}"
+    def join_filter(self, model_class: type, *args):
+        assert issubclass(model_class, DBModel)
+        asd = ", ".join(model_class.class_aliases())
+        start_query = f"SELECT {asd}"
+        for i in args:
+            i: DBModel
+            start_query += f" INNER JOIN {i.TABLE} ON {i.TABLE}.id = {model_class.TABLE}.{model_class.PK}"
+        return start_query+";"
 
 
 db1 = DBManager()
