@@ -167,9 +167,11 @@ class DBManager:
         where_condition = ' WHERE '
         for i in args:
             i[0]: DBModel
-            join_query += f" INNER JOIN {i[0].TABLE} ON {i[0].TABLE}.id = {model_class.TABLE}.{model_class.PK}"
-            where_condition += f"{i[0].TABLE}.{i[1]} AND "
-        join_query += where_condition[:-5]
-        # print(join_query){i[0].TABLE}.{i[1]}
+            join_query += f" INNER JOIN {i[0].TABLE} ON {i[0].TABLE}.id = {model_class.TABLE}.{i[0].TABLE}_id"
+            if len(i) == 2:
+                where_condition += f"{i[0].TABLE}.{i[1]} AND "
+            if not where_condition == ' WHERE ':
+                join_query += where_condition[:-5]
+        print(join_query)
         return self.to_model_class(model_class, self.query(join_query + ";", fetch="all"))
 
