@@ -13,7 +13,12 @@ def index():
 def menu():
     data = Category.category_item()
     empty_tables = CafeTable.empty_table()
-    return render_template("menu.html", data=data, tables=empty_tables)
+    table_id = None
+    user_table_id = request.cookies.get('table_id', None)
+    if user_table_id:
+        table_id = table_id
+        empty_tables = None
+    return render_template("menu.html", data=data, tables=empty_tables, table_id=table_id)
 
 
 def login():
@@ -32,8 +37,8 @@ def order(table_id):
         receipt_id = request.cookies.get('receipt_id', None)
         order_dict = request.form
         # item = db.read(MenuItems, int(order_dict.get("item_id")))
-        print(order_dict)
-        print(request.form)
+        resp = Response("your order is added!")
+        resp.set_cookie("table_id", order_dict.get("table_id"))
         if receipt_id:
             order1 = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt_id)
@@ -45,7 +50,6 @@ def order(table_id):
             order1 = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(order1)
-            resp = Response("your order is added!")
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now()+timedelta(days=1))
             return resp
         return 'good', 201
