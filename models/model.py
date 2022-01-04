@@ -136,11 +136,11 @@ class Receipt(DBModel):
     TABLE = "receipt"
     aliases = {"_id": "id"}
 
-    def __init__(self, total_price, final_price, id=None) -> None:
+    def __init__(self, total_price, final_price, _id=None) -> None:
         self.total_price = total_price
         self.final_price = final_price
         self.time_stamp = datetime.now()
-        if id: self.id = id
+        if _id: self.id = _id
 
 # cat = Category("cake")
 # db1 = DBManager().create(cat)
