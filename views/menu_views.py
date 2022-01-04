@@ -31,7 +31,14 @@ def panel():
 
 def order(table_id):
     if request.method == 'GET':
-        pass
+        res = request.cookies
+        # print(res)
+        order_list = db.read_filter_nowhere(Order,
+                                            f"SELECT orders.id, item_id, number_item, receipt_id, status_id, table_id FROM orders INNER JOIN receipt ON orders.receipt_id={res['receipt_id']};")
+
+        data = {'receipt': res.get('receipt_id'),
+                'order': order_list}
+        return render_template('order.html', data=data)
     elif request.method == 'POST':
         # return Response('Your order created!', 201)
         receipt_id = request.cookies.get('receipt_id', None)
@@ -50,6 +57,7 @@ def order(table_id):
             order1 = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(order1)
+            resp = Response("your order is added!")
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now()+timedelta(days=1))
             return resp
         return 'good', 201
