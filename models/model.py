@@ -121,6 +121,13 @@ class Category(DBModel):
 
 class Order(DBModel):
     TABLE = "orders"
+    id: int
+    item_id: int
+    number_item: int
+    receipt_id: int
+    status_id: int
+    table_id: int
+    time_stamp: datetime
 
     def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=None):
         self.item_id = item_id
@@ -147,7 +154,6 @@ class Receipt(DBModel):
         self.time_stamp = datetime.now()
         if _id:
             self._id = _id
-
 
     # cat = Category("cake")
 
@@ -185,4 +191,4 @@ class Receipt(DBModel):
 # b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
 # print(vars(Receipt)['__annotations__'])
 # print(Order.__class__.__dict__)
-print(DBManager().join_filter(Receipt, Cashier, Order))
+print(DBManager().join_filter(Order,Receipt))

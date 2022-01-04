@@ -30,7 +30,7 @@ class DBModel(ABC):  # abstract base Database model
     def class_aliases(cls):
         base_dict = vars(cls).get('__annotations__', None)
         aliases = cls.aliases
-        alias_list = list(map(lambda x: x if x not in aliases.keys() else aliases[x], base_dict))
+        alias_list = list(map(lambda x: f"{cls.TABLE}.{x}" if x not in aliases.keys() else f"{cls.TABLE}.{aliases[x]}", base_dict))
         return alias_list
 
 
@@ -153,12 +153,13 @@ class DBManager:
 
     def join_filter(self, model_class: type, *args):
         assert issubclass(model_class, DBModel)
-        asd = ", ".join(model_class.class_aliases())
-        start_query = f"SELECT {asd}"
+        aliases = ", ".join(model_class.class_aliases())
+        join_query = f"SELECT {aliases} FROM {model_class.TABLE}"
         for i in args:
             i: DBModel
-            start_query += f" INNER JOIN {i.TABLE} ON {i.TABLE}.id = {model_class.TABLE}.{model_class.PK}"
-        return start_query+";"
+            join_query += f" INNER JOIN {i.TABLE} ON {i.TABLE}.id = {model_class.TABLE}.{model_class.PK}"
+        return self.query(join_query+";", fetch="all")
+        # return start_query
 
 
 db1 = DBManager()
