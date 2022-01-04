@@ -25,9 +25,12 @@ class TestAlias(ut.TestCase):
         #                                          "0234832", 1).with_alias_dict().keys())
 
     def test_read_data(self):
-        self.assertIsInstance(DBManager().read(Cashier, 1), Cashier)
+        self.assertIsInstance(DBManager().read(Cashier, self.cashier_id), Cashier)
 
     def test_read_all_filter(self):
         self.assertIsInstance(self.db.read_filter(CafeTable, "is_empty = true"), list)
         self.assertIsInstance(self.db.read_filter(CafeTable, "is_empty = true")[0], CafeTable)
         self.assertIsInstance(self.db.read_filter(CafeTable, "is_empty = true")[-1], CafeTable)
+
+    def test_class_alias(self):
+        self.assertIsInstance(Receipt.class_aliases(), list)

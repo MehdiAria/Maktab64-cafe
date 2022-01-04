@@ -184,5 +184,4 @@ class Receipt(DBModel):
 # attributes = inspect.getmembers(Order)
 # b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
 # print(vars(Receipt)['__annotations__'])
-print(Receipt.class_aliases())
 # print(Order.__class__.__dict__)
