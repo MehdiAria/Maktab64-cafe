@@ -164,8 +164,12 @@ class DBManager:
         assert issubclass(model_class, DBModel)
         aliases = ", ".join(model_class.class_aliases())
         join_query = f"SELECT {aliases} FROM {model_class.TABLE}"
+        where_condition = ' WHERE '
         for i in args:
-            i: DBModel
-            join_query += f" INNER JOIN {i.TABLE} ON {i.TABLE}.id = {model_class.TABLE}.{model_class.PK}"
+            i[0]: DBModel
+            join_query += f" INNER JOIN {i[0].TABLE} ON {i[0].TABLE}.id = {model_class.TABLE}.{model_class.PK}"
+            where_condition += f"{i[0].TABLE}.{i[1]} AND "
+        join_query += where_condition[:-5]
+        # print(join_query){i[0].TABLE}.{i[1]}
         return self.to_model_class(model_class, self.query(join_query + ";", fetch="all"))
 
