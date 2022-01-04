@@ -129,7 +129,7 @@ class Order(DBModel):
     table_id: int
     time_stamp: datetime
 
-    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=None):
+    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, time_stamp=None, id=None):
         self.item_id = item_id
         self.number_item = number_item
         self.receipt_id = receipt_id
