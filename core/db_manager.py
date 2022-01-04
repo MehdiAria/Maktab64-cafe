@@ -30,8 +30,8 @@ class DBModel(ABC):  # abstract base Database model
     def class_aliases(cls):
         base_dict = vars(cls).get('__annotations__', None)
         aliases = cls.aliases
-        a = list(map(lambda x: x if x not in aliases.keys() else aliases[x], base_dict))
-        return a
+        alias_list = list(map(lambda x: x if x not in aliases.keys() else aliases[x], base_dict))
+        return alias_list
 
 
 class DBManager:
