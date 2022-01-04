@@ -110,9 +110,6 @@
         let elem = ItemValue.slice(" ")
         $(`#item_id`).val(elem[0])
         $(`#item_type`).val(elem)
-        {#console.log(elem.val())#}
-        {#console.log($(`#item_id`).val())#}
-
     }
 
     function tableIdSet(TableIdValue) {
@@ -135,7 +132,6 @@
         let t_id = tbl.val()
         let item_id = $(`#item_id`)
         let i_id = item_id.val()
-        alert(count)
         $.ajax({
             type: "POST",
             url: 'http://127.0.0.1:5000/order/1',
