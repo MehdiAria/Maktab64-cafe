@@ -122,14 +122,15 @@ class Category(DBModel):
 class Order(DBModel):
     TABLE = "orders"
 
-    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=0):
+    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=None):
         self.item_id = item_id
         self.number_item = number_item
         self.receipt_id = receipt_id
         self.status_id = status_id
         self.table_id = table_id
         self.time_stamp = datetime.now()
-        self.id = id
+        if id:
+            self.id = id
 
 
 class Receipt(DBModel):
