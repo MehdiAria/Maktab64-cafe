@@ -136,7 +136,13 @@ class DBManager:
             res.append(model_class(**dict(i)))
         return res
 
-
+    def read_filter_nowhere(self, model_class: type, condition):
+        assert issubclass(model_class, DBModel)
+        model_dict = self.query(f"SELECT * FROM {model_class.TABLE} {condition}", fetch='all')
+        res = []
+        for i in model_dict:
+            res.append(model_class(**dict(i)))
+        return res
 
 
 db1 = DBManager()
