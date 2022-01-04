@@ -17,8 +17,8 @@ class DBModel(ABC):  # abstract base Database model
     def alias_for(cls, attr, alias):
         cls.aliases[attr] = alias
 
-    def with_alias_dict(self):
-        base_dict = vars(self)
+    def with_alias_dict(self, attr_dict=None):
+        base_dict = vars(self) if not attr_dict else attr_dict
         for i in self.aliases.keys():
             if i in base_dict.keys():
                 value = base_dict[i]
@@ -143,6 +143,10 @@ class DBManager:
         for i in model_dict:
             res.append(model_class(**dict(i)))
         return res
+    #
+    # def join_filter(self, model_class: type, *args):
+    #     start_query = "SELECT"
+    #     for i in mode:
 
 
 db1 = DBManager()

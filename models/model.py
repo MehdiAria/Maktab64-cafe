@@ -136,6 +136,9 @@ class Order(DBModel):
 class Receipt(DBModel):
     TABLE = "receipt"
     aliases = {"_id": "id"}
+    total_price: str
+    final_price: str
+    time_stamp: datetime
 
     def __init__(self, total_price, final_price, _id=None) -> None:
         self.total_price = total_price
@@ -143,7 +146,13 @@ class Receipt(DBModel):
         self.time_stamp = datetime.now()
         if _id: self._id = _id
 
-# cat = Category("cake")
+    @classmethod
+    def all_vars(cls):
+        return vars(cls)
+
+    # cat = Category("cake")
+
+
 # db1 = DBManager().create(cat)
 # time_t = datetime.now() + timedelta(minutes=10)
 # item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
@@ -171,3 +180,9 @@ class Receipt(DBModel):
 #     fetch="all")
 # for item in items_category_dict:
 #     print(dict(item))
+import inspect
+
+attributes = inspect.getmembers(Order)
+b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
+print(vars(Receipt)['__annotations__'])
+# print(Order.__class__.__dict__)
