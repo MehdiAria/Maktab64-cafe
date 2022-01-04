@@ -28,4 +28,5 @@ def order(table_id):
         pass
     elif request.method == 'POST':
         # return Response('Your order created!', 201)
+        print(request.form)
         return 'good',201
