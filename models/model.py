@@ -140,7 +140,7 @@ class Receipt(DBModel):
         self.total_price = total_price
         self.final_price = final_price
         self.time_stamp = datetime.now()
-        if _id: self.id = _id
+        if _id: self._id = _id
 
 # cat = Category("cake")
 # db1 = DBManager().create(cat)
