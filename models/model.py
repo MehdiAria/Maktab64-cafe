@@ -191,4 +191,4 @@ class Receipt(DBModel):
 # b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
 # print(vars(Receipt)['__annotations__'])
 # print(Order.__class__.__dict__)
-print(DBManager().join_filter(Order,Receipt))
+print(DBManager().join_filter(Order, Receipt))

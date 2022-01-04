@@ -169,5 +169,3 @@ class DBManager:
             join_query += f" INNER JOIN {i.TABLE} ON {i.TABLE}.id = {model_class.TABLE}.{model_class.PK}"
         return self.to_model_class(model_class, self.query(join_query + ";", fetch="all"))
 
-
-db1 = DBManager()
