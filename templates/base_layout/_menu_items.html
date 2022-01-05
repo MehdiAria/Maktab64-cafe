@@ -148,9 +148,15 @@
         let t_id = tbl.val()
         let item_id = $(`#item_id`)
         let i_id = item_id.val()
+        {#console.log(table_id)#}
+        {#console.log(t_id)#}
+{#        {% set x = '99' %}#}
+{#        console.log({{ url_for('order') }})#}
+{#        console.log(typeof t_id)#}
         $.ajax({
             type: "POST",
             url: `http://127.0.0.1:5000/order/${t_id}`,
+            {#url: "{{ url_for('order',table_id=t_id) }}",  #}
             data: {
                 'number_item': count,
                 'table_id': t_id,
