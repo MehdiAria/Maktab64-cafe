@@ -1,4 +1,4 @@
-from flask import render_template, request, escape
+from flask import render_template, request, escape, redirect, url_for
 from core.db_manager import DBManager
 from models.model import Cashier
 from utils import get_user_by_cookie
@@ -37,11 +37,8 @@ def register():
         token = uuid.UUID(bytes=os.urandom(16), version=4)
         # register successful !
         cashier = Cashier(name, last_name, email, phone, password, token)
+        db.create(cashier)
 
-
-
-        users.append(user)
-
-        return redirect(url_for('home'))
+        return redirect(url_for('panel'))
 
     return "Forbidden Request 403", 403
