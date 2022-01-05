@@ -11,7 +11,7 @@ def register():
 
     cashiers = db.read_all(Cashier)
     data = {}
-    data['title'] = "Register form"
+    data['title'] = "Register Page"
     data['cashier'] = get_user_by_cookie(request, cashiers)
 
 
@@ -40,4 +40,18 @@ def register():
     return "Forbidden Request 403", 403
 
 def login():
-    pass
+
+    cashiers = db.read_all(Cashier)
+    data = {}
+    data['title'] = "Login Page"
+    data['cashier'] = get_user_by_cookie(request, cashiers)
+
+    if request.method == "GET":
+        # form view !
+        return render_template("login.html", data=data)
+
+    elif request.method == "POST":
+        # login user
+        name = escape(request.form.get('name'))
+        password = escape(request.form.get('password'))
+
