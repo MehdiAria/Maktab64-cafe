@@ -1,7 +1,9 @@
 from flask import render_template, request, escape
 from core.db_manager import DBManager
-from models.model import *
+from models.model import Cashier
+from utils import get_user_by_cookie
 
+db = DBManager()
 
 def login():
     return render_template('login.html')
@@ -10,9 +12,10 @@ def login():
 
 def register():
 
+    cashiers = db.read_all(Cashier)
     data = {}
     data['title'] = "Register form"
-    data['user'] = get_user_by_cookie(request, users)
+    data['cashier'] = get_user_by_cookie(request, cashiers)
 
 
     if request.method == "GET":
