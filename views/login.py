@@ -66,5 +66,13 @@ def login():
 
                 # set cookies
                 resp = make_response(redirect(url_for('panel')))
+                resp.set_cookie('user_logged_in_id', str(cashier.id))
+                resp.set_cookie('user_logged_in_token', str(token))
+
+                return resp
+
+            return "Server Error!", 500
+
+        return "Forbidden Request 403", 403
 
 
