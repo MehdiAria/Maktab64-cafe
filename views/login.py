@@ -1,4 +1,4 @@
-from flask import render_template, request, escape, redirect, url_for
+from flask import render_template, request, escape, redirect, url_for, make_response
 from core.db_manager import DBManager
 from models.model import Cashier
 from views.utils import get_user_by_cookie
@@ -63,4 +63,8 @@ def login():
                 token = uuid.UUID(bytes=os.urandom(16), version=4)
                 cashier.token = token
                 db.update(cashier)
+
+                # set cookies
+                resp = make_response(redirect(url_for('panel')))
+
 
