@@ -34,9 +34,9 @@ def register():
         for cashier in cashiers:
             if cashier['name'] == name:
                 return "User exists!", 500
-
+        token = uuid.UUID(bytes=os.urandom(16), version=4)
         # register successful !
-        cashier = Cashier(name, last_name, email, phone, password)
+        cashier = Cashier(name, last_name, email, phone, password, token)
 
 
 
