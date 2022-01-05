@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, escape
 from core.db_manager import DBManager
 from models.model import *
 
@@ -9,14 +9,9 @@ def login():
 
 
 def register():
-    title = "Register form"
-    text = """ """
-    img = ""
-    date = {
-        'title': title,
-        'text': text,
-    }
 
+    data = {}
+    data['title'] = "Register form"
     data['user'] = get_user_by_cookie(request, users)
 
 
