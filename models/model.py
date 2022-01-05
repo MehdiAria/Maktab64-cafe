@@ -19,11 +19,15 @@ class Cashier(DBModel):
 
 class CafeTable(DBModel):
     TABLE = "cafe_table"
+    is_empty: bool
+    space : int
+    id : int
 
-    def __init__(self, is_empty, space, id) -> None:
+    def __init__(self, is_empty, space, id=None) -> None:
         self.is_empty = is_empty
         self.space = space
-        self.id = id
+        if id:
+            self.id = id
 
     @classmethod
     def empty_table(cls):
@@ -191,4 +195,6 @@ class Receipt(DBModel):
 # b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
 # print(vars(Receipt)['__annotations__'])
 # print(Order.__class__.__dict__)
-print(DBManager().join_filter(Order, (Receipt,)))
+# print(DBManager().join_filter(Order, (Receipt,)))
+# print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
+#     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
