@@ -6,10 +6,6 @@ import uuid, os
 
 db = DBManager()
 
-def login():
-    return render_template('login.html')
-
-
 
 def register():
 
@@ -42,3 +38,6 @@ def register():
         return redirect(url_for('panel'))
 
     return "Forbidden Request 403", 403
+
+def login():
+    pass
