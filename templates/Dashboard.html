@@ -5,9 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-  <style>
+
+    <style>
 
 
 
@@ -17,8 +19,9 @@
    }
 
    .right-dash{
-       background-color: gray;
+       background-color: rgba(30,6,6,0.84);
        height: 100%;
+
 
 
    }
@@ -27,22 +30,69 @@
        display: flex;
        flex-direction: column;
        justify-content: center;
-       width: 90%;
+       align-items: center;
+
+       width: 85%;
+       background-color: rgba(40,6,6,0.84);
+
    }
+   .css-nav{
+       background-color: #f1f1f1;
+   }
+
+   .css-con{
+       margin-top: 5px;
+   }
+   .login{
+       background-color: rgba(40,6,6,0.84);
+       display: flex;
+       justify-content: center;
+
+   }
+
+   .user-logo{font-size: 27px;
+       position: relative;
+
+   }
+
+
+   @media only screen and (max-width: 470px)  {
+       .dash-options{
+           width: 70%;
+       }
+       .p-tags-in-dash{
+           display: none;
+       }
+
+   }
+     @media only screen and (max-width: 425px)  {
+         .h6-nav{display: none}
+     }
+
 
   </style>
 </head>
 <body>
-
-<div class="  col-3 right-dash rounded-3">
-    <h2>LOGO</h2>
-    <button class="m-4 p-3 dash-options dashboard btn btn-primary">Dashboard</button>
-    <button class="m-4 p-3 dash-options tables  btn btn-primary">Tables</button>
-    <button class="m-4 p-3 dash-options orders  btn btn-primary">Orders</button>
-    <button class="m-4 p-3 dash-options served-orders  btn btn-primary">Served oreders</button>
-    <button class="m-4 p-3 dash-options edit-items  btn btn-primary">Edit Items</button>
+<header>
+    <div class=" css-nav nav navbar">
+        <div class="container-fluid ">
+            <div class="row col-2 login rounded p-1">
+                <i class="fa fa-user-circle-o user-logo text-center" aria-hidden="true"></i> <br>
+                <h6 class="text-center h6-nav">logged in</h6>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-fluid css-con">
+    <div class="row col-3 right-dash rounded-3">
+        <h2 class="p-3 text-center">LOGO</h2>
+        <button class="m-2 p-2 dash-options dashboard btn btn-secondary" href="#"><i class="icons fa fa-home" aria-hidden="true"></i><p class="p-tags-in-dash">Dashboard</p></button>
+        <button class="m-2 p-2 dash-options tables btn btn-secondary" href="#"><i class="icons fa fa-table" aria-hidden="true"></i><p class="p-tags-in-dash">Tables</p></button>
+        <button class="m-2 p-2 dash-options orders btn btn-secondary" href="#"><i class="fa fa-coffee" aria-hidden="true"></i><p class="p-tags-in-dash">Orders</p></button>
+        <button class="m-2 p-2 dash-options served-orders btn btn-secondary" href="#"><i class="icons fa fa-check-square-o" aria-hidden="true"></i><p class="p-tags-in-dash">Served orders</p></button>
+        <button class="m-2 p-2 dash-options edit-items  btn btn-secondary" href="#"><i class="icons fa fa-pencil-square-o" aria-hidden="true"></i><p class="p-tags-in-dash">Edit Items</p></button>
+    </div>
 </div>
-
 
 
 </body>
