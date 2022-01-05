@@ -82,20 +82,23 @@
                             </ul>
                         {% endif %}
                     </div>
-                    <lable>Count:</lable>
+                    <lable class="form-label">Count:</lable>
                     <input type="number" class="form-control" name="number_id" id="count" required>
                     <div class="invalid-feedback">
                         please phil Count!
                     </div>
-                    <label class="form-label" for="item_type">Item </label><input style="border: 0;background: white"
-                                                                                  class="form-control w-75" type="text"
+                    <label class="form-label" for="item_type">Item: </label><input style="border: 0;background: white"
+                                                                                  class="form-control" type="text"
                                                                                   name="item_type"
                                                                                   id="item_type" disabled>
                     <input type="number" class="d-none" id="item_id" name="item_id" required>
-                    <label class="form-label" for="table_id">Table </label><input style="border: 0;background: white"
-                                                                                  class="form-control w-75" type="text"
+                    <label class="form-label" for="table_id">Table: </label><input style="border: 0;background: white"
+                                                                                  class="form-control" type="text"
                                                                                   name="table_id"
                                                                                   id="table_id" disabled required>
+                    <div class="invalid-feedback">
+                        please choose a table!
+                    </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
