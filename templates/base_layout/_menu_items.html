@@ -67,7 +67,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="http://127.0.0.1:5000/order/1" method="POST" id="idForm">
+                <form action="http://127.0.0.1:5000/order/1" method="POST" id="idForm" class="was-validated">
                     <div class="dropdown">
                         {% if tables %}
                             <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
@@ -82,17 +82,23 @@
                             </ul>
                         {% endif %}
                     </div>
-                    <lable>Count:</lable>
-                    <input type="number" class="form-control" name="number_id" id="count">
-                    <span class="badge badge-primary">Item</span><input style="border: 0;background: white"
-                                                                        class="form-control w-75" type="text"
-                                                                        name="item_type"
-                                                                        id="item_type" disabled>
-                    <input type="number" class="d-none" id="item_id" name="item_id">
-                    <span class="badge badge-primary">Table</span><input style="border: 0;background: white"
-                                                                         class="form-control w-75" type="text"
-                                                                         name="table_id"
-                                                                         id="table_id" disabled>
+                    <lable class="form-label">Count:</lable>
+                    <input type="number" class="form-control" name="number_id" id="count" required>
+                    <div class="invalid-feedback">
+                        please phil Count!
+                    </div>
+                    <label class="form-label" for="item_type">Item: </label><input style="border: 0;background: white"
+                                                                                   class="form-control" type="text"
+                                                                                   name="item_type"
+                                                                                   id="item_type" disabled>
+                    <input type="number" class="d-none" id="item_id" name="item_id" required>
+                    <label class="form-label" for="table_id">Table: </label><input style="border: 0;background: white"
+                                                                                   class="form-control" type="text"
+                                                                                   name="table_id"
+                                                                                   id="table_id" disabled>
+                    {#                    <div class="invalid-feedback">#}
+                    {#                        please choose a table!#}
+                    {#                    </div>#}
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -115,6 +121,8 @@
         let elem = ItemValue.slice(" ")
         $(`#item_id`).val(elem[0])
         $(`#item_type`).val(elem)
+        $(`#count`).val(1)
+
     }
     {% if table_id %}
         $(`#table_id`).val({{ table_id }})
@@ -158,6 +166,14 @@
                 msg.appendTo(parrent)
                 {#alert(response); // show response from the php script.#}
                 {#alert(data); // show response from the php script.#}
+            },
+            error: function (response) {
+                let parrent = $("#msg")
+                let msg = $(` <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Error while adding order!</strong>
+                    </div>`)
+                msg.appendTo(parrent)
             }
         })
     }
