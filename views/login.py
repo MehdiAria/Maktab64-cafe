@@ -2,6 +2,7 @@ from flask import render_template, request, escape
 from core.db_manager import DBManager
 from models.model import Cashier
 from utils import get_user_by_cookie
+import uuid, os
 
 db = DBManager()
 
@@ -25,19 +26,19 @@ def register():
     elif request.method == "POST":
         # get user field
         name = escape(request.form.get('name'))
+        last_name = escape(request.form.get('last_name'))
+        email = escape(request.form.get('email'))
+        phone = escape(request.form.get('phone'))
         password = escape(request.form.get('password'))
 
-        for user in users:
-            if user['name'] == name:
+        for cashier in cashiers:
+            if cashier['name'] == name:
                 return "User exists!", 500
 
         # register successful !
-        user = {
-            "id": len(users),
-            "name": escape(request.form.get('name')),
-            "password": escape(request.form.get('password')),
-            "key": '',
-        }
+        cashier = Cashier(name, last_name, email, phone, password)
+
+
 
         users.append(user)
 
