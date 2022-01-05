@@ -1,11 +1,11 @@
-def get_user_by_cookie(request, users: list):
-    user_id = request.cookies.get('user_logged_in_id', None)
-    user_key = request.cookies.get('user_logged_in_key', None)
+def get_user_by_cookie(request, cashiers: list):
+    cashier_id = request.cookies.get('cashier_logged_in_id', None)
+    cashier_token = request.cookies.get('cashier_logged_in_key', None)
 
-    print(user_id, user_key)
+    print(cashier_id, cashier_token)
 
-    for user in users:
-        if user['key'] == user_key and str(user['id']) == user_id:
-            return user
+    for cashier in cashiers:
+        if cashier.token == cashier_token and cashier.id == cashier_id:
+            return cashier
 
     return None
