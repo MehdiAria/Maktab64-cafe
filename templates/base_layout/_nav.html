@@ -14,7 +14,12 @@
 {#        </button>#}
 {#    </nav>#}
 {#</div>#}
-
+<style>
+    .nav-content{
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
 <nav class="sticky-top navbar navbar-expand-sm navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Logo here</a>
@@ -24,15 +29,15 @@
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link m-3" href="{{ url_for('home') }}">Home</a>
+          <a class="nav-link nav-content" href="{{ url_for('home') }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('about') }}">About</a>
+          <a class="nav-link nav-content" href="{{ url_for('about') }}">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('menu') }}">Menu</a>
+          <a class="nav-link nav-content" href="{{ url_for('menu') }}">Menu</a>
         </li>
-          <li class="nav-item">
+          <li class="nav-item nav-content">
           <a class="nav-link" href="{{ url_for('panel') }}">Cashier Panel</a>
         </li>
       </ul>
