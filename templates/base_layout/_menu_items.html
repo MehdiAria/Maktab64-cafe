@@ -95,10 +95,10 @@
                     <label class="form-label" for="table_id">Table: </label><input style="border: 0;background: white"
                                                                                   class="form-control" type="text"
                                                                                   name="table_id"
-                                                                                  id="table_id" disabled required>
-                    <div class="invalid-feedback">
-                        please choose a table!
-                    </div>
+                                                                                  id="table_id" disabled>
+{#                    <div class="invalid-feedback">#}
+{#                        please choose a table!#}
+{#                    </div>#}
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -118,6 +118,7 @@
 
 <script>
     function func(ItemValue) {
+        console.log(ItemValue)
         let elem = ItemValue.slice(" ")
         $(`#item_id`).val(elem[0])
         $(`#item_type`).val(elem)
@@ -163,8 +164,13 @@
                         <strong>Success!</strong> ${response}
                     </div>`)
                 msg.appendTo(parrent)
-                {#alert(response); // show response from the php script.#}
-                {#alert(data); // show response from the php script.#}
+            },
+            error: function (ajaxContext) {
+                let msg = $(` <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Error!</strong> ${ajaxContext}
+                    </div>`)
+                msg.appendTo(parrent)
             }
         })
     }
