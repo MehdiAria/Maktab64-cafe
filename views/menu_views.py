@@ -33,8 +33,9 @@ def order(table_id):
     if request.method == 'GET':
         res = request.cookies
         # print(res)
-        order_list = db.read_filter_nowhere(Order,
-                                            f"SELECT orders.id, item_id, number_item, receipt_id, status_id, table_id FROM orders INNER JOIN receipt ON orders.receipt_id={res['receipt_id']};")
+        order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
+
+        # order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
 
         data = {'receipt': res.get('receipt_id'),
                 'order': order_list}
@@ -45,9 +46,11 @@ def order(table_id):
         order_dict = request.form
         # item = db.read(MenuItems, int(order_dict.get("item_id")))
         resp = Response("your order is added!")
-        resp.set_cookie("table_id", order_dict.get("table_id"))
         if receipt_id:
-            order1 = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
+            table_id = db.query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
+                                        orders.table_id = cafe_table.id INNER JOIN receipt ON
+                                         orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one")
+            order1 = Order(item_id=order_dict.get('item_id'), table_id=table_id,
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt_id)
             db.create(order1)
         else:
@@ -57,7 +60,6 @@ def order(table_id):
             order1 = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(order1)
-            resp = Response("your order is added!")
-            resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now()+timedelta(days=1))
+            resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             return resp
         return 'good', 201
