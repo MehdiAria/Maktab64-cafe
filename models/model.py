@@ -196,5 +196,5 @@ class Receipt(DBModel):
 # print(vars(Receipt)['__annotations__'])
 # print(Order.__class__.__dict__)
 # print(DBManager().join_filter(Order, (Receipt,)))
-print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
-    orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
+# print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
+#     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))

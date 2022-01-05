@@ -13,11 +13,15 @@ def index():
 def menu():
     data = Category.category_item()
     empty_tables = CafeTable.empty_table()
+    receipt_id = request.cookies.get('receipt_id', None)
     table_id = None
-    user_table_id = request.cookies.get('table_id', None)
-    if user_table_id:
-        table_id = table_id
+    if receipt_id:
+        table_id = db.query(f"""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
+                                            orders.table_id = cafe_table.id INNER JOIN receipt ON
+                                            orders.receipt_id = receipt.id WHERE receipt_id = {receipt_id};""", fetch="one")["id"]
         empty_tables = None
+        print("no empty_table")
+    print(empty_tables)
     return render_template("menu.html", data=data, tables=empty_tables, table_id=table_id)
 
 
@@ -32,7 +36,6 @@ def panel():
 def order(table_id):
     if request.method == 'GET':
         res = request.cookies
-        # print(res)
         order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
 
         # order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
@@ -41,17 +44,21 @@ def order(table_id):
                 'order': order_list}
         return render_template('order.html', data=data)
     elif request.method == 'POST':
-        # return Response('Your order created!', 201)
         receipt_id = request.cookies.get('receipt_id', None)
         order_dict = request.form
-        # item = db.read(MenuItems, int(order_dict.get("item_id")))
         resp = Response("your order is added!")
         if receipt_id:
-            table_id = db.query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
-                                        orders.table_id = cafe_table.id INNER JOIN receipt ON
-                                         orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one")["id"]
-            order1 = Order(item_id=order_dict.get('item_id'), table_id=table_id,
-                           status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt_id)
+            # table_id = db.query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
+            #                             orders.table_id = cafe_table.id INNER JOIN receipt ON
+            #                              orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one")["id"]
+            item_id = order_dict.get('item_id')
+            number_item = order_dict.get('number_item')
+            order1 = Order(item_id=item_id, table_id=table_id,
+                           status_id=0, number_item=number_item, receipt_id=receipt_id)
+            receipt = db.read(Receipt, int(receipt_id))
+            receipt: Receipt
+            receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
+            db.update(receipt)
             db.create(order1)
         else:
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
