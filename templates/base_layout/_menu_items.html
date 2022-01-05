@@ -69,10 +69,11 @@
             <div class="modal-body">
                 <form action="http://127.0.0.1:5000/order/1" method="POST" id="idForm">
                     <div class="dropdown">
-                        <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
-                            Select Your Table
-                        </button>
                         {% if tables %}
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
+                                Select Your Table
+                            </button>
+
                             <ul class="dropdown-menu">
                                 {% for i in tables %}
                                     <li><a class="dropdown-item" href="#" onclick="tableIdSet(this.id)"
@@ -115,10 +116,13 @@
         $(`#item_id`).val(elem[0])
         $(`#item_type`).val(elem)
     }
-
+    {% if table_id %}
+        $(`#table_id`).val({{ table_id }})
+    {% endif %}
     function tableIdSet(TableIdValue) {
         let elem = $(`#${TableIdValue}`).attr('id')
         $(`#table_id`).val(elem)
+
     }
 
     {##}
