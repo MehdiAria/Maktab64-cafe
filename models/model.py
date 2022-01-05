@@ -6,13 +6,14 @@ class Cashier(DBModel):
     TABLE = "cashier"
     aliases = {"_id": "id"}
 
-    def __init__(self, name, last_name, email, phone, password, _id=None) -> None:
+    def __init__(self, name, last_name, email, phone, password, token, _id=None) -> None:
         self.alias_for("_id", "id")
         self.name = name
         self.last_name = last_name
         self.email = email
         self.phone = phone
         self.password = password
+        self.token = token
         if _id:
             self._id = _id
 
