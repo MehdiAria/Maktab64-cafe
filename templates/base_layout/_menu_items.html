@@ -158,6 +158,14 @@
                 msg.appendTo(parrent)
                 {#alert(response); // show response from the php script.#}
                 {#alert(data); // show response from the php script.#}
+            },
+            error: function (response) {
+                let parrent = $("#msg")
+                let msg = $(` <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Error while adding order!</strong>
+                    </div>`)
+                msg.appendTo(parrent)
             }
         })
     }
