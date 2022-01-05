@@ -1,7 +1,7 @@
 from flask import render_template, request, escape, redirect, url_for
 from core.db_manager import DBManager
 from models.model import Cashier
-from utils import get_user_by_cookie
+from views.utils import get_user_by_cookie
 import uuid, os
 
 db = DBManager()
