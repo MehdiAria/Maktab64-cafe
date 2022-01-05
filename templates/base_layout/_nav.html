@@ -1,15 +1,42 @@
-<div class="onav" style="position: sticky;top: 0;z-index: 10;">
-    <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4" style="display: flex!important;flex-direction: row!important;justify-content: space-around!important;">
-            <a href="{{ url_for('home') }}"><h5 class="text-white">Home</h5></a>
-            <a href="{{ url_for('about') }}"><h5 class="text-white">About</h5></a>
-            <a href="{{ url_for('menu') }}"><h5 class="text-white">Menu</h5></a>
-        </div>
+{#<div class="sticky-top" style="position: sticky;top: 0;z-index: 10;">#}
+{#    <div class="collapse" id="navbarToggleExternalContent">#}
+{#        <div class="bg-dark p-4" style="display: flex!important;flex-direction: row!important;justify-content: space-around!important;">#}
+{#            <a href="{{ url_for('home') }}"><h5 class="text-white">Home</h5></a>#}
+{#            <a href="{{ url_for('about') }}"><h5 class="text-white">About</h5></a>#}
+{#            <a href="{{ url_for('menu') }}"><h5 class="text-white">Menu</h5></a>#}
+{#            <a href="{{ url_for('panel') }}"><h5 class="text-white">Cashier Panel</h5></a>#}
+{#        </div>#}
+{#    </div>#}
+{#    <nav class="navbar navbar-dark bg-dark" style="background-color: rgb(49,49,49)!important">#}
+{#        <button style="position: sticky" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"#}
+{#                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+{#    </nav>#}
+{#</div>#}
+
+<nav class="sticky-top navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Logo here</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link m-3" href="{{ url_for('home') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('about') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('menu') }}">Menu</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('panel') }}">Cashier Panel</a>
+        </li>
+      </ul>
     </div>
-    <nav class="navbar navbar-dark bg-dark" style="background-color: rgb(49,49,49)!important">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
-</div>
+  </div>
+</nav>
+
