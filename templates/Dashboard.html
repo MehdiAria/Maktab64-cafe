@@ -11,7 +11,41 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
 
-        $()
+        $(document).ready(function (){
+            $(".orders").click(function (){
+                $(".right-ajax").load("orders.html");
+            })
+
+        });
+
+        $(document).ready(function (){
+            $(".tables").click(function (){
+                $(".right-ajax").load("tables.html");
+            })
+
+        });
+
+        $(document).ready(function (){
+            $(".served-orders").click(function (){
+                $(".right-ajax").load("served_orders.html");
+            })
+
+        });
+
+        $(document).ready(function (){
+            $(".edit-items").click(function (){
+                $(".right-ajax").load("edit_items.html");
+            })
+
+        });
+
+        $(document).ready(function (){
+            $(".receipts").click(function (){
+                $(".right-ajax").load("receipts.html");
+            })
+
+        });
+
     </script>
     <style>
 
@@ -20,6 +54,7 @@
    body{
        margin: 0;
        font-family: sans-serif;
+       background-color: rgb(49, 49, 49);
    }
 
    .right-dash{
@@ -37,7 +72,7 @@
        align-items: center;
 
        width: 85%;
-       background-color: rgba(40,6,6,0.84);
+       background-color: rgba(40, 6, 6, 0.99);
 
    }
    .css-nav{
@@ -48,7 +83,7 @@
        margin-top: 5px;
    }
    .login{
-       background-color: rgba(40,6,6,0.84);
+       background-color: rgba(40, 6, 6, 0.99);
        display: flex;
        justify-content: center;
 
@@ -56,12 +91,21 @@
 
    .user-logo{font-size: 27px;
        position: relative;
+       color: rgba(241, 241, 241, 0.32);
 
    }
    .right-ajax{
        background-color: burlywood;
        width: 74%;
    }
+
+   .logo{
+       display: flex;
+   }
+   .h6-nav{
+       color:rgba(241, 241, 241, 0.32);
+   }
+
 
 
    @media only screen and (max-width: 470px)  {
@@ -77,15 +121,20 @@
          .h6-nav{display: none}
      }
 
+   @media only screen and (max-width: 800px)  {
+       .right-ajax{
+           width: 70%;
+       }
+   }
 
   </style>
 </head>
 <body>
 <header>
-    <div class=" css-nav nav navbar">
+    <div class="css-nav nav navbar">
         <div class="container-fluid ">
             <div class="row col-2 login rounded p-1">
-                <i class="fa fa-user-circle-o user-logo text-center" aria-hidden="true"></i> <br>
+                <i class="fa fa-user-circle-o user-logo text-center" aria-hidden="true"></i>
                 <h6 class="text-center h6-nav">logged in</h6>
             </div>
         </div>
@@ -94,22 +143,23 @@
 <div class="container-fluid css-con">
     <div class="row">
         <div class="col-3 right-dash rounded-3">
-            <h2 class="p-3 text-center">LOGO</h2>
+            <h3 class="p-3 text-center logo">LOGO</h3>
             <button class="m-2 p-2 dash-options dashboard btn btn-secondary" href="#"><i class="icons fa fa-home" aria-hidden="true"></i><p class="p-tags-in-dash">Dashboard</p></button>
             <button class="m-2 p-2 dash-options tables btn btn-secondary" href="#"><i class="icons fa fa-table" aria-hidden="true"></i><p class="p-tags-in-dash">Tables</p></button>
             <button class="m-2 p-2 dash-options orders btn btn-secondary" href="#"><i class="fa fa-coffee" aria-hidden="true"></i><p class="p-tags-in-dash">Orders</p></button>
             <button class="m-2 p-2 dash-options served-orders btn btn-secondary" href="#"><i class="icons fa fa-check-square-o" aria-hidden="true"></i><p class="p-tags-in-dash">Served orders</p></button>
             <button class="m-2 p-2 dash-options edit-items  btn btn-secondary" href="#"><i class="icons fa fa-pencil-square-o" aria-hidden="true"></i><p class="p-tags-in-dash">Edit Items</p></button>
+            <button class="m-2 p-2 dash-options receipts  btn btn-secondary" href="#"> <i class="fa fa-credit-card-alt"></i><p class="p-tags-in-dash">Receipts</p></button>
 
         </div>
 
         <div class=" col-9 right-ajax rounded ms-2" id="ajax">
             wevevec
         </div>
-
-
     </div>
 </div>
+
+
 
 
 </body>
