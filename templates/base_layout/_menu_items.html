@@ -56,7 +56,6 @@
 
 
 <div class="modal" id="myModal">
-<h1>{{ tables }}</h1>
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -73,12 +72,14 @@
                         <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
                             Select Your Table
                         </button>
-                        <ul class="dropdown-menu">
-                            {% for i in tables %}
-                                <li><a class="dropdown-item" href="#" onclick="tableIdSet(this.id)"
-                                       id={{ i.id }}>Table {{ i.id }} Space: {{ i.space }}</a></li>
-                            {% endfor %}
-                        </ul>
+                        {% if tables %}
+                            <ul class="dropdown-menu">
+                                {% for i in tables %}
+                                    <li><a class="dropdown-item" href="#" onclick="tableIdSet(this.id)"
+                                           id={{ i.id }}>Table {{ i.id }} Space: {{ i.space }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
                     <lable>Count:</lable>
                     <input type="number" class="form-control" name="number_id" id="count">
