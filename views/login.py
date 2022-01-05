@@ -54,4 +54,13 @@ def login():
         # login user
         name = escape(request.form.get('name'))
         password = escape(request.form.get('password'))
+        cashiers = db.read_all(Cashier)
+
+        # check exists cashier !!!
+        for cashier in cashiers:
+            if cashier.name == name and cashier.password == password:
+                # loggin success !
+                token = uuid.UUID(bytes=os.urandom(16), version=4)
+                cashier.token = token
+                db.update(cashier)
 
