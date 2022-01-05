@@ -121,28 +121,43 @@ class Category(DBModel):
 
 class Order(DBModel):
     TABLE = "orders"
+    id: int
+    item_id: int
+    number_item: int
+    receipt_id: int
+    status_id: int
+    table_id: int
+    time_stamp: datetime
 
-    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=0):
+    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, time_stamp=None, id=None):
         self.item_id = item_id
         self.number_item = number_item
         self.receipt_id = receipt_id
         self.status_id = status_id
         self.table_id = table_id
         self.time_stamp = datetime.now()
-        self.id = id
+        if id:
+            self.id = id
 
 
 class Receipt(DBModel):
     TABLE = "receipt"
     aliases = {"_id": "id"}
+    total_price: str
+    final_price: str
+    _id: None
+    time_stamp: datetime
 
     def __init__(self, total_price, final_price, _id=None) -> None:
         self.total_price = total_price
         self.final_price = final_price
         self.time_stamp = datetime.now()
-        if _id: self.id = _id
+        if _id:
+            self._id = _id
 
-# cat = Category("cake")
+    # cat = Category("cake")
+
+
 # db1 = DBManager().create(cat)
 # time_t = datetime.now() + timedelta(minutes=10)
 # item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
@@ -170,3 +185,10 @@ class Receipt(DBModel):
 #     fetch="all")
 # for item in items_category_dict:
 #     print(dict(item))
+# import inspect
+#
+# attributes = inspect.getmembers(Order)
+# b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
+# print(vars(Receipt)['__annotations__'])
+# print(Order.__class__.__dict__)
+print(DBManager().join_filter(Order, (Receipt,)))

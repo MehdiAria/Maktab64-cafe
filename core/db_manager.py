@@ -26,6 +26,14 @@ class DBModel(ABC):  # abstract base Database model
                 base_dict[self.aliases[i]] = value
         return base_dict
 
+    @classmethod
+    def class_aliases(cls):
+        base_dict = vars(cls).get('__annotations__', None)
+        aliases = cls.aliases
+        alias_list = list(
+            map(lambda x: f"{cls.TABLE}.{x}" if x not in aliases.keys() else f"{cls.TABLE}.{aliases[x]}", base_dict))
+        return alias_list
+
 
 class DBManager:
     DEFAULT_HOST = "194.39.205.167"
@@ -136,7 +144,33 @@ class DBManager:
             res.append(model_class(**dict(i)))
         return res
 
+    def read_filter_nowhere(self, model_class: type, condition):
+        assert issubclass(model_class, DBModel)
+        model_dict = self.query(f"{condition}", fetch='all')
+        res = []
+        for i in model_dict:
+            res.append(model_class(**dict(i)))
+        return res
 
+    def to_model_class(self, model_class, models_dict: list):
+        res = []
+        for i in models_dict:
+            reverse_alias = {value: key for key, value in model_class.aliases.items()}
+            i = alias_for_model(i, reverse_alias)
+            res.append(model_class(**dict(i)))
+        return res
 
+    def join_filter(self, model_class: type, *args):
+        assert issubclass(model_class, DBModel)
+        aliases = ", ".join(model_class.class_aliases())
+        join_query = f"SELECT {aliases} FROM {model_class.TABLE}"
+        where_condition = ' WHERE '
+        for i in args:
+            i[0]: DBModel
+            join_query += f" INNER JOIN {i[0].TABLE} ON {i[0].TABLE}.id = {model_class.TABLE}.{i[0].TABLE}_id"
+            if len(i) == 2:
+                where_condition += f"{i[0].TABLE}.{i[1]} AND "
+            join_query += where_condition[:-5] if not where_condition == ' WHERE 'else ""
+        print(join_query)
+        return self.to_model_class(model_class, self.query(join_query + ";", fetch="all"))
 
-db1 = DBManager()

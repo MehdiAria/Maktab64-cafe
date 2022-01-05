@@ -134,7 +134,7 @@
         let i_id = item_id.val()
         $.ajax({
             type: "POST",
-            url: 'http://127.0.0.1:5000/order/1',
+            url: `http://127.0.0.1:5000/order/${t_id}`,
             data: {
                 'number_item': count,
                 'table_id': t_id,
@@ -165,17 +165,16 @@
     {#        }})#}
 
 
-    function order() {
-        let form = $('#idForm')
-        $.ajax({
-            type: "POST",
-            url: "http://127.0.0.1:5000/order/1",
-            data: form.serialize(),
-            success: function (response) {
-                alert(response); // show response from the php script.
-            }
-        })
-    }
+    {#function order() {#}
+    {#    let form = $('#idForm')#}
+    {#    $.ajax({#}
+    {#        type: "POST",#}
+    {#        url: "http://127.0.0.1:5000/order/1",#}
+    {#        data: form.serialize(),#}
+    {#        success: function (response) {#}
+    {#            alert(response); // show response from the php script.#}
+    {#        }#}
+    {#    })#}
 
 
     {#function order() {#}
