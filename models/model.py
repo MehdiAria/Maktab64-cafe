@@ -152,10 +152,10 @@ class Receipt(DBModel):
     _id: None
     time_stamp: datetime
 
-    def __init__(self, total_price, final_price, _id=None) -> None:
+    def __init__(self, total_price, final_price, time_stamp=None, _id=None) -> None:
         self.total_price = total_price
         self.final_price = final_price
-        self.time_stamp = datetime.now()
+        self.time_stamp = time_stamp if time_stamp else datetime.now()
         if _id:
             self._id = _id
 
