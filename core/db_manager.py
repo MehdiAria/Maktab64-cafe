@@ -91,7 +91,7 @@ class DBManager:
         with self.conn:
             curs = self.__get_cursor()
             with curs:
-                model_vars = vars(model_instance)
+                model_vars = model_instance.with_alias_dict()
                 model_pk_value = getattr(model_instance, model_instance.PK)  # value of pk (for ex. 'id' in patient)
                 model_set_values = [f"{field} = %s" for field in model_vars]  # -> ['first_name=%s', 'last_name'=%s,...]
                 model_values_tuple = tuple(model_vars.values())
