@@ -49,7 +49,7 @@ def order(table_id):
         if receipt_id:
             table_id = db.query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
                                         orders.table_id = cafe_table.id INNER JOIN receipt ON
-                                         orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one")
+                                         orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one")["id"]
             order1 = Order(item_id=order_dict.get('item_id'), table_id=table_id,
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt_id)
             db.create(order1)
