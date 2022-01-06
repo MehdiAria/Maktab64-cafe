@@ -68,7 +68,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form action="http://127.0.0.1:5000/order/1" method="POST" id="idForm" class="was-validated">
-                    <div class="dropdown">
+                    <div class="dropdown" id="available-tables">
                         {% if tables %}
                             <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
                                 Select Your Table
@@ -124,8 +124,13 @@
         $(`#count`).val(1)
 
     }
+
+    function DisableTableSet(value) {
+        $(`#table_id`).val(value)
+        $(`#available-tables`).empty()
+    }
     {% if table_id %}
-        $(`#table_id`).val({{ table_id }})
+        DisableTableSet({{ table_id }})
     {% endif %}
     function tableIdSet(TableIdValue) {
         let elem = $(`#${TableIdValue}`).attr('id')
@@ -150,9 +155,9 @@
         let i_id = item_id.val()
         {#console.log(table_id)#}
         {#console.log(t_id)#}
-{#        {% set x = '99' %}#}
-{#        console.log({{ url_for('order') }})#}
-{#        console.log(typeof t_id)#}
+        {#        {% set x = '99' %}#}
+        {#        console.log({{ url_for('order') }})#}
+        {#        console.log(typeof t_id)#}
         $.ajax({
             type: "POST",
             url: `http://127.0.0.1:5000/order/${t_id}`,
@@ -170,6 +175,7 @@
                         <strong>Success!</strong> ${response}
                     </div>`)
                 msg.appendTo(parrent)
+                DisableTableSet(t_id)
                 {#alert(response); // show response from the php script.#}
                 {#alert(data); // show response from the php script.#}
             },
