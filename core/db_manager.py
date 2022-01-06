@@ -146,7 +146,7 @@ class DBManager:
             res.append(model_class(**dict(i)))
         return res
 
-    def read_filter_nowhere(self, model_class: type, condition):
+    def all_query(self, model_class: type, condition):
         assert issubclass(model_class, DBModel)
         model_dict = self.query(f"{condition}", fetch='all')
         res = []
@@ -174,7 +174,5 @@ class DBManager:
             join_query += f" INNER JOIN {i[0].TABLE} ON {i[0].TABLE}.id = {model_class.TABLE}.{i[0].TABLE}_id"
             if len(i) == 2:
                 where_condition += f"{i[0].TABLE}.{i[1]} AND "
-            join_query += where_condition[:-5] if not where_condition == ' WHERE 'else ""
-        print(join_query)
+            join_query += where_condition[:-5] if not where_condition == ' WHERE ' else ""
         return self.to_model_class(model_class, self.query(join_query + ";", fetch="all"))
-
