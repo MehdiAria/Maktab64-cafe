@@ -28,6 +28,8 @@ def login():
 
 
 def panel():
+    # if request.cookies.get()
+
     # return render_template('panel.html')
     return 'You are Logged'
 

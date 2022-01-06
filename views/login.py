@@ -40,7 +40,6 @@ db = DBManager()
 #     return "Forbidden Request 403", 403
 
 def login():
-
     # cashiers = db.read_all(Cashier)
     # data = {}
     # data['title'] = "Login Page"
@@ -51,37 +50,41 @@ def login():
         cashier = get_cashier_by_cookie(request)
         if cashier:
             return render_template('panel.html', cashier=cashier)
-
-        # return render_template("login.html")
+        error = ''
+        return render_template("login.html", error=error)
 
     elif request.method == "POST":
         # login user
         username = escape(request.form.get('username'))
-        print(username)
-        print(type(username))
+
         password = escape(request.form.get('password'))
-        print(password)
-        print(type(password))
         # query = f"""SELECT * FROM cashier WHERE name = \'{str(username)}\' AND password = \'{str(password)}\';"""
         # cashier = db.query(query, 'all')
-        res = db.read_filter(Cashier, f'name=\'{username}\' and password=\'{password}\'')
-        cashier = res[0]
+        res_name = db.read_filter(Cashier, f'name=\'{username}\'')
+        res_pass = db.read_filter(Cashier, f'name = \'{str(username)}\' AND password = \'{str(password)}\';')
+        try:
+            cashier = res_pass[0]
 
-        # check exists cashier !!!
-        if cashier.name == username and cashier.password == password:
-            # loggin success !
-            token = uuid.UUID(bytes=os.urandom(16), version=4)
-            print(type(token))
-            cashier.token = token
-            db.update(cashier)
-            # set cookies
-            resp = make_response(redirect(url_for('panel')))
-            resp.set_cookie('cashier_logged_in_id', str(cashier.id))
-            resp.set_cookie('cashier_logged_in_token', str(token))
-            return resp
+            # check exists cashier !!!
+            if cashier.name == username and cashier.password == password:
+                # loggin success !
+                token = uuid.UUID(bytes=os.urandom(16), version=4)
 
+                cashier.token = str(token)
+                db.update(cashier)
+                # set cookies
+                resp = make_response(redirect(url_for('panel')))
+                resp.set_cookie('cashier_logged_in_id', str(cashier.id))
+                resp.set_cookie('cashier_logged_in_token', str(token))
+                return resp
+        except IndexError:
+            massage = 'Incorrect username!'
+            if res_name:
+                massage = 'Incorrect password!'
+            error = {
+                'error': massage,
+            }
+            return render_template('login.html', error=error)
         return "Server Error!", 500
 
     return "Forbidden Request 403", 403
-
-
