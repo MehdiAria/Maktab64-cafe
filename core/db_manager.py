@@ -141,6 +141,8 @@ class DBManager:
         model_dict = self.query(f"SELECT * FROM {model_class.TABLE} WHERE {condition}", fetch='all')
         res = []
         for i in model_dict:
+            reverse_alias = {value: key for key, value in model_class.aliases.items()}
+            i = alias_for_model(i, reverse_alias)
             res.append(model_class(**dict(i)))
         return res
 
