@@ -28,7 +28,8 @@ def login():
 
 
 def panel():
-    return render_template('panel.html')
+    # return render_template('panel.html')
+    return 'You are Logged'
 
 
 def order(table_id):
