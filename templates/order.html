@@ -15,7 +15,7 @@
                 <th>Count</th>
                 <th>Table no.</th>
                 <th>Price</th>
-                <th>Discount</th>
+                <th>Discount %</th>
                 <th>Delete</th>
             </tr>
             </thead>
@@ -24,7 +24,7 @@
                     <td>{{ data.item[i].name }}</td>
                     <td>{{ i.number_item }}</td>
                     <td>{{ i.table_id }}</td>
-                    <td>{% set total = data.item[i].price %}{{ data.item[i].price }}</td>
+                    <td>{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
                     <td>{% if data.item[i].discount==none %}
                         No discount
                     {% else %}
@@ -32,10 +32,11 @@
                     {% endif %}
                     </td>
                     <td><input type="button" class="btn btn-danger" value="Delete Order"></td>
+                    <td><input type="button" class="btn btn-danger" value="Delete Order"></td>
                 </tr>
             {% endfor %}
         <tr>
-            <th colspan='5'>Total price without discount: {{ data.price.total_price }}</th>
+            <th colspan='5'>Total price without discount: {{ data.price.total_price }}$</th>
         </tr>
         </table>
         <h1></h1>
