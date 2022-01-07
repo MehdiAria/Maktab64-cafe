@@ -38,6 +38,13 @@ class CafeTable(DBModel):
 class MenuItems(DBModel):
     TABLE = 'menu_items'
     aliases = {"_id": "id"}
+    _id: int
+    category_id: int
+    name: str
+    discount: int or float
+    price: int or float
+    image_url: str
+    serving_time: str
 
     def __init__(self, category_id, discount, name, price, image_url, serving_time, _id=None) -> None:
         self.category_id = category_id
@@ -198,4 +205,5 @@ class Receipt(DBModel):
 # print(Order.__class__.__dict__)
 # print(DBManager().join_filter(Order, (Receipt,)))
 # print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
+# print(*MenuItems.class_aliases())
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
