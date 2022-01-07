@@ -1,8 +1,36 @@
 {% extends "base_layout/_base.html" %}
+<style>
+
+</style>
 
 {% block body %}
-    <h1>receipt ID: {{ data.receipt }}</h1>
-    {% for i in data.order %}
-        <h2>Count: {{ i.number_item }} Table ID: {{ i.table_id }} Item ID: {{ i.item_id }}</h2>
-    {% endfor %}
+    <div class="container">
+
+        <h3 class="text-center" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
+            table: {{ data.order[0].table_id }}</h3>
+        <table class="table table-hover col6" style="color: antiquewhite">
+            <thead>
+            <tr id="tr">
+                <th>Count</th>
+                <th>Table</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            {% for i in data.order %}
+                <tr onmouseover="">
+                    <td>Product Name: {{ data.item[i.item_id].name }}</td>
+                    <td>Count: {{ i.number_item }}</td>
+                    <td>Table ID: {{ i.table_id }}</td>
+                    <td>Price: {{ i.item_id }}</td>
+                    <td><input type="button" class="btn btn-danger" value="Delete Order"></td>
+                </tr>
+            {% endfor %}
+        </table>
+<h1></h1>
+
+    </div>
+
+
 {% endblock %}

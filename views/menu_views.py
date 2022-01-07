@@ -38,11 +38,12 @@ def order(table_id):
     if request.method == 'GET':
         res = request.cookies
         order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
+        item_list = db.all_query(MenuItems,f"SELECT * FROM menu_items;")
 
         # order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
 
         data = {'receipt': res.get('receipt_id'),
-                'order': order_list}
+                'order': order_list,'item':item_list}
         return render_template('order.html', data=data)
     elif request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
