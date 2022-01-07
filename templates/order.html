@@ -6,29 +6,39 @@
 {% block body %}
     <div class="container">
 
-        <h3 class="text-center" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
+        <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
             table: {{ data.order[0].table_id }}</h3>
         <table class="table table-hover col6" style="color: antiquewhite">
             <thead>
             <tr id="tr">
+                <th>Product</th>
                 <th>Count</th>
-                <th>Table</th>
-                <th>ID</th>
-                <th>Name</th>
+                <th>Table no.</th>
+                <th>Price</th>
+                <th>Discount</th>
                 <th>Delete</th>
             </tr>
             </thead>
             {% for i in data.order %}
-                <tr onmouseover="">
-                    <td>Product Name: {{ data.item[i.item_id].name }}</td>
-                    <td>Count: {{ i.number_item }}</td>
-                    <td>Table ID: {{ i.table_id }}</td>
-                    <td>Price: {{ i.item_id }}</td>
+                <tr>
+                    <td>{{ data.item[i.item_id].name }}</td>
+                    <td>{{ i.number_item }}</td>
+                    <td>{{ i.table_id }}</td>
+                    <td>{% set total = data.item[i.item_id].price %}{{ data.item[i.item_id].price }}</td>
+                    <td>{% if data.item[i.item_id].discount==none %}
+                        No discount
+                    {% else %}
+                        {{ data.item[i.item_id].discount }}
+                    {% endif %}
+                    </td>
                     <td><input type="button" class="btn btn-danger" value="Delete Order"></td>
                 </tr>
             {% endfor %}
+        <tr>
+            <th colspan='5'>Total price without discount: {{ data.price.total_price }}</th>
+        </tr>
         </table>
-<h1></h1>
+        <h1></h1>
 
     </div>
 
