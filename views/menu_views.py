@@ -18,7 +18,8 @@ def menu():
     if receipt_id:
         table_id = db.query(f"""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
                                             orders.table_id = cafe_table.id INNER JOIN receipt ON
-                                            orders.receipt_id = receipt.id WHERE receipt_id = {receipt_id};""", fetch="one")["id"]
+                                            orders.receipt_id = receipt.id WHERE receipt_id = {receipt_id};""",
+                            fetch="one")["id"]
         empty_tables = None
     return render_template("menu.html", data=data, tables=empty_tables, table_id=table_id)
 
@@ -38,12 +39,14 @@ def order(table_id):
     if request.method == 'GET':
         res = request.cookies
         order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
-        item_list = db.all_query(MenuItems,f"SELECT * FROM menu_items;")
+        item_list = db.all_query(MenuItems, f"SELECT * FROM menu_items;")
+        price_list = db.all_query(Receipt,
+                                  f"SELECT * FROM receipt where id={res.get('receipt_id', None)};")
 
         # order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
 
         data = {'receipt': res.get('receipt_id'),
-                'order': order_list,'item':item_list}
+                'order': order_list, 'item': item_list, 'price': price_list[0]}
         return render_template('order.html', data=data)
     elif request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
