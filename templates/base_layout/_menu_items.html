@@ -83,7 +83,7 @@
                         {% endif %}
                     </div>
                     <lable class="form-label">Count:</lable>
-                    <input type="number" class="form-control" name="number_id" id="count" required>
+                    <input type="number" class="form-control" name="number_id" id="count" required  oninput="absNumber(this.value)">
                     <div class="invalid-feedback">
                         please fill Count!
                     </div>
@@ -135,6 +135,15 @@
     function tableIdSet(TableIdValue) {
         let elem = $(`#${TableIdValue}`).attr('id')
         $(`#table_id`).val(elem)
+
+    }
+    function absNumber(number) {
+        if (number === 0){
+            $("#count").val(1)
+        }
+        if (number < 0){
+            $("#count").val(number * -1)
+        }
 
     }
 
