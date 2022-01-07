@@ -39,14 +39,17 @@ def order(table_id):
     if request.method == 'GET':
         res = request.cookies
         order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
-        item_list = db.all_query(MenuItems, f"SELECT * FROM menu_items;")
+        order_item = dict()
+        for i in order_list:
+            i: Order
+            order_item[i] = db.read(MenuItems, i.item_id)
+        # item_list = db.all_query(MenuItems,
+        #                          f"SELECT menu_items.id,menu_items.category_id,discount,menu_items.name,price,image_url,serving_time FROM menu_items INNER JOIN orders on orders.item_id=menu_items.id;")
         price_list = db.all_query(Receipt,
                                   f"SELECT * FROM receipt where id={res.get('receipt_id', None)};")
 
-        # order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
-
         data = {'receipt': res.get('receipt_id'),
-                'order': order_list, 'item': item_list, 'price': price_list[0]}
+                'order': order_list, 'item': order_item, 'price': price_list[0]}
         return render_template('order.html', data=data)
     elif request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)

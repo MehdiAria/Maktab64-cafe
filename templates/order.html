@@ -19,16 +19,16 @@
                 <th>Delete</th>
             </tr>
             </thead>
-            {% for i in data.order %}
+            {% for i in data.item %}
                 <tr>
-                    <td>{{ data.item[i.item_id].name }}</td>
+                    <td>{{ data.item[i].name }}</td>
                     <td>{{ i.number_item }}</td>
                     <td>{{ i.table_id }}</td>
-                    <td>{% set total = data.item[i.item_id].price %}{{ data.item[i.item_id].price }}</td>
-                    <td>{% if data.item[i.item_id].discount==none %}
+                    <td>{% set total = data.item[i].price %}{{ data.item[i].price }}</td>
+                    <td>{% if data.item[i].discount==none %}
                         No discount
                     {% else %}
-                        {{ data.item[i.item_id].discount }}
+                        {{ data.item[i].discount }}
                     {% endif %}
                     </td>
                     <td><input type="button" class="btn btn-danger" value="Delete Order"></td>
