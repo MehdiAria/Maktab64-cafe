@@ -85,6 +85,8 @@ def login():
                 'error': massage,
             }
             return render_template('login.html', error=error)
+        # flash ...
+        # redirect (url_for('login'))
         return "Server Error!", 500
 
     return "Forbidden Request 403", 403

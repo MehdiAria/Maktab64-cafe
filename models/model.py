@@ -180,16 +180,17 @@ class Receipt(DBModel):
     final_price: str
     _id: None
     time_stamp: datetime
+    user_token: str
 
-    def __init__(self, total_price, final_price, time_stamp=None, _id=None) -> None:
+    def __init__(self, total_price, final_price, user_token=None, time_stamp=None, _id=None) -> None:
         self.total_price = total_price
         self.final_price = final_price
+        self.user_token = user_token
         self.time_stamp = time_stamp if time_stamp else datetime.now()
         if _id:
             self._id = _id
 
     # cat = Category("cake")
-
 
 # db1 = DBManager().create(cat)
 # time_t = datetime.now() + timedelta(minutes=10)

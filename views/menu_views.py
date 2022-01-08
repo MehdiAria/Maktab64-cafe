@@ -2,6 +2,7 @@ from flask import render_template, request, Response
 from core.db_manager import DBManager
 from models.model import *
 from datetime import datetime, timedelta
+import uuid, os
 
 db = DBManager()
 
@@ -56,9 +57,10 @@ def order(table_id):
         return render_template('order.html', data=data)
     elif request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
+        user_token = request.cookies.get("user_token", None)
         order_dict = request.form
         resp = Response("your order is added!", status=201)
-        if receipt_id:
+        if receipt_id and user_token:
             # table_id = db.query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
             #                             orders.table_id = cafe_table.id INNER JOIN receipt ON
             #                              orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one")["id"]
@@ -72,7 +74,7 @@ def order(table_id):
             db.update(receipt)
             db.create(table_order)
         else:
-            assert table and table.is_empty
+            assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             receipt = Receipt(total_price=price, final_price=0)
             db.create(receipt)
@@ -81,5 +83,6 @@ def order(table_id):
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(table_order)
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
+            resp.set_cookie("user_token", str(uuid.UUID(bytes=os.urandom(16), version=4)))
             return resp
         return 'server error', 403
