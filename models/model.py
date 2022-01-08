@@ -1,5 +1,6 @@
 from core.db_manager import DBModel, DBManager
 from datetime import datetime, timedelta
+from models.exceptions import *
 
 
 class Cashier(DBModel):
@@ -21,8 +22,8 @@ class Cashier(DBModel):
 class CafeTable(DBModel):
     TABLE = "cafe_table"
     is_empty: bool
-    space : int
-    id : int
+    space: int
+    id: int
 
     def __init__(self, is_empty, space, id=None) -> None:
         self.is_empty = is_empty
@@ -151,6 +152,21 @@ class Order(DBModel):
         if id:
             self.id = id
 
+    def number_check(self, **kwargs):
+        for number in kwargs:
+            try:
+                float(kwargs[number])
+            except ValueError:
+                raise CreateOrderError() # number
+        return True
+
+    def data_check(self, order_id, item_id, receipt_id, status_id, table_id, time_stamp):
+        if not isinstance(time_stamp, datetime):
+            raise CreateOrderError()
+        self.number_check(order_id=order_id, item_id=item_id, receipt_id=receipt_id,
+                          status_id=status_id, table_id=table_id)
+
+
 
 class Receipt(DBModel):
     TABLE = "receipt"
@@ -205,5 +221,5 @@ class Receipt(DBModel):
 # print(Order.__class__.__dict__)
 # print(DBManager().join_filter(Order, (Receipt,)))
 # print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
-# print(*MenuItems.class_aliases())
+# print(float("AKLS;DJASKDJASLJD"))
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
