@@ -34,12 +34,12 @@ class DBModel(ABC):  # abstract base Database model
             map(lambda x: f"{cls.TABLE}.{x}" if x not in aliases.keys() else f"{cls.TABLE}.{aliases[x]}", base_dict))
         return alias_list
 
-    def data_type_check(self, data: any, data_type: type, error: Exception, **kwargs):
-        if not isinstance(data, data_type):
-            if kwargs:
-                raise error(**kwargs)
-            else:
-                raise error
+    # def data_type_check(self, data: any, data_type: type, error: Exception, **kwargs):
+    #     if not isinstance(data, data_type):
+    #         if kwargs:
+    #             raise error(**kwargs)
+    #         else:
+    #             raise error
 
 
 class DBManager:
