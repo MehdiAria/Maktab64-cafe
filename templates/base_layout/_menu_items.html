@@ -108,7 +108,7 @@
                         <input type="button" class="btn btn-success" value="Add to card" onclick="order()">
                     </div>
                 </form>
-                <div id="msg"></div>
+                <div id="msg" class="flash fade-in"></div>
             </div>
 
 
@@ -189,19 +189,31 @@
                     </div>`)
                 msg.appendTo(parrent)
                 DisableTableSet(t_id)
+                window.setTimeout(function () {
+                    $(".flash").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 3000);
                 {#alert(response); // show response from the php script.#}
                 {#alert(data); // show response from the php script.#}
             },
             error: function (response) {
                 let parrent = $("#msg")
                 let msg = $(` <div class="alert alert-danger alert-dismissible fade show">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Error while adding order!</strong>
-                    </div>`)
+                                <strong>Error while adding order!</strong>
+                              </div>`)
                 msg.appendTo(parrent)
+                {#msg.fadeout("slow")#}
+                window.setTimeout(function () {
+                    $(".flash").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 3000);
             }
         })
     }
+
+    {#<button type="button" class="btn-close" data-bs-dismiss="alert" onclick=$(".alert").fadeOut("slow")></button>#}
 
     {##}
     {#$("#idForm").ajaxForm({url: 'http://127.0.0.1:5000/order/1', type: 'post', success: function (data,response) {#}
