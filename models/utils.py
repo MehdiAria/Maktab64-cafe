@@ -1,7 +1,7 @@
 import os
 
 
-def number_check(error: type, file_path=None, **kwargs, ):
+def number_check(error: type, file_path=None, **kwargs):
     error: callable
     from models.logger_1 import create_logger
     if not file_path:
