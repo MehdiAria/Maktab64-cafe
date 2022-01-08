@@ -82,4 +82,4 @@ def order(table_id):
             db.create(table_order)
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             return resp
-        return 'your order is added!', 201
+        return 'server error', 403
