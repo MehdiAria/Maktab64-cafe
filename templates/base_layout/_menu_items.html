@@ -14,15 +14,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script src="https://malsup.github.io/jquery.form.js"></script>
 
+
+
+
+
 <div class="container-fluid">
-    <div class="row">
+    <div class="card-columns">
         {% for category in data %}
             {% if data[category] is mapping %}
                 <h1 class="bg-secondary p-4">{{ category }}</h1>
                 {% for child_category in data[category] %}
                     <h1 class="bg-info p-3">{{ child_category }}</h1>
                     {% for item in data[category][child_category] %}
-                        <div class="card bg-light col-{{ 12//(data | length) }} m-3">
+                        <div class="card bg-light">
                             <div class="card-body">
                                 <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
                                      style="line-height: 5vh">
@@ -40,7 +44,7 @@
             {% else %}
                 <h1 class="bg-secondary p-4">{{ category }}</h1>
                 {% for item in data[category] %}
-                    <div class="card bg-light col-{{ 12//(data | length) }} m-3">
+                    <div class="card bg-light">
                         <div class="card-body">
                             <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
                                  style="line-height: 5vh">
@@ -82,7 +86,8 @@
                         {% endif %}
                     </div>
                     <lable class="form-label">Count:</lable>
-                    <input type="number" class="form-control" name="number_id" id="count" required  oninput="absNumber(this.value)">
+                    <input type="number" class="form-control" name="number_id" id="count" required
+                           oninput="absNumber(this.value)">
                     <div class="invalid-feedback">
                         please fill Count!
                     </div>
@@ -131,13 +136,13 @@
         $(`#table_id`).val(elem)
 
     }
+
     function absNumber(number) {
 
-        if (number <= 0){
-            if (number < 0){
+        if (number <= 0) {
+            if (number < 0) {
                 $("#count").val(number * -1)
-            }
-            else {
+            } else {
                 $("#count").val(1)
             }
         }

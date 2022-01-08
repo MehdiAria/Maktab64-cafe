@@ -14,26 +14,28 @@
 {#        </button>#}
 {#    </nav>#}
 {#</div>#}
-
+<style>
+    .org{color: chocolate!important;}
+</style>
 <nav class="sticky-top navbar navbar-expand-sm navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand mx-5" href="#">Logo here</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon org"></span>
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
         <li class="nav-item mr-2">
-          <a class="nav-link nav-content" href="{{ url_for('home') }}">Home</a>
+          <a class="nav-link nav-content org" href="{{ url_for('home') }}">Home</a>
         </li>
         <li class="nav-item mr-2">
-          <a class="nav-link nav-content" href="{{ url_for('about') }}">About</a>
+          <a class="nav-link nav-content org" href="{{ url_for('about') }}">About</a>
         </li>
         <li class="nav-item mr-2">
-          <a class="nav-link nav-content" href="{{ url_for('menu') }}">Menu</a>
+          <a class="nav-link nav-content org" href="{{ url_for('menu') }}">Menu</a>
         </li>
           <li class="nav-item mr-2">
-          <a class="nav-link nav-content" href="{{ url_for('panel') }}">Cashier Panel</a>
+          <a class="nav-link nav-content org" href="{{ url_for('panel') }}">Cashier Panel</a>
         </li>
       </ul>
     </div>

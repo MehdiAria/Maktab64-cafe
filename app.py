@@ -16,4 +16,4 @@ app.add_url_rule("/panel", "panel", panel)
 app.add_url_rule("/order/<string:table_id>", "order", order, methods=['GET', 'POST'])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
