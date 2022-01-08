@@ -60,15 +60,15 @@ def order(table_id):
             # table_id = db.query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
             #                             orders.table_id = cafe_table.id INNER JOIN receipt ON
             #                              orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one")["id"]
-            item_id = order_dict.get('item_id')
-            number_item = order_dict.get('number_item')
-            order1 = Order(item_id=item_id, table_id=table_id,
-                           status_id=0, number_item=number_item, receipt_id=receipt_id)
+            item_id = order_dict.get('item_id', None)
+            number_item = order_dict.get('number_item', None)
+            table_order = Order(item_id=item_id, table_id=table_id,
+                                status_id=0, number_item=number_item, receipt_id=receipt_id)
             receipt = db.read(Receipt, int(receipt_id))
             receipt: Receipt
             receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
             db.update(receipt)
-            db.create(order1)
+            db.create(table_order)
         else:
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             receipt = Receipt(total_price=price, final_price=0)
