@@ -40,7 +40,7 @@ class CafeTable(DBModel):
         return DBManager().read_filter(cls, 'is_empty=true')
 
     @classmethod
-    def is_empty(cls, _id):
+    def is_table_empty(cls, _id):
         return True if DBManager().read_filter(cls, f"id = {_id} AND is_empty = true") else False
 
 

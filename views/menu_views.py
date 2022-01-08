@@ -37,6 +37,8 @@ def panel():
 
 
 def order(table_id):
+    table = db.read(CafeTable, int(table_id))
+    table: CafeTable
     if request.method == 'GET':
         res = request.cookies
         order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
@@ -70,6 +72,7 @@ def order(table_id):
             db.update(receipt)
             db.create(table_order)
         else:
+            if table and table.is_empty
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             receipt = Receipt(total_price=price, final_price=0)
             db.create(receipt)
