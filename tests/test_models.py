@@ -1,6 +1,7 @@
 import unittest as ut
 from models.model import *
 from core.db_manager import DBManager
+from models.exceptions import *
 
 
 class TestAlias(ut.TestCase):
@@ -8,7 +9,7 @@ class TestAlias(ut.TestCase):
         from random import randint
         self.db = DBManager()
         cashiers = self.db.read_all(Cashier)
-        self.cashier_id = cashiers[randint(0, len(cashiers)-1)]._id
+        self.cashier_id = cashiers[randint(0, len(cashiers) - 1)]._id
 
     def test_alias_cashier(self):
         pass
@@ -34,3 +35,10 @@ class TestAlias(ut.TestCase):
 
     def test_class_alias(self):
         self.assertIsInstance(Receipt.class_aliases(), list)
+
+
+class TestValidators(ut.TestCase):
+    def test_order_validator(self):
+        """item_id, number_item, receipt_id, status_id, table_id, time_stamp=None, id=None"""
+        self.assertRaises(AddOrderError, Order, "ten", 1, 1, 1, 1, datetime.now(), 1)
+

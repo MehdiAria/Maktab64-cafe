@@ -227,4 +227,3 @@ class Receipt(DBModel):
 # asd = Order(time_stamp=datetime.now(), table_id="23345t", number_item=1, status_id=1, receipt_id=1, item_id=1000)
 # print(asd)
 # print(__name__, __file__)
-# logger.error("fdsssssssssssssssssssss")
