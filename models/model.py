@@ -147,7 +147,7 @@ class Order(DBModel):
         self.receipt_id = receipt_id
         self.status_id = status_id
         self.table_id = table_id
-        self.time_stamp = datetime.now()
+        self.time_stamp = time_stamp if time_stamp else datetime.now()
         if id:
             self.id = id
 
