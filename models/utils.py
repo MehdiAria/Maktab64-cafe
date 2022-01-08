@@ -1,15 +1,9 @@
-# from models.log_1 import logger
-import logging
-logger = logging.getLogger(__name__)
 def number_check(error: type, **kwargs):
-    # error: Exception
     error: callable
-    for number in kwargs:
-        value = kwargs[number]
+    for key in kwargs:
+        number = kwargs[key]
         try:
-            float(value)
+            float(number)
         except ValueError:
-            logger.error("aklsdaskjdakjd")
-            # print('____________________')
-            # raise error(number, value)
+            raise error(field=key, data=number, msg=kwargs.get("msg", ""))
     return True

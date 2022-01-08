@@ -1,13 +1,9 @@
-import logging
 from datetime import datetime
 from core.db_manager import DBModel, DBManager
 from models.exceptions import *
 from models.utils import number_check
-
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s:%(message)s')
-file_name = __file__
-file_name: str
-logger = logging.getLogger("/".join(file_name.split("/")[-3:-1]))
+from models.logger_1 import create_logger
+logger = create_logger(__file__)
 
 
 class Cashier(DBModel):
