@@ -61,18 +61,11 @@ def order(table_id):
         order_dict = request.form
         resp = Response("your order is added!", status=201)
         if receipt_id and user_token:
-            # table_id = db.query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
-            #                             orders.table_id = cafe_table.id INNER JOIN receipt ON
-            #                              orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one")["id"]
             item_id = order_dict.get('item_id', None)
             number_item = order_dict.get('number_item', None)
             table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=0, number_item=number_item, receipt_id=receipt_id)
             db.create(table_order)
-            print(receipt_id)
-            a = db.read_filter(Receipt, f"id = {receipt_id}")
-            print(a[0])
-            print(a[0].user_token)
             receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[0]  # TODO handel erroe in reading receipt
             receipt: Receipt
             receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
@@ -86,23 +79,19 @@ def order(table_id):
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             if user_token:
-                receipt = db.read_filter(Receipt, f"user_token = \'{user_token}\'")[0]# TODO handel error in reading receipt!
-                print(receipt, "no recipt id but token!")
+                receipt = db.read_filter(Receipt, f"user_token = \'{user_token}\'")[0]  # TODO handel error in reading receipt!
             else:
                 receipt = Receipt(total_price=price, final_price=0)
                 db.create(receipt)
                 token = str(uuid.UUID(bytes=os.urandom(16)))
                 receipt.user_token = token
-            # table_id = order_dict.get('table_id')
-            b = receipt._id
             table_order = Order(item_id=order_dict.get('item_id'), table_id=table_id,
                                 status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(table_order)
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             new_token = str(uuid.UUID(bytes=os.urandom(16)))
-            resp.set_cookie("user_token",new_token), # TODO set user_token for anyone
+            resp.set_cookie("user_token", new_token),  # TODO set user_token for anyone
             receipt.user_token = new_token
             db.update(receipt)
-            print(db.read(Receipt, b), "after taghiier")
             return resp
     return 'server error', 403
