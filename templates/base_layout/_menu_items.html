@@ -184,7 +184,6 @@
             success: function (response) {
                 let parrent = $("#msg")
                 let msg = $(` <div class="alert alert-success alert-dismissible fade show">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         <strong>Success!</strong> ${response}
                     </div>`)
                 msg.appendTo(parrent)
@@ -213,6 +212,7 @@
         })
     }
 
+    {#<button type="button" class="btn-close" data-bs-dismiss="alert"></button>#}
     {#<button type="button" class="btn-close" data-bs-dismiss="alert" onclick=$(".alert").fadeOut("slow")></button>#}
 
     {##}
