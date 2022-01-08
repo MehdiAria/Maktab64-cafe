@@ -73,9 +73,9 @@ def order(table_id):
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             receipt = Receipt(total_price=price, final_price=0)
             db.create(receipt)
-            order1 = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
+            table_order = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
-            db.create(order1)
+            db.create(table_order)
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             return resp
-        return 'good', 201
+        return 'your order is added!', 201
