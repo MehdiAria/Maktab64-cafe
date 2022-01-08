@@ -3,7 +3,8 @@ from core.db_manager import DBModel, DBManager
 from models.exceptions import *
 from models.utils import number_check
 from models.logger_1 import create_logger
-logger = create_logger(__file__)
+
+logger = create_logger(__file__, file_skip=0)
 
 
 class Cashier(DBModel):
@@ -160,7 +161,9 @@ class Order(DBModel):
     @staticmethod
     def data_check(order_id, item_id, receipt_id, status_id, table_id, time_stamp, number_item):
         if not isinstance(time_stamp, datetime):
-            raise AddOrderError("time_stamp", time_stamp)
+            error = AddOrderError("time_stamp", time_stamp)
+            logger.error(error)
+            raise error
         number_check(AddOrderError, item_id=item_id, table_id=table_id,
                      receipt_id=receipt_id, status_id=status_id, number_item=number_item,
                      order_id=order_id if order_id else 0)
@@ -221,6 +224,7 @@ class Receipt(DBModel):
 # print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
 # print(float("AKLS;DJASKDJASLJD"))
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
-# Order(1, 1, 1, 1, 1, 1, 1)
+# asd = Order(time_stamp=datetime.now(), table_id="23345t", number_item=1, status_id=1, receipt_id=1, item_id=1000)
+# print(asd)
 # print(__name__, __file__)
-logger.error("fdsssssssssssssssssssss")
+# logger.error("fdsssssssssssssssssssss")

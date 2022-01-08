@@ -10,3 +10,6 @@ class AddOrderError(Exception):
 
     def __str__(self):
         return f"{self.field} can not get {self.data}!{self.msg}"
+
+    def __repr__(self):
+        return self.__str__()
