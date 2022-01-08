@@ -72,11 +72,12 @@ def order(table_id):
             db.update(receipt)
             db.create(table_order)
         else:
-            if table and table.is_empty
+            assert table and table.is_empty
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             receipt = Receipt(total_price=price, final_price=0)
             db.create(receipt)
-            table_order = Order(item_id=order_dict.get('item_id'), table_id=order_dict.get('table_id'),
+            # table_id = order_dict.get('table_id')
+            table_order = Order(item_id=order_dict.get('item_id'), table_id=table_id,
                            status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(table_order)
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))

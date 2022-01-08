@@ -151,14 +151,14 @@ class Order(DBModel):
     time_stamp: datetime
 
     def __init__(self, item_id, number_item, receipt_id, status_id, table_id, time_stamp=None, id=None):
+        self.time_stamp = time_stamp if time_stamp else datetime.now()
+        self.data_check(item_id=item_id, receipt_id=receipt_id, status_id=status_id, time_stamp=self.time_stamp,
+                        table_id=table_id, number_item=number_item, order_id=id)
         self.item_id = item_id
         self.number_item = number_item
         self.receipt_id = receipt_id
         self.status_id = status_id
         self.table_id = table_id
-        self.time_stamp = time_stamp if time_stamp else datetime.now()
-        self.data_check(item_id=item_id, receipt_id=receipt_id, status_id=status_id, time_stamp=time_stamp,
-                        table_id=table_id, number_item=number_item, order_id=id)
         if id:
             self.id = id
 
@@ -228,6 +228,5 @@ class Receipt(DBModel):
 # print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
 # print(float("AKLS;DJASKDJASLJD"))
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
-# asd = Order(time_stamp=datetime.now(), table_id="23345t", number_item=1, status_id=1, receipt_id=1, item_id=1000)
 # print(asd)
 # print(__name__, __file__)
