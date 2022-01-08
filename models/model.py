@@ -1,12 +1,13 @@
 import logging
 from datetime import datetime
-
 from core.db_manager import DBModel, DBManager
 from models.exceptions import *
 from models.utils import number_check
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s:%(message)s')
-logger = logging.getLogger(__name__)
+file_name = __file__
+file_name: str
+logger = logging.getLogger("/".join(file_name.split("/")[-3:-1]))
 
 
 class Cashier(DBModel):
@@ -224,4 +225,6 @@ class Receipt(DBModel):
 # print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
 # print(float("AKLS;DJASKDJASLJD"))
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
-Order(1, 1, 1, 1, 1, 1, 1)
+# Order(1, 1, 1, 1, 1, 1, 1)
+# print(__name__, __file__)
+logger.error("fdsssssssssssssssssssss")

@@ -1,3 +1,6 @@
+# from models.log_1 import logger
+import logging
+logger = logging.getLogger(__name__)
 def number_check(error: type, **kwargs):
     # error: Exception
     error: callable
@@ -6,5 +9,7 @@ def number_check(error: type, **kwargs):
         try:
             float(value)
         except ValueError:
-            raise error(number, value)
+            logger.error("aklsdaskjdakjd")
+            # print('____________________')
+            # raise error(number, value)
     return True
