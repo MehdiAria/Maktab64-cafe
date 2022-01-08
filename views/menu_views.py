@@ -68,7 +68,7 @@ def order(table_id):
             number_item = order_dict.get('number_item', None)
             table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=0, number_item=number_item, receipt_id=receipt_id)
-            receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = {user_token}")  # TODO handel erroe in reading receipt
+            receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[0]  # TODO handel erroe in reading receipt
             receipt: Receipt
             receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
             new_token = str(uuid.UUID(bytes=os.urandom(16)))
@@ -79,7 +79,7 @@ def order(table_id):
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             if user_token:
-                receipt = db.read_filter(Receipt, f"user_token = {user_token}")  # TODO handel error in reading receipt!
+                receipt = db.read_filter(Receipt, f"user_token = \'{user_token}\'")[0]  # TODO handel error in reading receipt!
             else:
                 receipt = Receipt(total_price=price, final_price=0)
                 db.create(receipt)
