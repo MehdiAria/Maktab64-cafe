@@ -151,22 +151,14 @@
 
     }
 
-    {##}
-    {#$("#idForm").ajaxForm({#}
-    {#    url: 'http://127.0.0.1:5000/order/1', type: 'post', success: function (data, response) {#}
-    {#        alert(data); // show response from the php script.#}
-    {#        alert(response); // show response from the php script.#}
-    {#    }#}
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     async function demo(x) {
-        {#console.log('Taking a break...');#}
 
         await sleep(x);
-        {#console.log('finished');#}
 
         $('#msg').empty();
 
@@ -181,11 +173,6 @@
         let t_id = tbl.val()
         let item_id = $(`#item_id`)
         let i_id = item_id.val()
-        {#console.log(table_id)#}
-        {#console.log(t_id)#}
-        {#        {% set x = '99' %}#}
-        {#        console.log({{ url_for('order') }})#}
-        {#        console.log(typeof t_id)#}
         $.ajax({
             type: "POST",
             url: `http://127.0.0.1:5000/order/${t_id}`,
@@ -201,10 +188,10 @@
                 let msg = $(` <div class="alert alert-success alert-dismissible fade show">
                         <strong>Success!</strong> ${response}
                     </div>`)
-                {#$(".flash").fadeTo(500, 0).slideUp(500, function () {#}
+
                 msg.appendTo(parrent)
                 demo(3000)
-                //});
+
 
                 DisableTableSet(t_id)
                 window.setTimeout(function () {
@@ -213,10 +200,9 @@
                     });
                 }, 3000);
                 demo(3000)
-                {#alert(response); // show response from the php script.#}
-                {#alert(data); // show response from the php script.#}
+
             },
-            error: function (response) {
+            error: function () {
                 let parrent = $("#msg")
                 let msg = $(` <div class="alert alert-danger alert-dismissible fade show">
                                 <strong>Error while adding order!</strong>
@@ -226,83 +212,6 @@
             }
         })
     }
-
-    {#<button type="button" class="btn-close" data-bs-dismiss="alert"></button>#}
-    {#<button type="button" class="btn-close" data-bs-dismiss="alert" onclick=$(".alert").fadeOut("slow")></button>#}
-
-    {##}
-    {#$("#idForm").ajaxForm({url: 'http://127.0.0.1:5000/order/1', type: 'post', success: function (data,response) {#}
-    {#            alert(data); // show response from the php script.#}
-    {#            alert(response); // show response from the php script.#}
-    {#        }})#}
-    {#$("#idForm").ajaxForm({url: 'http://127.0.0.1:5000/order/1', type: 'post', success: function (data,response) {#}
-    {#            alert(data); // show response from the php script.#}
-    {#            alert(response); // show response from the php script.#}
-    {#        }})#}
-
-
-    {#function order() {#}
-    {#    let form = $('#idForm')#}
-    {#    $.ajax({#}
-    {#        type: "POST",#}
-    {#        url: "http://127.0.0.1:5000/order/1",#}
-    {#        data: form.serialize(),#}
-    {#        success: function (response) {#}
-    {#            alert(response); // show response from the php script.#}
-    {#        }#}
-    {#    })#}
-
-
-    {#function order() {#}
-    {#    alert("ok")#}
-    {#    let form = $('#idForm')#}
-    {#    $.ajax({#}
-    {#        type: "POST",#}
-    {#        url: form.attr("action"),#}
-    {#        data: form.serialize(),#}
-    {#        success: function (data, response) {#}
-    {#            alert(data); // show response from the php script.#}
-    {#            alert(response); // show response from the php script.#}
-    {#        }#}
-    {#    })#}
-    {#function order(){#}
-    {#    let form = $('#idForm')#}
-    {#    $.ajax({#}
-    {#        type: "POST",#}
-    {#        url:form.attr("action"),#}
-    {#        data:form.serialize(),#}
-    {#        success: function (data,response) {#}
-    {#            alert(data); // show response from the php script.#}
-    {#            alert(response); // show response from the php script.#}
-    {#        }#}
-    {#    })#}
-
-
-    {#$("#idForm").submit(function (e) {#}
-    {#    e.preventDefault(); // avoid to execute the actual submit of the form.#}
-    {#    var form = $(this);#}
-    {#    var url = form.attr('action');#}
-    {#    $.ajax({#}
-    {#        type: "POST",#}
-    {#        url: url,#}
-    {#        data: form.serialize(), // serializes the form's elements.#}
-    {#        success: function (data) {#}
-    {#            alert(data); // show response from the php script.#}
-    {#        }#}
-    {#    });#}
-
-    {#$("#idForm").submit(function (e) {#}
-    {#    e.preventDefault(); // avoid to execute the actual submit of the form.#}
-    {#    var form = $(this);#}
-    {#    var url = form.attr('action');#}
-    {#    $.ajax({#}
-    {#        type: "POST",#}
-    {#        url: url,#}
-    {#        data: form.serialize(), // serializes the form's elements.#}
-    {#        success: function (data) {#}
-    {#            alert(data); // show response from the php script.#}
-    {#        }#}
-    {#    });#}
 
 
 </script>
