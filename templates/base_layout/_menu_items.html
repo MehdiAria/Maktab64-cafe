@@ -73,7 +73,6 @@
                             <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
                                 Select Your Table
                             </button>
-
                             <ul class="dropdown-menu">
                                 {% for i in tables %}
                                     <li><a class="dropdown-item" href="#" onclick="tableIdSet(this.id)"
@@ -96,18 +95,13 @@
                                                                                    class="form-control" type="text"
                                                                                    name="table_id"
                                                                                    id="table_id" disabled>
-                    {#                    <div class="invalid-feedback">#}
-                    {#                        please choose a table!#}
-                    {#                    </div>#}
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         <input type="button" class="btn btn-success" value="Add to card" onclick="order()">
                     </div>
                 </form>
-                <div id="msg">
-
-                </div>
+                <div id="msg"></div>
             </div>
 
 
