@@ -158,6 +158,21 @@
     {#        alert(response); // show response from the php script.#}
     {#    }#}
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function demo(x) {
+        {#console.log('Taking a break...');#}
+
+        await sleep(x);
+        {#console.log('finished');#}
+
+        $('#msg').empty();
+
+
+    }
+
 
     function order() {
         let elem = $(`#count`)
@@ -187,7 +202,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         <strong>Success!</strong> ${response}
                     </div>`)
+                {#$(".flash").fadeTo(500, 0).slideUp(500, function () {#}
                 msg.appendTo(parrent)
+                demo(3000)
+                //});
+
                 DisableTableSet(t_id)
                 window.setTimeout(function () {
                     $(".flash").fadeTo(500, 0).slideUp(500, function () {
@@ -203,12 +222,7 @@
                                 <strong>Error while adding order!</strong>
                               </div>`)
                 msg.appendTo(parrent)
-                {#msg.fadeout("slow")#}
-                window.setTimeout(function () {
-                    $(".flash").fadeTo(500, 0).slideUp(500, function () {
-                        $(this).remove();
-                    });
-                }, 3000);
+
             }
         })
     }
