@@ -1,6 +1,12 @@
+import logging
+from datetime import datetime
+
 from core.db_manager import DBModel, DBManager
-from datetime import datetime, timedelta
 from models.exceptions import *
+from models.utils import number_check
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s:%(message)s')
+logger = logging.getLogger(__name__)
 
 
 class Cashier(DBModel):
@@ -149,23 +155,18 @@ class Order(DBModel):
         self.status_id = status_id
         self.table_id = table_id
         self.time_stamp = time_stamp if time_stamp else datetime.now()
+        self.data_check(item_id=item_id, receipt_id=receipt_id, status_id=status_id, time_stamp=time_stamp,
+                        table_id=table_id, number_item=number_item, order_id=id)
         if id:
             self.id = id
 
-    def number_check(self, **kwargs):
-        for number in kwargs:
-            try:
-                float(kwargs[number])
-            except ValueError:
-                raise CreateOrderError() # number
-        return True
-
-    def data_check(self, order_id, item_id, receipt_id, status_id, table_id, time_stamp):
+    @staticmethod
+    def data_check(order_id, item_id, receipt_id, status_id, table_id, time_stamp, number_item):
         if not isinstance(time_stamp, datetime):
-            raise CreateOrderError()
-        self.number_check(order_id=order_id, item_id=item_id, receipt_id=receipt_id,
-                          status_id=status_id, table_id=table_id)
-
+            raise AddOrderError("time_stamp", time_stamp)
+        number_check(AddOrderError, item_id=item_id, table_id=table_id,
+                     receipt_id=receipt_id, status_id=status_id, number_item=number_item,
+                     order_id=order_id if order_id else 0)
 
 
 class Receipt(DBModel):
@@ -223,3 +224,4 @@ class Receipt(DBModel):
 # print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
 # print(float("AKLS;DJASKDJASLJD"))
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
+Order(1, 1, 1, 1, 1, 1, 1)
