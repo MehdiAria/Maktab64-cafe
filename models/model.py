@@ -39,6 +39,10 @@ class CafeTable(DBModel):
     def empty_table(cls):
         return DBManager().read_filter(cls, 'is_empty=true')
 
+    @classmethod
+    def is_empty(cls, _id):
+        DBManager().read(cls, _id)
+
 
 class MenuItems(DBModel):
     TABLE = 'menu_items'

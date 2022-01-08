@@ -89,9 +89,11 @@ class DBManager:
             with self.__get_cursor() as curs:
                 curs.execute(f"""SELECT * FROM {model_class.TABLE} WHERE {model_class.PK} = {pk}""")
                 res = curs.fetchone()
-                reverse_alias = {value: key for key, value in model_class.aliases.items()}
-                res = alias_for_model(res, reverse_alias)
-                return model_class(**dict(res))
+                if res:
+                    reverse_alias = {value: key for key, value in model_class.aliases.items()}
+                    res = alias_for_model(res, reverse_alias)
+                    return model_class(**dict(res))
+                return res
 
     def update(self, model_instance: DBModel) -> None:
         assert isinstance(model_instance, DBModel)

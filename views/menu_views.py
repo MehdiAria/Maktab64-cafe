@@ -55,7 +55,7 @@ def order(table_id):
     elif request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
         order_dict = request.form
-        resp = Response("your order is added!")
+        resp = Response("your order is added!", status=201)
         if receipt_id:
             # table_id = db.query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
             #                             orders.table_id = cafe_table.id INNER JOIN receipt ON
