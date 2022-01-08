@@ -35,7 +35,7 @@ class DBModel(ABC):  # abstract base Database model
         return alias_list
 
     def data_type_check(self, data: any, data_type: type, error: Exception, **kwargs):
-        if isinstance(data, data_type):
+        if not isinstance(data, data_type):
             if kwargs:
                 raise error(**kwargs)
             else:
