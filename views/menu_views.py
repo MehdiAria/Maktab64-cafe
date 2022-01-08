@@ -68,21 +68,29 @@ def order(table_id):
             number_item = order_dict.get('number_item', None)
             table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=0, number_item=number_item, receipt_id=receipt_id)
-            receipt = db.read(Receipt, int(receipt_id))
+            receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = {user_token}")  # TODO handel erroe in reading receipt
             receipt: Receipt
             receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
+            new_token = str(uuid.UUID(bytes=os.urandom(16)))
+            receipt.user_token = new_token
             db.update(receipt)
             db.create(table_order)
         else:
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
-            receipt = Receipt(total_price=price, final_price=0)
-            db.create(receipt)
+            if user_token:
+                receipt = db.read_filter(Receipt, f"user_token = {user_token}")  # TODO handel error in reading receipt!
+            else:
+                receipt = Receipt(total_price=price, final_price=0)
+                db.create(receipt)
             # table_id = order_dict.get('table_id')
             table_order = Order(item_id=order_dict.get('item_id'), table_id=table_id,
-                           status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
+                                status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(table_order)
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
-            resp.set_cookie("user_token", str(uuid.UUID(bytes=os.urandom(16), version=4)))
+            resp.set_cookie("user_token", str(uuid.UUID(bytes=os.urandom(16), version=4)))  # TODO set user_token for all
+            new_token = str(uuid.UUID(bytes=os.urandom(16)))
+            receipt.user_token = new_token
+            db.update(receipt)
             return resp
         return 'server error', 403
