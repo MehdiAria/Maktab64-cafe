@@ -15,9 +15,6 @@
 <script src="https://malsup.github.io/jquery.form.js"></script>
 
 
-
-
-
 <div class="container-fluid">
     <div class="card-columns">
         {% for category in data %}
@@ -49,7 +46,12 @@
                             <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
                                  style="line-height: 5vh">
                             <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>
-                            <button class="btn btn-secondary mt-4 w-100">Add To Cart</button>
+                            <button type="button" class="btn btn-secondary mt-4 w-100" data-bs-toggle="modal"
+                                    data-bs-target="#myModal" onclick="func(this.id)"
+                                    id="{{ item.id }} {{ item.name }}">
+                                {#                                <button class="btn btn-secondary mt-4 w-100" data-toggle="modal" data-target="#modal">#}
+                                Add To Cart
+                            </button>
                         </div>
                     </div>
                 {% endfor %}
