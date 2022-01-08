@@ -12,15 +12,16 @@ def index():
 
 def menu():
     data = Category.category_item()
-    empty_tables = CafeTable.empty_table()
-    receipt_id = request.cookies.get('receipt_id', None)
+    empty_tables = None
     table_id = None
+    receipt_id = request.cookies.get('receipt_id', None)
     if receipt_id:
         table_id = db.query(f"""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
                                             orders.table_id = cafe_table.id INNER JOIN receipt ON
                                             orders.receipt_id = receipt.id WHERE receipt_id = {receipt_id};""",
                             fetch="one")["id"]
-        empty_tables = None
+    else:
+        empty_tables = CafeTable.empty_table()
     return render_template("menu.html", data=data, tables=empty_tables, table_id=table_id)
 
 
