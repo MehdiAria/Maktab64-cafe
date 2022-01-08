@@ -41,7 +41,7 @@ class CafeTable(DBModel):
 
     @classmethod
     def is_empty(cls, _id):
-        DBManager().read(cls, _id)
+        return True if DBManager().read_filter(cls, f"id = {_id} AND is_empty = true") else False
 
 
 class MenuItems(DBModel):
