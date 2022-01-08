@@ -40,5 +40,12 @@ class TestAlias(ut.TestCase):
 class TestValidators(ut.TestCase):
     def test_order_validator(self):
         """item_id, number_item, receipt_id, status_id, table_id, time_stamp=None, id=None"""
-        self.assertRaises(AddOrderError, Order, "ten", 1, 1, 1, 1, datetime.now(), 1)
+        self.assertRaises(AddOrderError, Order, "ten", 1, 17, 1, 1, datetime.now(), 1)
+        self.assertRaises(AddOrderError, Order, 19, "asd", 16, 1, 1, datetime.now(), 1)
+        self.assertRaises(AddOrderError, Order, 1, 1, "asd", 1, 1, datetime.now(), 1)
+        self.assertRaises(AddOrderError, Order, 15, 1, 1, 1, "a", datetime.now(), 1)
+        self.assertRaises(AddOrderError, Order, 1, 1, 15, 1, 1, "2020", 1)
+        self.assertRaises(AddOrderError, Order, 5, 1, 1, 2, 4, datetime.now(), "123--")
+
+
 
