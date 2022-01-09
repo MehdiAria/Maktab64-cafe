@@ -9,3 +9,4 @@ db = DBManager()
 def time_receipts(time_filter=0):
     receipt_date_time = datetime.now() - timedelta(days=time_filter)
     date_receipts = db.read_filter(Receipt, f"time_stamp >= {receipt_date_time}")
+    return f"{date_receipts}"
