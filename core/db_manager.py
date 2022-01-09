@@ -158,12 +158,10 @@ class DBManager:
     def all_query(self, model_class: type, condition, fetch="all"):  # TODO change condition to query
         assert issubclass(model_class, DBModel)
         model_dict = self.query(f"{condition}", fetch=fetch)
-        res = []
-        for i in model_dict:
-            reverse_alias = {value: key for key, value in model_class.aliases.items()}
-            i = alias_for_model(i, reverse_alias)
-            res.append(model_class(**dict(i)))
-        return res
+        if fetch == "one":
+            return model_class(**dict(model_dict))
+        elif fetch == "all":
+            return self.to_model_class(model_class, model_dict)
 
     def to_model_class(self, model_class, models_dict: list):
         res = []

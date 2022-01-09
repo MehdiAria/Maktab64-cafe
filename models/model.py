@@ -233,5 +233,6 @@ class Receipt(DBModel):
 # print(__name__, __file__)
 real_table_id = DBManager().all_query(CafeTable,f"""SELECT cafe_table.id, cafe_table.is_empty, cafe_table.space FROM receipt INNER JOIN orders ON
                                              orders.receipt_id = receipt.id INNER join cafe_table ON
-                                              cafe_table.id = orders.table_id WHERE receipt.id = 63 """)
+                                              cafe_table.id = orders.table_id WHERE receipt.id = 63 """ ,fetch="all")
 print(*[i.__str__() for i in real_table_id])
+# print(real_table_id)
