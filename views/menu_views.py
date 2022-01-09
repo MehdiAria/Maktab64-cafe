@@ -32,7 +32,7 @@ def menu():
 
 def panel():
     if get_cashier_by_cookie(request):
-        return render_template('Dashboard.html')
+        return render_template('cashier/dashboard.html')
     else:
         return redirect(url_for('login'))
 
