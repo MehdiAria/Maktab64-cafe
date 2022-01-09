@@ -12,7 +12,10 @@
     <div class="row">
         {% for receipt in data %}
             <div class="col-12 p-4 m-3">
-
+                <span class="mx-5">Id: {{ receipt._id }}</span>
+                <span class="mx-5">Total Price: {{ receipt.total_price }}</span>
+                <span class="mx-5">FinalPrice: {{ receipt.fianl_price }}</span>
+                <span class="mx-5">TimeStamp: {{ receipt.time_stamp }}</span>
             </div>
         {% endfor %}
     </div>
