@@ -231,3 +231,4 @@ class Receipt(DBModel):
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
 # print(asd)
 # print(__name__, __file__)
+
