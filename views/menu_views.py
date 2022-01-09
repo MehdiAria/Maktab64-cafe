@@ -28,14 +28,11 @@ def menu():
     return render_template("menu.html", receipt_id=receipt_id, data=data, tables=empty_tables, table_id=table_id)
 
 
-
-
 def panel():
     if get_cashier_by_cookie(request):
         return render_template('cashier/dashboard.html')
     else:
         return redirect(url_for('login'))
-
 
 
 def order(table_id):
