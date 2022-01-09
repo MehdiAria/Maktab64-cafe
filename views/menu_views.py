@@ -38,8 +38,6 @@ def panel():
 
 
 def order(table_id):
-    table = db.read(CafeTable, int(table_id))
-    table: CafeTable
     if request.method == 'GET':
         res = request.cookies
         order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
@@ -74,6 +72,8 @@ def order(table_id):
             resp.set_cookie("user_token", new_token),  # TODO set user_token for anyone
             return resp, 201
         else:
+            table = db.read(CafeTable, int(table_id))
+            table: CafeTable
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             if user_token:
@@ -86,8 +86,10 @@ def order(table_id):
             table_order = Order(item_id=order_dict.get('item_id'), table_id=table_id,
                                 status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(table_order)
-            resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             new_token = set_user_token(receipt)
+            resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             resp.set_cookie("user_token", new_token),  # TODO set user_token for anyone
+            table.is_empty = False
+            db.update(table)
             return resp
     return 'server error', 403
