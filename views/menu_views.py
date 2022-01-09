@@ -4,6 +4,7 @@ from models.model import *
 from datetime import datetime, timedelta
 import uuid, os
 from views.utils import set_user_token, check_table_id
+
 db = DBManager()
 
 
@@ -16,6 +17,7 @@ def menu():
     empty_tables = None
     table_id = None
     receipt_id = request.cookies.get('receipt_id', None)
+    # print(receipt_id)
     if receipt_id:
         table_id = db.query(f"""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
                                             orders.table_id = cafe_table.id INNER JOIN receipt ON
@@ -23,7 +25,7 @@ def menu():
                             fetch="one")["id"]
     else:
         empty_tables = CafeTable.empty_table()
-    return render_template("menu.html", data=data, tables=empty_tables, table_id=table_id)
+    return render_template("menu.html", receipt_id=receipt_id, data=data, tables=empty_tables, table_id=table_id)
 
 
 def login():
@@ -45,8 +47,6 @@ def order(table_id):
         for i in order_list:
             i: Order
             order_item[i] = db.read(MenuItems, i.item_id)
-        # item_list = db.all_query(MenuItems,
-        #                          f"SELECT menu_items.id,menu_items.category_id,discount,menu_items.name,price,image_url,serving_time FROM menu_items INNER JOIN orders on orders.item_id=menu_items.id;")
         price_list = db.all_query(Receipt,
                                   f"SELECT * FROM receipt where id={res.get('receipt_id', None)};")
 
@@ -65,7 +65,8 @@ def order(table_id):
             table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=0, number_item=number_item, receipt_id=receipt_id)
             db.create(table_order)
-            receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[0]  # TODO handel erroe in reading receipt
+            receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[
+                0]  # TODO handel erroe in reading receipt
             receipt: Receipt
             receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
             new_token = set_user_token(receipt)
@@ -77,7 +78,8 @@ def order(table_id):
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             if user_token:
-                receipt = db.read_filter(Receipt, f"user_token = \'{user_token}\'")[0]  # TODO handel error in reading receipt!
+                receipt = db.read_filter(Receipt, f"user_token = \'{user_token}\'")[
+                    0]  # TODO handel error in reading receipt!
             else:
                 receipt = Receipt(total_price=price, final_price=0)
                 db.create(receipt)

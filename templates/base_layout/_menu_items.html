@@ -1,16 +1,5 @@
-{#<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">  drop_down didnt works with this line#}
-{#<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> drop_down didnt works with this line#}
-{#<meta name="viewport" content="width=device-width, initial-scale=1">#}
-{#<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">#}
-{#<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>#}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-{#<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">#}
-{#<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>#}
-{#<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>#}
-{#<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>#}
-{#<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">#}
-{#<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>#}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script src="https://malsup.github.io/jquery.form.js"></script>
 
@@ -31,7 +20,6 @@
                                 <button type="button" class="btn btn-secondary mt-4 w-100" data-bs-toggle="modal"
                                         data-bs-target="#myModal" onclick="func(this.id)"
                                         id="{{ item.id }} {{ item.name }}">
-                                    {#                                <button class="btn btn-secondary mt-4 w-100" data-toggle="modal" data-target="#modal">#}
                                     Add To Cart
                                 </button>
                             </div>
@@ -49,7 +37,6 @@
                             <button type="button" class="btn btn-secondary mt-4 w-100" data-bs-toggle="modal"
                                     data-bs-target="#myModal" onclick="func(this.id)"
                                     id="{{ item.id }} {{ item.name }}">
-                                {#                                <button class="btn btn-secondary mt-4 w-100" data-toggle="modal" data-target="#modal">#}
                                 Add To Cart
                             </button>
                         </div>
@@ -65,13 +52,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <!-- Modal Header -->
+
             <div class="modal-header">
                 <h4 class="modal-title">Adding items to cart</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <!-- Modal body -->
+
             <div class="modal-body">
                 <form action="http://127.0.0.1:5000/order/1" method="POST" id="idForm" class="was-validated">
                     <div class="dropdown" id="available-tables">
@@ -105,7 +92,6 @@
                                                                                    class="form-control" type="text"
                                                                                    name="table_id"
                                                                                    id="table_id" disabled>
-                    <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         <input type="button" class="btn btn-success" value="Add to card" onclick="order()">
@@ -121,10 +107,11 @@
 
 
 </div>
+{% if receipt_id  %}
 <div style="position: fixed;z-index: 11;bottom: 1%;right: 1%;">
     <a href="http://127.0.0.1:5000/order/1"><img style="width: 100px" src="/static/images/basket.png" alt=""></a>
 </div>
-
+{% endif %}
 
 <script>
     function func(ItemValue) {
@@ -174,8 +161,6 @@
 
     }
 
-    
-    
 
     function order() {
         let elem = $(`#count`)
@@ -187,10 +172,8 @@
         $.ajax({
             type: "POST",
             url: `http://127.0.0.1:5000/order/${t_id}`,
-            {#url: "{{ url_for('order',table_id=t_id) }}",  #}
             data: {
                 'number_item': count,
-                {#'table_id': t_id,#}
                 "item_id": i_id,
 
             },
@@ -226,13 +209,3 @@
 
 
 </script>
-{##}
-{##}
-{#1. Error handling while submitting orders#}
-{#2. URL FOR *******#}
-{#3. fade out order messages#}
-{#4. the last item#}
-{#5. UTC DATE cookie#}
-{#6. set token for receipt#}
-{#7. md5 for cashier pw#}
-{#8. error messages#}
