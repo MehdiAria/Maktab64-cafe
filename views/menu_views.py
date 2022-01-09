@@ -70,9 +70,6 @@ def order(table_id):
             receipt: Receipt
             receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
             new_token = set_user_token(receipt)
-            # new_token = str(uuid.UUID(bytes=os.urandom(16)))
-            # receipt.user_token = new_token
-            # db.update(receipt)
             resp.set_cookie("user_token", new_token),  # TODO set user_token for anyone
             return resp, 201
         else:
@@ -89,10 +86,7 @@ def order(table_id):
                                 status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(table_order)
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
-            # new_token = str(uuid.UUID(bytes=os.urandom(16)))
             new_token = set_user_token(receipt)
             resp.set_cookie("user_token", new_token),  # TODO set user_token for anyone
-            # receipt.user_token = new_token
-            # db.update(receipt)
             return resp
     return 'server error', 403
