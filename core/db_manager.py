@@ -155,9 +155,9 @@ class DBManager:
             res.append(model_class(**dict(i)))
         return res
 
-    def all_query(self, model_class: type, condition):
+    def all_query(self, model_class: type, condition, fetch="all"):  # TODO change condition to query
         assert issubclass(model_class, DBModel)
-        model_dict = self.query(f"{condition}", fetch='all')
+        model_dict = self.query(f"{condition}", fetch=fetch)
         res = []
         for i in model_dict:
             reverse_alias = {value: key for key, value in model_class.aliases.items()}
@@ -175,7 +175,8 @@ class DBManager:
 
     def join_filter(self, model_class: type, *args):
         assert issubclass(model_class, DBModel)
-        aliases = ", ".join(model_class.class_aliases())
+        aliases = ", ".join(
+            model_class.class_aliases())  # TODO class_aliases should return Receipt.asd, Receipt.fdf, ... -> str!
         join_query = f"SELECT {aliases} FROM {model_class.TABLE}"
         where_condition = ' WHERE '
         for i in args:
