@@ -3,7 +3,7 @@ from core.db_manager import DBManager
 from models.model import *
 from datetime import datetime, timedelta
 import uuid, os
-from views.utils import set_user_token, check_table_id
+from views.utils import set_user_token, check_table_id, get_cashier_by_cookie
 
 db = DBManager()
 
@@ -28,15 +28,14 @@ def menu():
     return render_template("menu.html", receipt_id=receipt_id, data=data, tables=empty_tables, table_id=table_id)
 
 
-def login():
-    return render_template('login.html')
 
 
 def panel():
-    # if request.cookies.get()
+    if get_cashier_by_cookie(request):
+        return render_template('panel.html')
+    else:
+        return render_template('login.html')
 
-    # return render_template('panel.html')
-    return 'You are Logged'
 
 
 def order(table_id):
