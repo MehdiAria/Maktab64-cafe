@@ -81,13 +81,11 @@ def order(table_id):
             else:
                 receipt = Receipt(total_price=price, final_price=0)
                 db.create(receipt)
-                # token = str(uuid.UUID(bytes=os.urandom(16)))
-                # receipt.user_token = token
             table_order = Order(item_id=order_dict.get('item_id'), table_id=table_id,
                                 status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
+            resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             db.create(table_order)
             new_token = set_user_token(receipt)
-            resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             resp.set_cookie("user_token", new_token),  # TODO set user_token for anyone
             table.is_empty = False
             db.update(table)
