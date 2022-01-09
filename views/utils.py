@@ -16,7 +16,10 @@ def get_cashier_by_cookie(request):
 
 
 def set_user_token(receipt):
+    db = DBManager()
     receipt: Receipt
-    new_token = uuid.UUID(bytes=os.urandom(16))
+    new_token = str(uuid.UUID(bytes=os.urandom(16)))
     receipt.user_token = new_token
-    return receipt
+    db.update(receipt)
+    del db
+    return new_token
