@@ -1,5 +1,6 @@
 from core.db_manager import DBManager
-from models.model import Cashier
+from models.model import Cashier, Receipt
+import uuid, os
 
 
 def get_cashier_by_cookie(request):
@@ -12,3 +13,10 @@ def get_cashier_by_cookie(request):
         db = DBManager()
         cashier = db.read_filter(Cashier, f'token=\'{cashier_token}\'')
         return cashier
+
+
+def set_user_token(receipt):
+    receipt: Receipt
+    new_token = uuid.UUID(bytes=os.urandom(16))
+    receipt.user_token = new_token
+    return receipt
