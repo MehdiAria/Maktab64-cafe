@@ -89,6 +89,7 @@
                             <h3 class="text-danger">there is no empty table!</h3>
                         {% endif %}
                     </div>
+                {% if tables or table_id %}
                     <lable class="form-label">Count:</lable>
                     <input type="number" class="form-control" name="number_id" id="count" required
                            oninput="absNumber(this.value)">
@@ -109,6 +110,7 @@
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         <input type="button" class="btn btn-success" value="Add to card" onclick="order()">
                     </div>
+                {% endif %}
                 </form>
                 <div id="msg" class="flash fade-in"></div>
             </div>
