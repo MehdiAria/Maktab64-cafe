@@ -2,6 +2,7 @@ from flask import Flask
 from views.menu_views import *
 from views.about import *
 from views.login import *
+from cashier import tables
 from cashier import orders
 from cashier import edit_items
 
