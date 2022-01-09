@@ -1,4 +1,4 @@
-from flask import render_template, request, Response
+from flask import render_template, request, Response, redirect, url_for
 from core.db_manager import DBManager
 from models.model import *
 from datetime import datetime, timedelta
@@ -32,9 +32,9 @@ def menu():
 
 def panel():
     if get_cashier_by_cookie(request):
-        return render_template('panel.html')
+        return render_template('Dashboard.html')
     else:
-        return render_template('login.html')
+        return redirect(url_for('login'))
 
 
 
