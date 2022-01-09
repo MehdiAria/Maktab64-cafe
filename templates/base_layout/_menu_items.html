@@ -85,6 +85,8 @@
                                            id={{ i.id }}>Table {{ i.id }} Space: {{ i.space }}</a></li>
                                 {% endfor %}
                             </ul>
+                        {% elif not tables and not table_id %}
+                            <h3 class="text-danger">there is no empty table!</h3>
                         {% endif %}
                     </div>
                     <lable class="form-label">Count:</lable>
