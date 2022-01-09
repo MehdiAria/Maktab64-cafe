@@ -31,5 +31,6 @@ def check_table_id(receipt_id, table_id):
                                                 FROM receipt INNER JOIN orders ON orders.receipt_id = receipt.id
                                                 INNER join cafe_table ON cafe_table.id = orders.table_id
                                                 WHERE receipt.id = {receipt_id} """, fetch="one")
+#  TODO logger here
     receipt_table: CafeTable
-    assert table_id == receipt_table.id
+    assert int(table_id) == receipt_table.id

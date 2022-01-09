@@ -63,14 +63,7 @@ def order(table_id):
         if receipt_id and user_token:
             item_id = order_dict.get('item_id', None)
             number_item = order_dict.get('number_item', None)
-            # receipt_table = db.all_query(CafeTable, f"""SELECT cafe_table.id, cafe_table.is_empty, cafe_table.space
-            #                                             FROM receipt INNER JOIN orders ON orders.receipt_id = receipt.id
-            #                                             INNER join cafe_table ON cafe_table.id = orders.table_id
-            #                                             WHERE receipt.id = 63 """,fetch="one")
-            # receipt_table: CafeTable
-            # assert table_id == receipt_table.id
             check_table_id(receipt_id, table_id)
-
             table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=0, number_item=number_item, receipt_id=receipt_id)
             db.create(table_order)
