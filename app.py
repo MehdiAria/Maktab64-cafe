@@ -3,6 +3,7 @@ from views.menu_views import *
 from views.about import *
 from views.login import *
 from cashier import tables
+from cashier import orders
 
 app = Flask(__name__, template_folder="templates")
 
