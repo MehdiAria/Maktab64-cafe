@@ -64,12 +64,12 @@ def order(table_id):
             table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=0, number_item=number_item, receipt_id=receipt_id)
             db.create(table_order)
-            receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[
-                0]  # TODO handel erroe in reading receipt
+            receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[0]
+            # TODO handel error in reading receipt
             receipt: Receipt
             receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
             new_token = set_user_token(receipt)
-            resp.set_cookie("user_token", new_token),  # TODO set user_token for anyone
+            resp.set_cookie("user_token", new_token)
             return resp, 201
         else:
             table = db.read(CafeTable, int(table_id))
