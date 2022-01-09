@@ -52,13 +52,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <!-- Modal Header -->
+
             <div class="modal-header">
                 <h4 class="modal-title">Adding items to cart</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <!-- Modal body -->
+
             <div class="modal-body">
                 <form action="http://127.0.0.1:5000/order/1" method="POST" id="idForm" class="was-validated">
                     <div class="dropdown" id="available-tables">
@@ -89,7 +89,6 @@
                                                                                    class="form-control" type="text"
                                                                                    name="table_id"
                                                                                    id="table_id" disabled>
-                    <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         <input type="button" class="btn btn-success" value="Add to card" onclick="order()">
@@ -104,10 +103,11 @@
 
 
 </div>
+{% if receipt_id  %}
 <div style="position: fixed;z-index: 11;bottom: 1%;right: 1%;">
     <a href="http://127.0.0.1:5000/order/1"><img style="width: 100px" src="/static/images/basket.png" alt=""></a>
 </div>
-
+{% endif %}
 
 <script>
     function func(ItemValue) {
@@ -157,8 +157,6 @@
 
     }
 
-    
-    
 
     function order() {
         let elem = $(`#count`)
@@ -170,10 +168,8 @@
         $.ajax({
             type: "POST",
             url: `http://127.0.0.1:5000/order/${t_id}`,
-            {#url: "{{ url_for('order',table_id=t_id) }}",  #}
             data: {
                 'number_item': count,
-                {#'table_id': t_id,#}
                 "item_id": i_id,
 
             },
