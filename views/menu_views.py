@@ -74,7 +74,6 @@ def order(table_id):
             db.update(receipt)
             resp.set_cookie("user_token", new_token),  # TODO set user_token for anyone
             return resp, 201
-
         else:
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
@@ -83,8 +82,8 @@ def order(table_id):
             else:
                 receipt = Receipt(total_price=price, final_price=0)
                 db.create(receipt)
-                token = str(uuid.UUID(bytes=os.urandom(16)))
-                receipt.user_token = token
+                # token = str(uuid.UUID(bytes=os.urandom(16)))
+                # receipt.user_token = token
             table_order = Order(item_id=order_dict.get('item_id'), table_id=table_id,
                                 status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             db.create(table_order)
