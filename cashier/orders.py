@@ -1,7 +1,6 @@
 from flask import render_template
 from core.db_manager import DBManager
 from models.model import Order
-from datetime import datetime
 
 db = DBManager()
 
