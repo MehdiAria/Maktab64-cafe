@@ -150,7 +150,7 @@ class Order(DBModel):
     table_id: int
     time_stamp: datetime
 
-    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, time_stamp=None, id=None):
+    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, time_stamp=None, id=None, is_del=False):
         self.time_stamp = time_stamp if time_stamp else datetime.now()
         self.data_check(item_id=item_id, receipt_id=receipt_id, status_id=status_id, time_stamp=self.time_stamp,
                         table_id=table_id, number_item=number_item, order_id=id)
@@ -161,6 +161,7 @@ class Order(DBModel):
         self.table_id = table_id
         if id:
             self.id = id
+        self.is_del = is_del
 
     @staticmethod
     def data_check(order_id, item_id, receipt_id, status_id, table_id, time_stamp, number_item):
@@ -231,4 +232,3 @@ class Receipt(DBModel):
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
 # print(asd)
 # print(__name__, __file__)
-
