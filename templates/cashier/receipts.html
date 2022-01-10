@@ -14,38 +14,40 @@
 <body>
 <div class="container">
     <div class="row">
-        <table class="table table-borderless table-hover">
-            <thead>
-            <tr class="bg-light">
-                <th class="">Id</th>
-                <th class="">Total Price</th>
-                <th class=" mx-2">FinalPrice</th>
-                <th class="">delete</th>
-                <th class="">is_checked</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for receipt in data %}
-                <tr class="p-3 m-2 bg-secondary mt-3 rounded">
-                    <td class=" text-white">{{ receipt._id }}</td>
-                    <td class="text-white">{{ receipt.total_price }}</td>
-                    <td class=" text-white mx-2">
-                        {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
-                    </td>
-                    <td class="">
-                        <center>
-                            <i class="bi-trash-fill text-center" style="font-size:20px ;color:red"></i>
-                        </center>
-                    </td>
-                    <td class="">
-                        <center>
-                            <i class="bi bi-check-all" style="color:white"></i>
-                        </center>
-                    </td>
+        <div class="table-responsive">
+            <table class="table table-borderless table-hover">
+                <thead>
+                <tr class="bg-light">
+                    <th class="">Id</th>
+                    <th class="">Total Price</th>
+                    <th class=" mx-2">FinalPrice</th>
+                    <th class="">delete</th>
+                    <th class="">is_checked</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for receipt in data %}
+                    <tr class="p-3 m-2 bg-secondary mt-3 rounded">
+                        <td class=" text-white">{{ receipt._id }}</td>
+                        <td class="text-white">{{ receipt.total_price }}</td>
+                        <td class=" text-white mx-2">
+                            {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
+                        </td>
+                        <td class="">
+                            <center>
+                                <i class="bi-trash-fill text-center" style="font-size:20px ;color:red"></i>
+                            </center>
+                        </td>
+                        <td class="">
+                            <center>
+                                <i class="bi bi-check-all" style="color:white"></i>
+                            </center>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>
