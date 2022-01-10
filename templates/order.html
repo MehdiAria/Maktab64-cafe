@@ -2,6 +2,11 @@
 <style>
 
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>#}
+<script src="https://malsup.github.io/jquery.form.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 {% block body %}
     <div class="container">
@@ -21,18 +26,18 @@
             </thead>
             {% for i in data.item %}
                 <tr>
-                    <td>{{ data.item[i].name }}</td>
-                    <td>{{ i.number_item }}</td>
-                    <td>{{ i.table_id }}</td>
-                    <td>{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
-                    <td>{% if data.item[i].discount==none %}
+                    <td class="{{ i.id }}">{{ data.item[i].name }}</td>
+                    <td class="{{ i.id }}">{{ i.number_item }}</td>
+                    <td class="{{ i.id }}">{{ i.table_id }}</td>
+                    <td class="{{ i.id }}">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
+                    <td class="{{ i.id }}">{% if data.item[i].discount==none %}
                         No discount
                     {% else %}
                         {{ data.item[i].discount }}
                     {% endif %}
                     </td>
-                    <td><input type="button" class="btn btn-danger" value="Decrease Order"></td>
-                    <td><input type="button" class="btn btn-danger" value="Delete Order"></td>
+                    <td class="{{ i.id }}"><input type="button" class="btn btn-danger" value="Decrease Order" onclick="dec_order" ></td>
+                    <td class="{{ i.id }}"><input id="delorder" type="button" class="btn btn-danger" value="Delete Order" onclick="del_order" ></td>
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
                 </tr>
@@ -44,4 +49,46 @@
         <h1></h1>
 
     </div>
+    <script>
+
+    {#function dec_order(){#}
+    {#    let elem = $(`#count`)#}
+    {#    let count = elem.val()#}
+    {#    let tbl = $(`#table_id`)#}
+    {#    let t_id = tbl.val()#}
+    {#    let item_id = $(`#item_id`)#}
+    {#    let i_id = item_id.val()#}
+    {#    $.ajax({#}
+    {#        type: "POST",#}
+    {#        url: `http://127.0.0.1:5000/order/${t_id}`,#}
+    {#        data: {#}
+    {#            'number_item': count,#}
+    {#            "item_id": i_id,#}
+    {##}
+    {#        }#}
+    {#    })#}
+
+    function dec_order() {
+        let elem = $(`#count`)
+        let count = elem.val()
+        let tbl = $(`#table_id`)
+        let t_id = tbl.val()
+        let item_id = $(`#item_id`)
+        let i_id = item_id.val()
+        $.ajax({
+            type: "POST",
+            url: `http://127.0.0.1:5000/order/${t_id}`,
+            data: {
+                'number_item': count,
+                "item_id": i_id,
+
+            }
+        })
+    }
+    $(document).ready(function (){
+        $("#delorder").click(function (){
+            $("#delorder").parent().parent().hide()
+        })
+    })
+    </script>
 {% endblock %}
