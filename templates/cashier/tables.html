@@ -64,5 +64,16 @@
         })
     })
 
+    function absNumber(number) {
+
+        if (number <= 0) {
+            if (number < 0) {
+                $("#count").val(number * -1)
+            } else {
+                $("#count").val(1)
+            }
+        }
+
+    }
 </script>
 </html>
