@@ -5,6 +5,45 @@
     <title>Title</title>
 </head>
 <body>
-<div style="background-color: #255a06">tables</div>
+<div class="container">
+    <h1>Tables</h1>
+    <table class="table table-hover col-6 text-center font-size" style="color: #c01d67">
+        <thead class="table-success">
+        <tr id="tr">
+            <th>Table no.</th>
+            <th>Space</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+                <tr>
+                    <td><input type="number" class="form-control" name="number_id" id="count" required
+                           oninput="absNumber(this.value)" value="{{ i.id }}"></td>
+
+                    <td><input type="number" class="form-control" name="number_id" id="count" required
+                           oninput="absNumber(this.value)" value="{{ i.space }}"></td>
+                    <td>{% if i.is_empty==false %}
+                        <input type="text" class="form-control" name="number_id" id="count" required
+                           oninput="absNumber(this.value)" value="Full">
+                    {% else %}
+                        <input type="text" class="form-control" name="number_id" id="count" required
+                           oninput="absNumber(this.value)" value="Empty">
+                    {% endif %}
+                    </td>
+                    <td><input type="button" class="btn btn-danger" value="Delete"></td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="button" class="btn btn-success" value="Add"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
