@@ -26,18 +26,18 @@
             </thead>
             {% for i in data.item %}
                 <tr>
-                    <td>{{ data.item[i].name }}</td>
-                    <td>{{ i.number_item }}</td>
-                    <td>{{ i.table_id }}</td>
-                    <td>{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
-                    <td>{% if data.item[i].discount==none %}
+                    <td class="{{ i.id }}">{{ data.item[i].name }}</td>
+                    <td class="{{ i.id }}">{{ i.number_item }}</td>
+                    <td class="{{ i.id }}">{{ i.table_id }}</td>
+                    <td class="{{ i.id }}">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
+                    <td class="{{ i.id }}">{% if data.item[i].discount==none %}
                         No discount
                     {% else %}
                         {{ data.item[i].discount }}
                     {% endif %}
                     </td>
-                    <td><input type="button" class="btn btn-danger" value="Decrease Order" onclick="dec_order" ></td>
-                    <td><input id="delorder" type="button" class="btn btn-danger" value="Delete Order" onclick="del_order" ></td>
+                    <td class="{{ i.id }}"><input type="button" class="btn btn-danger" value="Decrease Order" onclick="dec_order" ></td>
+                    <td class="{{ i.id }}"><input id="delorder" type="button" class="btn btn-danger" value="Delete Order" onclick="del_order" ></td>
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
                 </tr>
@@ -50,6 +50,7 @@
 
     </div>
     <script>
+
     {#function dec_order(){#}
     {#    let elem = $(`#count`)#}
     {#    let count = elem.val()#}
@@ -86,7 +87,7 @@
     }
     $(document).ready(function (){
         $("#delorder").click(function (){
-            $("td").hide()
+            $("#delorder").parent().parent().hide()
         })
     })
     </script>
