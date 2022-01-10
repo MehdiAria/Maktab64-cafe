@@ -1,3 +1,5 @@
+import datetime
+
 from flask import render_template, request, escape, redirect, url_for, make_response
 from core.db_manager import DBManager
 from models.model import Cashier
@@ -74,8 +76,10 @@ def login():
                 db.update(cashier)
                 # set cookies
                 resp = make_response(redirect(url_for('panel')))
-                resp.set_cookie('cashier_logged_in_id', str(cashier.id))
-                resp.set_cookie('cashier_logged_in_token', str(token))
+                resp.set_cookie('cashier_logged_in_id', str(cashier.id),
+                                expires=datetime.datetime.now() - datetime.timedelta(days=2))
+                resp.set_cookie('cashier_logged_in_token', str(token),
+                                expires=datetime.datetime.now() - datetime.timedelta(days=2))
                 return resp
         except IndexError:
             massage = 'Incorrect username!'
