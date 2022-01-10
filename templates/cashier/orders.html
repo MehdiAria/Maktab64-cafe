@@ -6,6 +6,11 @@
 
 </head>
 <body>
+<style>
+    .td-color{
+        color: indigo;
+    }
+</style>
 <div class="container-fluid">
     <h1>Orders</h1>
     <div>
@@ -27,20 +32,17 @@
             </tr>
             </thead>
             {% for i,j in data %}
-{#                {% for j in data.datetime_list %}#}
                     <tr>
-                        <td>{{ i.id }}</td>
-                        <td><input type="number" class="form-control" name="" id="count" required
-                                   min="1" max="999" value="{{ i.table_id }}"></td>
-                        <td><input type="number" class="form-control" name="" id="count" required
-                                   min="1" max="999" value="{{ i.receipt_id }}"></td>
-                        <td><input type="number" class="form-control" name="" id="count" required
+                        <td class="td-color">{{ i.id }}</td>
+                        <td class="td-color">{{i.table_id }}</td>
+                        <td class="td-color">{{ i.receipt_id }}</td>
+                        <td><input style="width: 60px" type="number" class="form-control" name="" id="count" required
                                    min="1" max="999" value="{{ i.status_id }}"></td>
-                        <td><input type="number" class="form-control" name="" id="count" required
+                        <td><input style="width: 60px" type="number" class="form-control" name="" id="count" required
                                    min="1" max="999" value="{{ i.item_id }}"></td>
                         <td><input type="datetime-local" class="form-control" name="" id="count"
                                    value="{{ j[0:23] }}"></td>
-                        <td><input style="width: 50px" type="number" class="form-control" name="" id="count" required
+                        <td><input style="width: 60px" type="number" class="form-control" name="" id="count" required
                                    min="1" max="999" value="{{ i.number_item }}"></td>
                         {% if i.is_del %}
                             <td><input type="checkbox" class="form-check-input" name="" id="count" value=''
