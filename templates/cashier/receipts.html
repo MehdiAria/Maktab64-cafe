@@ -13,13 +13,14 @@
 <div class="container">
     <div class="row">
         {% for receipt in data %}
-            <div class="col-12 p-4 m-3">
+            <div class="col-12 p-3 bg-info mt-3 border border-2 rounded">
                 <div class="container">
                     <div class="row">
-                        <span class="col-lg-3 col-sm-12">Id: {{ receipt._id }}</span>
-                        <span class="col-lg-3 col-sm-12">Total Price: {{ receipt.total_price }}</span>
-                        <span class="col-lg-3 col-sm-12">FinalPrice: {{ receipt.fianl_price }}</span>
-                        <span class="col-lg-3 col-sm-12">TimeStamp: {{ receipt.time_stamp }}</span>
+                        <div class="col-sm-4 col-12 text-white">Id: {{ receipt._id }}</div>
+                        <div class="col-sm-4 col-12 text-white">Total Price: {{ receipt.total_price }}</div>
+                        <div class="col-sm-4 col-12 text-white">FinalPrice: {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price  }}</div>
+{#                        <span class="col-lg-3 col-sm-12">TimeStamp: {{ receipt.time_stamp }}</span>#}
+{#                        <div>Id: {{ receipt._id }}   Total Price: {{ receipt.total_price }}  FinalPrice: {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price  }}</div>#}
                     </div>
                 </div>
             </div>
