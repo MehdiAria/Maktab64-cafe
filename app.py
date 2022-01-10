@@ -24,4 +24,4 @@ app.add_url_rule("/cashier/date_receipts/<int:time_filter>", "date_receipts", ti
 app.add_url_rule("/cashier/tables", "tables", tables.tables)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True)
