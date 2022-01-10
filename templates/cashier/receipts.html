@@ -14,9 +14,19 @@
 <body>
 <div class="container">
     <div class="row">
-        <table class="table table-striped">
+        <table class="table table-borderless table-hover">
+            <thead>
+            <tr class="bg-light">
+                <th class="">Id</th>
+                <th class="">Total Price</th>
+                <th class=" mx-2">FinalPrice</th>
+                <th class="">delete</th>
+                <th class="">is_checked</th>
+            </tr>
+            </thead>
+
             {% for receipt in data %}
-                <tr class="p-3 m-2 bg-secondary mt-3 border border-2 rounded">
+                <tr class="p-3 m-2 bg-secondary mt-3 rounded">
                     <td class=" text-white">Id: {{ receipt._id }}</td>
                     <td class="text-white">Total Price: {{ receipt.total_price }}</td>
                     <td class=" text-white mx-2">
@@ -29,11 +39,9 @@
                     </td>
                     <td class="">
                         <center>
-                            <i class="bi bi-check-all"></i>
+                            <i class="bi bi-check-all" style="color:white"></i>
                         </center>
                     </td>
-                    {#                        <span class="col-lg-3 col-sm-12">TimeStamp: {{ receipt.time_stamp }}</span>#}
-                    {#                        <div>Id: {{ receipt._id }}   Total Price: {{ receipt.total_price }}  FinalPrice: {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price  }}</div>#}
                 </tr>
             {% endfor %}
         </table>
