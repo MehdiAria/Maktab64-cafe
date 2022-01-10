@@ -7,6 +7,33 @@
 
 </head>
 <body>
-<div class="container">orders</div>
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <td>#ID</td>
+            <td>Table No.</td>
+            <td>Receipt ID</td>
+            <td>Status</td>
+            <td>Item ID</td>
+            <td>Time</td>
+            <td>Count</td>
+            <td>Deleted</td>
+        </tr>
+        </thead>
+        {% for i in data.order_list %}
+        <tr>
+            <td>{{i.id}}</td>
+            <td>{{ i.table_id }}</td>
+            <td>{{ i.receipt_id }}</td>
+            <td>{{ i.status_id }}</td>
+            <td>{{ i.item_id }}</td>
+            <td>{{ i.time_stamp }}</td>
+            <td>{{ i.number_item }}</td>
+            <td>{{ i.is_del }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 </body>
 </html>
