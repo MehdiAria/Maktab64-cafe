@@ -7,7 +7,12 @@ db = DBManager()
 
 
 def time_receipts(time_filter=0):
-    receipt_date_time = datetime.now() - timedelta(hours=time_filter)
-    data = db.all_query(Receipt, f"""SELECT * FROM receipt WHERE time_stamp >= CAST ('{receipt_date_time}' AS timestamp)""")
+    date_time = datetime.now()-timedelta(days=time_filter)
+    data = db.all_query(Receipt, f"""SELECT * FROM receipt WHERE time_stamp >= CAST ('{date_time}' AS timestamp)""")
+    print(data)
+    print(len(data))
     return render_template("cashier/receipts.html", data=data)
 
+# def all_receipts():
+#     data = db.read_all(Receipt)
+#     return render_template("cashier/receipts.html")

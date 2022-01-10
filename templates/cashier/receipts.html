@@ -9,13 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
+<input id="myInput" class="form-control">
 <div class="container">
     <div class="row">
         <div class="table-responsive">
-            <table class="table table-borderless table-hover">
+            <table id="myTable" class="table table-borderless table-hover">
                 <thead>
                 <tr class="bg-light">
                     <th class="">Id</th>
@@ -35,12 +37,12 @@
                         </td>
                         <td class="">
                             <center>
-                                <i class="bi-trash-fill text-center" style="font-size:20px ;color:red"></i>
+                                <i class="bi-trash text-center" style="font-size:20px ;color:red"></i>
                             </center>
                         </td>
                         <td class="">
                             <center>
-                                <i class="bi bi-check-all" style="color:white"></i>
+                                <i class="bi bi-check-all" style="color:lightgreen; font-size:20px;"></i>
                             </center>
                         </td>
                     </tr>
@@ -51,4 +53,12 @@
     </div>
 </div>
 </body>
+<script>
+    $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+</script>
 </html>
