@@ -29,11 +29,9 @@
                 <td><input type="number" class="form-control" name="number_id" id="count" required
                            oninput="absNumber(this.value)" value="{{ i.space }}"></td>
                 <td>{% if i.is_empty==false %}
-                    <input type="text" class="form-control" name="number_id" id="count" required
-                           oninput="absNumber(this.value)" value="Full">
+                    <input type="text" class="form-control" name="number_id" id="count" required value="Full">
                 {% else %}
-                    <input type="text" class="form-control" name="number_id" id="count" required
-                           oninput="absNumber(this.value)" value="Empty">
+                    <input type="text" class="form-control" name="number_id" required value="Empty">
                 {% endif %}
                 </td>
                 {#                <td><input id="del" type="button" class="btn btn-danger" value="Delete"></td>#}
@@ -64,5 +62,16 @@
         })
     })
 
+    function absNumber(number) {
+
+        if (number <= 0) {
+            if (number < 0) {
+                $("#count").val(number * -1)
+            } else {
+                $("#count").val(1)
+            }
+        }
+
+    }
 </script>
 </html>
