@@ -9,20 +9,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>#}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 </head>
 <body>
-<input id="myInput" class="form-control">
+<input id="FilterInput" class="form-control">
 <div class="container">
     <div class="row">
         <div class="table-responsive">
-            <table id="myTable" class="table table-borderless table-hover">
+            <table id="ReceiptTable" class="table table-borderless table-hover">
                 <thead>
                 <tr class="bg-light">
                     <th class="">Id</th>
                     <th class="">Total Price</th>
-                    <th class=" mx-2">FinalPrice</th>
+                    <th class="">FinalPrice</th>
+                    <th class="">TimeStamp</th>
                     <th class="">delete</th>
                     <th class="">is_checked</th>
                 </tr>
@@ -30,11 +33,12 @@
                 <tbody>
                 {% for receipt in data %}
                     <tr class="p-3 m-2 bg-secondary mt-3 rounded">
-                        <td class=" text-white">{{ receipt._id }}</td>
+                        <td class="text-white">{{ receipt._id }}</td>
                         <td class="text-white">{{ receipt.total_price }}</td>
-                        <td class=" text-white mx-2">
+                        <td class="text-white mx-2">
                             {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
                         </td>
+                        <td class="text-white">{{ receipt.time_stamp }}</td>
                         <td class="">
                             <center>
                                 <i class="bi-trash text-center" style="font-size:20px ;color:red"></i>
@@ -58,9 +62,9 @@
 </div>
 </body>
 <script>
-    $("#myInput").on("input", function () {
+    $("#FilterInput").on("input", function () {
         var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function () {
+        $("#ReceiptTable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
