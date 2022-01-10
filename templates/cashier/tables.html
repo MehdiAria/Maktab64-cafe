@@ -26,20 +26,18 @@
         </thead>
         {% for i in data %}
             <tr id="del">
-                <td><input type="number" class="form-control" name="number_id" id="count" required
-                           oninput="absNumber(this.value)" value="{{ i.id }}"></td>
-
-                <td><input type="number" class="form-control" name="number_id" id="count" required
+                <td>{{ i.id }}</td>
+                <td><input type="number" class="form-control" name="" required
                            oninput="absNumber(this.value)" value="{{ i.space }}"></td>
                 <td>{% if i.is_empty==false %}
-                    <input type="text" class="form-control" name="number_id" id="count" required value="Full">
+                    <input type="text" class="form-control" name="" required value="Full">
                 {% else %}
-                    <input type="text" class="form-control" name="number_id" required value="Empty">
+                    <input type="text" class="form-control" name="" required value="Empty">
                 {% endif %}
                 </td>
                 {#                <td><input id="del" type="button" class="btn btn-danger" value="Delete"></td>#}
                 <td>
-                    <input type="checkbox" class="form-check-input" name="number_id" id="count" value=''>
+                    <input type="checkbox" class="form-check-input" name="" value=''>
                 </td>
             </tr>
         {% endfor %}
