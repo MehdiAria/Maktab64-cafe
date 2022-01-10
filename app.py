@@ -19,7 +19,7 @@ app.add_url_rule("/panel", "panel", panel)
 app.add_url_rule("/order/<string:table_id>", "order", order, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/edit_items", "edit_items", edit_items.edit_items)
 app.add_url_rule("/cashier/orders", "orders", orders.orders)
-app.add_url_rule("/cashier/date_receipts/<int:time_filter>", "date_receipts", time_receipts)
+app.add_url_rule("/cashier/receipts", "date_receipts", all_receipts)
 # app.add_url_rule("cashier/served_orders", "served_orders", served_orders)
 app.add_url_rule("/cashier/tables", "tables", tables.tables)
 
