@@ -13,27 +13,54 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
+    <td class="row">
+    <table class="table">
         {% for receipt in data %}
-            <div class="col-12 p-3 bg-info mt-3 border border-2 rounded">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-3 col-12 text-white">Id: {{ receipt._id }}</div>
-                        <div class="col-sm-3 col-12 text-white">Total Price: {{ receipt.total_price }}</div>
-                        <div class="col-sm-3 col-12 text-white">
+            <tr class="p-3 bg-secondary mt-3 border border-2 rounded">
+                        <td class=" text-white">Id: {{ receipt._id }}</td>
+                        <td class="text-white">Total Price: {{ receipt.total_price }}</td>
+                        <td class=" text-white mx-2">
                             FinalPrice: {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
-                        </div>
-                        <div class="col-3">
+                        </td>
+                        <td class="">
                             <center>
-                                <i class="bi-trash text-center" style="font-size:20px ;color:red"></i>
+                                <i class="bi-trash-fill text-center" style="font-size:20px ;color:red"></i>
                             </center>
-                        </div>
+                        </td>
+                        <td class="">
+                            <i class="bi bi-check-all"></i>
+                        </td>
                         {#                        <span class="col-lg-3 col-sm-12">TimeStamp: {{ receipt.time_stamp }}</span>#}
                         {#                        <div>Id: {{ receipt._id }}   Total Price: {{ receipt.total_price }}  FinalPrice: {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price  }}</div>#}
-                    </div>
-                </div>
-            </div>
+            </tr>
         {% endfor %}
+    </table>
+{#        {% for receipt in data %}#}
+{#            <div class="col-12 p-3 bg-secondary mt-3 border border-2 rounded">#}
+{#                <div class="container">#}
+{#                    <div class="row">#}
+{#                        <div class="col-auto text-white">Id: {{ receipt._id }}</div>#}
+{#                        <div class="col-auto text-white">Total Price: {{ receipt.total_price }}</div>#}
+{#                        <div class="col-auto text-white mx-2">#}
+{#                            FinalPrice: {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}#}
+{#                        </div>#}
+{#                        <div class="col-auto"></div>#}
+{#                        <div class="col-2">#}
+{#                            <center>#}
+{#                                <i class="bi-trash-fill text-center" style="font-size:20px ;color:red"></i>#}
+{#                            </center>#}
+{#                        </div>#}
+{#                        <div class="col-1"></div>#}
+{#                        <div class="col-auto">#}
+{#                            <i class="bi bi-check-all"></i>#}
+{#                        </div>#}
+                        {#                        <span class="col-lg-3 col-sm-12">TimeStamp: {{ receipt.time_stamp }}</span>#}
+                        {#                        <div>Id: {{ receipt._id }}   Total Price: {{ receipt.total_price }}  FinalPrice: {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price  }}</div>#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
     </div>
 </div>
 </body>
