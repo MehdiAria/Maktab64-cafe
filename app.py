@@ -24,4 +24,4 @@ app.add_url_rule("/cashier/receipts", "date_receipts", all_receipts)
 app.add_url_rule("/cashier/tables", "tables", tables.tables)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True)
