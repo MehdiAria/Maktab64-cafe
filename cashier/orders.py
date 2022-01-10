@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from core.db_manager import DBManager
 from models.model import Order
 
@@ -12,4 +12,8 @@ def orders():
         map(lambda x: 'T'.join(x.time_stamp.__str__().split()), order_list))
     data = zip(order_list, datetime_list)
     # data = {'order_list': order_list, 'datetime_list': datetime_list}
-    return render_template('cashier/orders.html', data=data)
+    if request.method == 'GET':
+        return render_template('cashier/orders.html', data=data)
+    elif request.method =='POST':
+        x=request.form.get('item_id')
+        print(x)
