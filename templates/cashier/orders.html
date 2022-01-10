@@ -40,7 +40,12 @@
                                value="{{ j[0:23] }}"></td>
                     <td><input type="number" class="form-control" name="number_id" id="count" required
                                oninput="absNumber(this.value)" value="{{ i.number_item }}"></td>
-                    <td><input type="checkbox" class="form-check-input" name="number_id" id="count" value="{{ i.is_del }}"></td>
+                    {% if i.is_del %}
+                        <td><input type="checkbox" class="form-check-input" name="number_id" id="count" value=''
+                                   checked></td>
+                    {% else %}
+                        <td><input type="checkbox" class="form-check-input" name="number_id" id="count" value=''></td>
+                    {% endif %}
                     <td><input type="button" class="btn btn-danger" name="number_id" value="Edit"></td>
                 </tr>
             {% endfor %}
