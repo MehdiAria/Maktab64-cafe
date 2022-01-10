@@ -24,13 +24,13 @@
                 <th class="">is_checked</th>
             </tr>
             </thead>
-
+            <tbody>
             {% for receipt in data %}
                 <tr class="p-3 m-2 bg-secondary mt-3 rounded">
-                    <td class=" text-white">Id: {{ receipt._id }}</td>
-                    <td class="text-white">Total Price: {{ receipt.total_price }}</td>
+                    <td class=" text-white">{{ receipt._id }}</td>
+                    <td class="text-white">{{ receipt.total_price }}</td>
                     <td class=" text-white mx-2">
-                        FinalPrice: {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
+                        {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
                     </td>
                     <td class="">
                         <center>
@@ -44,6 +44,7 @@
                     </td>
                 </tr>
             {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>
