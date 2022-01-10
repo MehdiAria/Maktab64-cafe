@@ -8,50 +8,61 @@
 <body>
 <div class="container-fluid">
     <h1>Orders</h1>
-<div class="table-responsive my-2">
-    <table class="table table-hover col-6 text-center font-size" style="color: #c01d67">
-        <thead class="table-success">
-        <tr>
-            <td>#ID</td>
-            <td>Table No.</td>
-            <td>Receipt ID</td>
-            <td>Status</td>
-            <td>Item ID</td>
-            <td>Time</td>
-            <td>Count</td>
-            <td>Deleted</td>
-            <td>Edit</td>
-        </tr>
-        </thead>
-        {% for i in data.order_list %}
-            {% for j in data.datetime_list %}
-                <tr>
-                    <td><input type="number" class="form-control" name="number_id" id="count" required
-                               oninput="absNumber(this.value)" value="{{ i.id }}" readonly></td>
-                    <td><input type="number" class="form-control" name="number_id" id="count" required
-                               oninput="absNumber(this.value)" value="{{ i.table_id }}"></td>
-                    <td><input type="number" class="form-control" name="number_id" id="count" required
-                               oninput="absNumber(this.value)" value="{{ i.receipt_id }}"></td>
-                    <td><input type="number" class="form-control" name="number_id" id="count" required
-                               oninput="absNumber(this.value)" value="{{ i.status_id }}"></td>
-                    <td><input type="number" class="form-control" name="number_id" id="count" required
-                               oninput="absNumber(this.value)" value="{{ i.item_id }}"></td>
-                    <td><input type="datetime-local" class="form-control" name="number_id" id="count"
-                               value="{{ j[0:23] }}"></td>
-                    <td><input type="number" class="form-control" name="number_id" id="count" required
-                               oninput="absNumber(this.value)" value="{{ i.number_item }}"></td>
-                    {% if i.is_del %}
-                        <td><input type="checkbox" class="form-check-input" name="number_id" id="count" value=''
-                                   checked></td>
-                    {% else %}
-                        <td><input type="checkbox" class="form-check-input" name="number_id" id="count" value=''></td>
-                    {% endif %}
-                    <td><input type="button" class="btn btn-danger" name="number_id" value="Edit"></td>
-                </tr>
+    <div>
+        <input id="FilterInput" class="form-control" placeholder="Search Orders...">
+    </div>
+    <div class="table-responsive my-2">
+        <table id="ordertable" class="table table-hover col-6 text-center font-size" style="color: #c01d67">
+            <thead class="table-success">
+            <tr>
+                <td>#ID</td>
+                <td>Table No.</td>
+                <td>Receipt ID</td>
+                <td>Status</td>
+                <td>Item ID</td>
+                <td>Time</td>
+                <td>Count</td>
+                <td>Deleted</td>
+                <td>Edit</td>
+            </tr>
+            </thead>
+            {% for i in data.order_list %}
+                {% for j in data.datetime_list %}
+                    <tr>
+                        <td>{{ i.id }}</td>
+                        <td><input type="number" class="form-control" name="number_id" id="count" required
+                                   oninput="absNumber(this.value)" value="{{ i.table_id }}"></td>
+                        <td><input type="number" class="form-control" name="number_id" id="count" required
+                                   oninput="absNumber(this.value)" value="{{ i.receipt_id }}"></td>
+                        <td><input type="number" class="form-control" name="number_id" id="count" required
+                                   oninput="absNumber(this.value)" value="{{ i.status_id }}"></td>
+                        <td><input type="number" class="form-control" name="number_id" id="count" required
+                                   oninput="absNumber(this.value)" value="{{ i.item_id }}"></td>
+                        <td><input type="datetime-local" class="form-control" name="number_id" id="count"
+                                   value="{{ j[0:23] }}"></td>
+                        <td><input style="width: 50px" type="number" class="form-control" name="number_id" id="count" required
+                                   oninput="absNumber(this.value)" value="{{ i.number_item }}"></td>
+                        {% if i.is_del %}
+                            <td><input type="checkbox" class="form-check-input" name="number_id" id="count" value=''
+                                       checked></td>
+                        {% else %}
+                            <td><input type="checkbox" class="form-check-input" name="number_id" id="count" value=''>
+                            </td>
+                        {% endif %}
+                        <td><input type="button" class="btn btn-danger" name="number_id" value="Edit"></td>
+                    </tr>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-    </table>
-</div>
+        </table>
+    </div>
 </div>
 </body>
+<script>
+    $("#FilterInput").on("input", function () {
+        var value = $(this).val().toLowerCase();
+        $("#ordertable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+</script>
 </html>
