@@ -89,3 +89,17 @@ def order(table_id):
             db.update(table)
             return resp
     return 'server error', 403
+
+def del_order():
+    if request.method == 'POST':
+        x = request.form.get('order_id')
+        obj_order = db.read(Order, x)
+        db.delete(obj_order)
+        return "order deleted"
+
+
+def dec_order():
+    if request.method == 'POST':
+        x = request.form.get('order_id')
+        obj_order = db.read(Order, x)
+        db.update(obj_order)
