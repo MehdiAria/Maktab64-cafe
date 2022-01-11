@@ -11,24 +11,25 @@
     <div>
         <input id="FilterInput" class="form-control" placeholder="Search Orders...">
     </div>
-    <div class="table-responsive my-2">
+    <div class="table-responsive my-2 text-center">
         <div id="msg-container"></div>
         <table id="ordertable" class="table table-hover col-6 text-center font-size" style="color: #c01d67">
             <thead class="table-success">
             <tr>
-                <td>#ID</td>
-                <td>Table No.</td>
-                <td>Receipt ID</td>
-                <td>Status</td>
-                <td>Item ID</td>
-                <td>Time</td>
-                <td>Count</td>
-                <td><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></td>
-                <td><i class="bi bi-pencil-fill text-center" style="font-size:20px ;color:red"></i></td>
+                <th class="text-center">#ID</th>
+                <th class="text-center">Table No.</th>
+                <th class="text-center">Receipt ID</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Item ID</th>
+                <th class="text-center">Time</th>
+                <th class="text-center">Count</th>
+                <th><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></th>
+                <th><i class="bi bi-pencil-fill text-center" style="font-size:20px ;color:red"></i></th>
             </tr>
+
             </thead>
             {% for i,j in data %}
-                <tr id="trow-{{ i.id }}">
+                <tr id="trow-{{ i.id }}" class="p-3 m-2 mt-3 rounded">
                     <form action="{{ url_for('orders') }}" method="POST" id="{{ i.id }}"></form>
                     <td class="text-success">{{ i.id }}</td>
 
@@ -43,7 +44,7 @@
                                required
                                min="1" max="999" value="{{ i.item_id }}" form="{{ i.id }}"></td>
                     <td class="text-white">{{ i.time_stamp }}</td>
-                    <td><input style="width: 60px" type="number" class="form-control" name="number_item"
+                    <td><input style="width: 60px" type="number" class="form-control text-center" name="number_item"
                                id="number_item"
                                required
                                min="1" max="999" value="{{ i.number_item }}" form="{{ i.id }}"></td>
@@ -53,6 +54,7 @@
                         <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit</button>
                     </td>
                 </tr>
+{#                </tbody>#}
             {% endfor %}
         </table>
     </div>
