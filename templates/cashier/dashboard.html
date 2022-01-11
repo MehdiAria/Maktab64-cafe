@@ -199,11 +199,11 @@
 <header>
     <div class="css-nav nav navbar">
         <div class="container-fluid ">
-            <div class="row col-2 login rounded p-1" onmouseout="ret()" onmouseover="del_log()" data-hover="log out">
+            <a style="text-decoration: none" class="row col-2 login rounded p-1" onmouseout="ret()" onmouseover="del_log()"  href="{{url_for('logout')}}">
                 <i class="fa fa-user-circle-o user-logo text-center" aria-hidden="true"></i>
                 <h6 class="text-center h6-nav" id="logins" >logged in</h6>
 
-            </div>
+            </a>
             <div class="row col-2 login ro rounded p-1">
                 <h6 class="text-center row-d">row data</h6>
                 <h6 class="text-center h6-nav">row data</h6>
