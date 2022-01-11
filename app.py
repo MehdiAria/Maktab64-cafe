@@ -6,6 +6,7 @@ from cashier import tables
 from cashier import orders
 from cashier import edit_items
 from cashier.receipts_view import *
+from cashier.views_logout import *
 
 app = Flask(__name__, template_folder="templates")
 
@@ -25,6 +26,6 @@ app.add_url_rule("/cashier/orders", "orders", orders.orders, methods=['GET', 'PO
 app.add_url_rule("/cashier/receipts", "date_receipts", all_receipts, methods=["GET", "POST"])
 # app.add_url_rule("cashier/served_orders", "served_orders", served_orders)
 app.add_url_rule("/cashier/tables", "tables", tables.tables, methods=['GET', 'POST'])
-
+app.add_url_rule("/cashier/logout", 'logout', logout)
 if __name__ == '__main__':
     app.run(debug=True)
