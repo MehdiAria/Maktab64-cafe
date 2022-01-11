@@ -16,6 +16,14 @@ db = DBManager()
 
 def all_receipts():
     if request.method == "POST":
+        receipt_dict = request.form
+        receipt = db.read(Receipt, int(receipt_dict.get("_id")))
+        receipt: Receipt
+        receipt.is_del = True if receipt_dict.get("is_del") == "true" else False
+        receipt.is_paid = True if receipt_dict.get("is_paid") == "true" else False
+        receipt.final_price = receipt_dict.get('final_price')
+        db.update(receipt)
         return "Edit was successful!"
     data = db.read_all(Receipt)
     return render_template("cashier/receipts.html", data=data)
+

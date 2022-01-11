@@ -116,6 +116,12 @@
 
 
 
+   /*.login:hover:after{*/
+   /*    content: attr(data-hover);*/
+   /*    font-size: medium;*/
+   /*    color: rgba(241, 241, 241, 0.32);*/
+   /*}*/
+
 
     @media only screen and (max-width: 385px){
         .right-dash{
@@ -192,9 +198,9 @@
 <header>
     <div class="css-nav nav navbar">
         <div class="container-fluid ">
-            <div class="row col-2 login rounded p-1">
+            <div class="row col-2 login rounded p-1" onmouseout="ret()" onmouseover="del_log()" data-hover="log out">
                 <i class="fa fa-user-circle-o user-logo text-center" aria-hidden="true"></i>
-                <h6 class="text-center h6-nav" id="logins" data-hover="log out">logged in</h6>
+                <h6 class="text-center h6-nav" id="logins" >logged in</h6>
 
             </div>
             <div class="row col-2 login ro rounded p-1">
@@ -231,6 +237,15 @@
     </div>
 </div>
 
-
+<script>
+    function del_log() {
+        $("#logins").empty()
+        $("#logins").html('<h6 class="text-center h6-nav" id="logins">log out</h6>')
+    }
+    function ret(){
+     $("#logins").empty()
+     $("#logins").html('<h6 class="text-center h6-nav" id="logins">logged in</h6>')
+    }
+</script>
 </body>
 </html>
