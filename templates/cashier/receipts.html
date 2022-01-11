@@ -110,7 +110,7 @@
         console.log(PostJson)
         $.ajax({
             type:"POST",
-            url:"http://127.0.0.1:5000/cashier/reciepts",
+            url:"http://127.0.0.1:5000/cashier/receipts",
             data: PostJson,
             success: function(response){
                 let msg = $(`<div>${response}</div>`)
