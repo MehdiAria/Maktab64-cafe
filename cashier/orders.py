@@ -16,7 +16,7 @@ def orders():
     elif request.method == 'POST':
         order = db.read(Order, int(request.form.get('_id')))
         order.is_del = True if request.form.get('is_del') == 'true' else False
-        order.item_id = request.form.get('is_del')
+        order.item_id = request.form.get('item_id ')
         order.status_id = request.form.get('status_id')
         order.number_item = request.form.get('number_item')
         db.update(order)
