@@ -16,6 +16,6 @@ db = DBManager()
 
 def all_receipts():
     if request.method == "POST":
-        return "good!"
+        return "Edit was successful!"
     data = db.read_all(Receipt)
     return render_template("cashier/receipts.html", data=data)

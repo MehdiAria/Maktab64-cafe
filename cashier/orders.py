@@ -15,8 +15,7 @@ def orders():
     if request.method == 'GET':
         return render_template('cashier/orders.html', data=data)
     elif request.method == 'POST':
-        x = request.form.get('item_id')
-        print(x)
+        return 'Success'
 
 
 def del_order():

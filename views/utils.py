@@ -22,7 +22,7 @@ def set_user_token(receipt):
     new_token = str(uuid.UUID(bytes=os.urandom(16)))
     receipt.user_token = new_token
     db.update(receipt)
-    del db
+    # del db
     return new_token
 
 
