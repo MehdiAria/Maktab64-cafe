@@ -35,8 +35,14 @@
 {#                <form action="{% url_for(orders) %}" method="POST">#}
                     <tr>
                         <td class="td-color">{{ i.id }}</td>
+                    <input style="width: 60px; display: none" type="number" class="form-control" name="status_id" id="count" required
+                                   min="1" max="999" value="{{ i.id }}">
                         <td class="td-color">{{ i.table_id }}</td>
+                    <input style="width: 60px; display: none" type="number" class="form-control" name="status_id" id="count" required
+                                   min="1" max="999" value="{{ i.table_id }}">
                         <td class="td-color">{{ i.receipt_id }}</td>
+                    <input style="width: 60px; display: none" type="number" class="form-control" name="status_id" id="count" required
+                                   min="1" max="999" value="{{ i.receipt_id }}">
                         <td><input style="width: 60px" type="number" class="form-control" name="status_id" id="count" required
                                    min="1" max="999" value="{{ i.status_id }}"></td>
                         <td><input style="width: 60px" type="number" class="form-control" name="item_id" id="count" required
