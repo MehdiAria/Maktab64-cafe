@@ -24,3 +24,10 @@ def del_order():
         obj_order = db.read(Order, x)
         db.delete(obj_order)
         return "order deleted"
+
+
+def dec_order():
+    if request.method == 'POST':
+        x = request.form.get('order_id')
+        obj_order = db.read(Order, x)
+
