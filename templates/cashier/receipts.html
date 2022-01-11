@@ -49,12 +49,13 @@
                         <td class="text-success">{{ receipt._id }}</td>
                         <td class="text-white">{{ receipt.total_price }}</td>
                         <td class="text-white mx-2">
-                            {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
+                            <input type="number" name="final_price" class="form-control"
+                                   value={{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}>
                         </td>
                         <td class="text-white">{{ receipt.time_stamp }}</td>
                         <td class="">
                             <center>
-                                <input type="checkbox" class="form-check-input"
+                                <input type="checkbox" class="form-check-input" name="is_del"
                                         {% if receipt.is_del %}
                                        checked="checked"
                                         {% endif %}>
@@ -62,7 +63,7 @@
                         </td>
                         <td class="">
                             <center>
-                                <input type="checkbox" class="form-check-input"
+                                <input type="checkbox" class="form-check-input" name="is_paid"
                                         {% if receipt.is_paid %}
                                        checked="checked"
                                         {% endif %}>
@@ -77,7 +78,11 @@
                             {#                            </center>#}
                         </td>
                         <td>
-                            <center><button class="btn btn-danger" onclick="ApplyEdits(this.id)" id={{ receipt._id }}>Apply</button></center>
+                            <center>
+                                <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id={{ receipt._id }}>
+                                    Apply
+                                </button>
+                            </center>
                         </td>
                     </tr>
                 {% endfor %}
@@ -89,9 +94,21 @@
 </body>
 <script>
     function ApplyEdits(ButtonId) {
-       let elem = $(`#trow-${ButtonId} input`)
-        console.log(elem)
+        let elem = $(`#trow-${ButtonId} input`)
+        let PostJson = {"_id":ButtonId}
+        for (let Input of elem) {
+            let value = null
+            if (Input.type === "checkbox"){
+                value = Input.checked
+            }
+            else{
+                value = Input.value
+            }
+            PostJson[Input.name] = value
         }
+        console.log(PostJson)
+    }
+
     $("#FilterInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#ReceiptTable > tbody  > tr").filter(function () {
