@@ -1,15 +1,28 @@
-<div class="onav" style="position: sticky;top: 0;z-index: 10;">
-    <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4" style="display: flex!important;flex-direction: row!important;justify-content: space-around!important;">
-            <a href="{{ url_for('home') }}"><h5 class="text-white">Home</h5></a>
-            <a href="{{ url_for('about') }}"><h5 class="text-white">About</h5></a>
-            <a href="{{ url_for('menu') }}"><h5 class="text-white">Menu</h5></a>
-        </div>
+<style>
+    .org{color: chocolate!important;}
+</style>
+<nav class="sticky-top navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand mx-5" href="#">Logo here</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon org"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item mr-2">
+          <a class="nav-link nav-content org" href="{{ url_for('home') }}">Home</a>
+        </li>
+        <li class="nav-item mr-2">
+          <a class="nav-link nav-content org" href="{{ url_for('about') }}">About</a>
+        </li>
+        <li class="nav-item mr-2">
+          <a class="nav-link nav-content org" href="{{ url_for('menu') }}">Menu</a>
+        </li>
+          <li class="nav-item mr-2">
+          <a class="nav-link nav-content org" href="{{ url_for('panel') }}">Cashier Panel</a>
+        </li>
+      </ul>
     </div>
-    <nav class="navbar navbar-dark bg-dark" style="background-color: rgb(49,49,49)!important">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
-</div>
+  </div>
+</nav>
+

@@ -18,8 +18,17 @@
                 <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
             </div>
             <button type="submit" class="btn btn-warning m-2">Login</button>
+            <div id="msg">
+                {#                <div id="{{ error.massage }}"></div>#}
+                {% if error!='' %}
+
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>{{ error['error'] }}</strong>
+                    </div>
+                {% endif %}
+            </div>
         </form>
     </div>
-
 
 {% endblock %}
