@@ -11,48 +11,49 @@
 <body>
 <div class="container">
     <h1>Tables</h1>
-    </div>
-    <table class="table table-hover col-6 text-center font-size" style="color: #c01d67">
-        <thead class="table-success">
-        <tr id="tr">
-            <th>Table no.</th>
-            <th>Space</th>
-            <th>Status</th>
-            <th>Delete</th>
-            <th>Apply</th>
-            <th></th>
-        </tr>
-        </thead>
-        {% for i in data %}
+</div>
+<div id="msg-container"></div>
+<table class="table table-hover col-6 text-center font-size" style="color: #c01d67">
+    <thead class="table-success">
+    <tr id="tr">
+        <th>Table no.</th>
+        <th>Space</th>
+        <th>Status</th>
+        <th>Delete</th>
+        <th>Apply</th>
+        <th></th>
+    </tr>
+    </thead>
+    {% for i in data %}
 
-            <tr id="del">
-                <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
-                <td>{{ i.id }}<input type="number" style="display: none" value="{{ i.id }}" name="id" form="{{ i.id }}"></td>
-                <td><input type="number" class="form-control" name="space" required
-                           oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}"></td>
-                <td>{% if i.is_empty==false %}
-                    <input type="text" class="form-control" name="status" required value="Full" form="{{ i.id }}">
-                {% else %}
-                    <input type="text" class="form-control" name="status" required value="Empty" form="{{ i.id }}">
-                {% endif %}
-                </td>
-                <td>
-                    <input id="check" type="checkbox" class="form-check-input" name="check_box" value='' oninput='checkBoxValue(this.id)' form="{{ i.id }}">
-                </td>
-                <td>
-                    <input type="submit" class="btn btn-danger" name="" value="Apply" form="{{ i.id }}">
-                </td>
+        <tr id="trow-{{ i.id }}">
+            <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
+            <td>{{ i.id }}<input type="number" style="display: none" value="{{ i.id }}" name="id" form="{{ i.id }}">
+            </td>
+            <td><input type="number" class="form-control" name="space" required
+                       oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}"></td>
+            <td>
+                <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="status" required {% if i.is_empty %} checked {% endif %}>
 
-            </tr>
-        {% endfor %}
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><input type="button" class="btn btn-success" value="Add"></td>
+            </td>
+            <td>
+                <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="check_box" {% if i.is_del %} checked {% endif %}>
+
+            </td>
+            <td>
+                <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-danger" name="" value="Apply">Edit</button>
+            </td>
+
         </tr>
-    </table>
+    {% endfor %}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><input type="button" class="btn btn-success" value="Add"></td>
+    </tr>
+</table>
 </div>
 </body>
 
@@ -89,6 +90,32 @@
         console.log(elm.checked)
     }
 
-
+    function ApplyEdits(ButtonId) {
+        let elem = $(`#trow-${ButtonId} input`)
+        let PostJson = {"_id": ButtonId}
+        for (let Input of elem) {
+            let value = null
+            if (Input.type === "checkbox") {
+                value = Input.checked
+            } else {
+                value = Input.value
+            }
+            PostJson[Input.name] = value
+        }
+        console.log(PostJson)
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/cashier/tables",
+            data: PostJson,
+            success: function (response) {
+                let msg = $(`<div>${response}</div>`)
+                msg.appendTo($(`#msg-container`))
+            },
+            error: function () {
+                let msg = $(`<div>error!!!!!</div>`)
+                msg.appendTo($(`#msg-container`))
+            }
+        })
+    }
 </script>
 </html>

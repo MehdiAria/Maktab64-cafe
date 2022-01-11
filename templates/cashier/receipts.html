@@ -87,6 +87,7 @@
 </body>
 <script>
     function ApplyEdits(ButtonId) {
+        $(`#msg-container`).empty()
         let elem = $(`#trow-${ButtonId} input`)
         let PostJson = {"_id":ButtonId}
         for (let Input of elem) {
@@ -109,6 +110,9 @@
                         <strong>Success!</strong> ${response}
                     </div>`)
                 msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                    }, 2000)
 
             },
             error: function(){
@@ -119,7 +123,6 @@
             }
         })
     }
-
     $("#FilterInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#ReceiptTable > tbody  > tr").filter(function () {
