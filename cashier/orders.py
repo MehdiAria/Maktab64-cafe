@@ -14,6 +14,20 @@ def orders():
     # data = {'order_list': order_list, 'datetime_list': datetime_list}
     if request.method == 'GET':
         return render_template('cashier/orders.html', data=data)
-    elif request.method =='POST':
-        x=request.form.get('item_id')
-        print(x)
+    elif request.method == 'POST':
+        return 'Success'
+
+
+def del_order():
+    if request.method == 'POST':
+        x = request.form.get('order_id')
+        obj_order = db.read(Order, x)
+        db.delete(obj_order)
+        return "order deleted"
+
+
+def dec_order():
+    if request.method == 'POST':
+        x = request.form.get('order_id')
+        obj_order = db.read(Order, x)
+

@@ -69,14 +69,6 @@
                                        checked="checked"
                                         {% endif %}>
                             </center>
-                            {#{{ checked if receipt.is_paid else ""}}#}
-                            {#                            <center>#}
-                            {#                                {% if receipt.is_paid %}#}
-                            {#                                    <i class="bi bi-cart-check" style="color:lightgreen; font-size:20px;"></i>#}
-                            {#                                {% else %}#}
-                            {#                                    <i class="bi bi-check-all" style="color:lightgreen; font-size:20px;"></i>#}
-                            {#                                {% endif %}#}
-                            {#                            </center>#}
                         </td>
                         <td>
                             <center>
@@ -95,6 +87,7 @@
 </body>
 <script>
     function ApplyEdits(ButtonId) {
+        $(`#msg-container`).empty()
         let elem = $(`#trow-${ButtonId} input`)
         let PostJson = {"_id":ButtonId}
         for (let Input of elem) {
@@ -113,16 +106,23 @@
             url:"http://127.0.0.1:5000/cashier/receipts",
             data: PostJson,
             success: function(response){
-                let msg = $(`<div>${response}</div>`)
+                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
+                        <strong>Success!</strong> ${response}
+                    </div>`)
                 msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                    }, 2000)
+
             },
             error: function(){
-                let msg = $(`<div>error!!!!!</div>`)
+                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error while adding order!</strong>
+                              </div>`)
                 msg.appendTo($(`#msg-container`))
             }
         })
     }
-
     $("#FilterInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#ReceiptTable > tbody  > tr").filter(function () {
