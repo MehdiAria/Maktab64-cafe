@@ -51,20 +51,17 @@
                         <td class="text-white">{{ receipt.time_stamp }}</td>
                         <td class="">
                             <center>
-                                <input type="checkbox"{% if receipt.is_paid %}
+                                <input type="checkbox"{% if receipt.is_del %}
                                        checked="checked"
-                                {% else %}
-                                       checked=""
                                 {% endif %}>
                             </center>
                         </td>
                         <td class="">
                             <center>
-                                <input type="checkbox" {% if receipt.is_paid %}
+                                <input type="checkbox"
+                                        {% if receipt.is_paid %}
                                        checked="checked"
-                                {% else %}
-                                       checked=""
-                                {% endif %}>
+                                        {% endif %}>
                             </center>
                             {#{{ checked if receipt.is_paid else ""}}#}
                             {#                            <center>#}
@@ -84,13 +81,9 @@
 </div>
 </body>
 <script>
-    function asd(input_id) {
-        console.log($(`#${input_id}`).val())
-    }
-
-    $("#FilterInput").on("input", function () {
+    $("#FilterInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
-        $("#ReceiptTable tr").filter(function () {
+        $("#ReceiptTable > tbody  > tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
