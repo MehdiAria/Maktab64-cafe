@@ -38,7 +38,7 @@
                     {% endif %}
                     </td>
                     <td class="{{ i.id }}"><input type="button" class="btn btn-danger" value="Decrease Order" onclick="dec_order" ></td>
-                    <td class="{{ i.id }}"><button id="{{ i.id }}"  class="btn btn-danger" value="Delete Order" name="delete_ord" onclick="del_order(this.id)"> </button></td>
+                    <td class="{{ i.id }}"><button id="{{ i.id }}"  class="btn btn-danger" value="Delete Order" name="delete_ord" onclick="del_order(this.id)">Delete</button></td>
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
 
@@ -59,6 +59,9 @@
             url: `http://127.0.0.1:5000/deldec/`,
             data: {
                 'order_id': order_id
+            },
+            success:function (){
+                $(`.${order_id}`).empty()
             }
         })
     }
@@ -80,10 +83,11 @@
             }
         })
     }
-    {#$(document).ready(function (){#}
-    {#    $("#delorder").click(function (){#}
+    {#$(document).ready(function () {#}
+    {#    $("#delorder").click(function () {#}
     {#        $("#delorder").parent().parent().hide()#}
     {#    })#}
+
 
     </script>
 {% endblock %}
