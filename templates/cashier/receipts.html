@@ -35,15 +35,18 @@
                     </th>
                     <th class="">
                         <center>
-                            <i class="bi bi-check-all text-center" style="font-size:20px ;color:red"></i>
+                            <i class="bi bi-check-all text-center" style="font-size:25px ;color:green"></i>
                         </center>
+                    </th>
+                    <th>
+                        <center>Edit</center>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for receipt in data %}
                     <tr class="p-3 m-2 mt-3 rounded">
-                        <td class="text-white">{{ receipt._id }}</td>
+                        <td class="text-success">{{ receipt._id }}</td>
                         <td class="text-white">{{ receipt.total_price }}</td>
                         <td class="text-white mx-2">
                             {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
@@ -51,14 +54,15 @@
                         <td class="text-white">{{ receipt.time_stamp }}</td>
                         <td class="">
                             <center>
-                                <input type="checkbox"{% if receipt.is_del %}
+                                <input type="checkbox" class="form-check-input"
+                                        {% if receipt.is_del %}
                                        checked="checked"
-                                {% endif %}>
+                                        {% endif %}>
                             </center>
                         </td>
                         <td class="">
                             <center>
-                                <input type="checkbox"
+                                <input type="checkbox" class="form-check-input"
                                         {% if receipt.is_paid %}
                                        checked="checked"
                                         {% endif %}>
@@ -71,6 +75,9 @@
                             {#                                    <i class="bi bi-check-all" style="color:lightgreen; font-size:20px;"></i>#}
                             {#                                {% endif %}#}
                             {#                            </center>#}
+                        </td>
+                        <td>
+                            <center><button class="btn btn-danger">Apply</button></center>
                         </td>
                     </tr>
                 {% endfor %}
