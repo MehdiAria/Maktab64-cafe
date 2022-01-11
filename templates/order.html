@@ -4,7 +4,6 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>#}
 <script src="https://malsup.github.io/jquery.form.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -37,53 +36,50 @@
                         {{ data.item[i].discount }}
                     {% endif %}
                     </td>
-                    <td class="{{ i.id }}"><input type="button" class="btn btn-danger" value="Decrease Order" onclick="dec_order" ></td>
-                    <td class="{{ i.id }}"><button id="{{ i.id }}"  class="btn btn-danger" value="Delete Order" name="delete_ord" onclick="del_order(this.id)"> </button></td>
-{#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
-{#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
+                    <td class="{{ i.id }}"><input type="button" class="btn btn-danger" value="Decrease Order"
+                                                  onclick="dec_order"></td>
+                    <td class="{{ i.id }}">
+                        <button id="{{ i.id }}" class="btn btn-danger" value="Delete Order" name="delete_ord"
+                                onclick="del_order(this.id)"></button>
+                    </td>
 
                 </tr>
             {% endfor %}
-        <tr>
-            <th colspan='5'>Total price without discount: {{ data.price.total_price }}$</th>
-        </tr>
+            <tr>
+                <th colspan='5'>Total price without discount: {{ data.price.total_price }}$</th>
+            </tr>
         </table>
         <h1></h1>
 
     </div>
     <script>
 
-    function del_order(order_id) {
-        $.ajax({
-            type: "POST",
-            url: `http://127.0.0.1:5000/deldec/`,
-            data: {
-                'order_id': order_id
-            }
-        })
-    }
+        function del_order(order_id) {
+            $.ajax({
+                type: "POST",
+                url: `http://127.0.0.1:5000/deldec/`,
+                data: {
+                    'order_id': order_id
+                }
+            })
+        }
 
-    function dec_order() {
-        let elem = $(`#count`)
-        let count = elem.val()
-        let tbl = $(`#table_id`)
-        let t_id = tbl.val()
-        let item_id = $(`#item_id`)
-        let i_id = item_id.val()
-        $.ajax({
-            type: "POST",
-            url: `http://127.0.0.1:5000/order/${t_id}`,
-            data: {
-                'number_item': count,
-                "item_id": i_id,
+        function dec_order() {
+            let elem = $(`#count`)
+            let count = elem.val()
+            let tbl = $(`#table_id`)
+            let t_id = tbl.val()
+            let item_id = $(`#item_id`)
+            let i_id = item_id.val()
+            $.ajax({
+                type: "POST",
+                url: `http://127.0.0.1:5000/order/${t_id}`,
+                data: {
+                    'number_item': count,
+                    "item_id": i_id,
 
-            }
-        })
-    }
-    {#$(document).ready(function (){#}
-    {#    $("#delorder").click(function (){#}
-    {#        $("#delorder").parent().parent().hide()#}
-    {#    })#}
-
+                }
+            })
+        }
     </script>
 {% endblock %}
