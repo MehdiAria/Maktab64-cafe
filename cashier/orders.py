@@ -14,6 +14,14 @@ def orders():
     # data = {'order_list': order_list, 'datetime_list': datetime_list}
     if request.method == 'GET':
         return render_template('cashier/orders.html', data=data)
-    elif request.method =='POST':
-        x=request.form.get('item_id')
+    elif request.method == 'POST':
+        x = request.form.get('item_id')
         print(x)
+
+
+def deldec():
+    if request.method == 'POST':
+        print(request.form)
+        # x = request.form.get('item_id')
+        # db.delete(x)
+    return "pass"
