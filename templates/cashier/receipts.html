@@ -15,6 +15,7 @@
 
 </head>
 <body>
+<div id="msg-container"></div>
 <div class="container">
     <div class="row">
         <div>
@@ -107,6 +108,19 @@
             PostJson[Input.name] = value
         }
         console.log(PostJson)
+        $.ajax({
+            type:"POST",
+            url:"http://127.0.0.1:5000/cashier/reciepts",
+            data: PostJson,
+            success: function(response){
+                let msg = $(`<div>${response}</div>`)
+                msg.appendTo($(`#msg-container`))
+            },
+            error: function(){
+                let msg = $(`<div>error!!!!!</div>`)
+                msg.appendTo($(`#msg-container`))
+            }
+        })
     }
 
     $("#FilterInput").on("keyup", function () {
