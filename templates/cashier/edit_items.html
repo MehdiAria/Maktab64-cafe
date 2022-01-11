@@ -18,7 +18,6 @@
             <tr>
                 <th class="text-center">#ID</th>
                 <th class="text-center">Category ID</th>
-                <th class="text-center">Receipt ID</th>
                 <th class="text-center">Discount</th>
                 <th class="text-center">Name</th>
                 <th class="text-center">Price</th>
@@ -46,14 +45,14 @@
                                                   min="1" max="999" value="{{ i.discount }}" form="{{ i.id }}"></td>
                     </td>
 
-                    <td><input style="width: 60px" type="number" class="form-control" name="status_id" id="status_id"
+                    <td><input type="text" class="form-control" name="status_id" id="status_id"
                                required
                                min="1" max="999" value="{{ i.name }}" form="{{ i.id }}"></td>
-                    <td><input style="width: 60px" type="number" class="form-control" name="item_id" id="item_id"
+                    <td><input type="number" class="form-control" name="item_id" id="item_id"
                                required
                                min="1" max="999" value="{{ i.price }}" form="{{ i.id }}"></td>
                     <td class="text-white">{{ i.time_stamp }}</td>
-                    <td><input style="width: 60px" type="number" class="form-control text-center" name="number_item"
+                    <td><input type="text" class="form-control text-center" name="number_item"
                                id="number_item"
                                required
                                min="1" max="999" value="{{ i.image_url }}" form="{{ i.id }}"></td>
