@@ -19,7 +19,7 @@ def orders():
         print(x)
 
 
-def deldec():
+def del_order():
     if request.method == 'POST':
         x = request.form.get('order_id')
         obj_order = db.read(Order, x)

@@ -26,7 +26,7 @@
             </thead>
             {% for i in data.item %}
                 <tr>
-                    <form action="{{ url_for('deldec') }}" method="POST" id="i.id"></form>
+{#                    <form action="{{ url_for('deldec') }}" method="POST" id="i.id"></form>#}
                     <td class="{{ i.id }}">{{ data.item[i].name }}</td>
                     <td class="{{ i.id }}">{{ i.number_item }}</td>
                     <td class="{{ i.id }}">{{ i.table_id }}</td>
@@ -37,7 +37,7 @@
                         {{ data.item[i].discount }}
                     {% endif %}
                     </td>
-                    <td class="{{ i.id }}"><input type="button" class="btn btn-danger" value="Decrease Order" onclick="dec_order" ></td>
+                    <td class="{{ i.id }}"><button  class="btn btn-danger" value="Decrease Order" name="decrease_ord"  >Decrease</button></td>
                     <td class="{{ i.id }}"><button id="{{ i.id }}"  class="btn btn-danger" value="Delete Order" name="delete_ord" onclick="del_order(this.id)">Delete</button></td>
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
@@ -56,7 +56,7 @@
     function del_order(order_id) {
         $.ajax({
             type: "POST",
-            url: `http://127.0.0.1:5000/deldec/`,
+            url: `http://127.0.0.1:5000/delete`,
             data: {
                 'order_id': order_id
             },
