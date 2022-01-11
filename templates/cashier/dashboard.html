@@ -12,6 +12,9 @@
    <link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
 
     <script>
+        function logout(){
+            $("#logins").replaceAll('<h6 class="text-center h6-nav" id="logins">log out</h6>')
+        }
 
         $(document).ready(function (){
             $(".orders").click(function (){
@@ -97,6 +100,7 @@
    .right-ajax{
        background-color: #DCA26CA5;
        width: 74%;
+       height:98.5vh;
        overflow: auto;
    }
 
@@ -109,6 +113,9 @@
    .h6-nav{
        color:rgba(241, 241, 241, 0.32);
    }
+
+
+
 
     @media only screen and (max-width: 385px){
         .right-dash{
@@ -145,6 +152,9 @@
            margin-top: 21px
        }
    }
+
+
+
 
   @media only screen and (max-width: 425px)  {
          .h6-nav{display: none}
@@ -184,7 +194,8 @@
         <div class="container-fluid ">
             <div class="row col-2 login rounded p-1">
                 <i class="fa fa-user-circle-o user-logo text-center" aria-hidden="true"></i>
-                <h6 class="text-center h6-nav">logged in</h6>
+                <h6 class="text-center h6-nav" id="logins" data-hover="log out">logged in</h6>
+
             </div>
             <div class="row col-2 login ro rounded p-1">
                 <h6 class="text-center row-d">row data</h6>
@@ -210,7 +221,6 @@
             <button class="m-2 p-2 dash-options dashboard btn btn-secondary" href="#"><i class="icons fa fa-home" aria-hidden="true"></i><p class="p-tags-in-dash">Dashboard</p></button>
             <button class="m-2 p-2 dash-options tables btn btn-secondary" href="#"><i class="icons fa fa-table" aria-hidden="true"></i><p class="p-tags-in-dash">Tables</p></button>
             <button class="m-2 p-2 dash-options orders btn btn-secondary" href="#"><i class="fa fa-coffee" aria-hidden="true"></i><p class="p-tags-in-dash">Orders</p></button>
-            <button class="m-2 p-2 dash-options served-orders btn btn-secondary" href="#"><i class="icons fa fa-check-square-o" aria-hidden="true"></i><p class="p-tags-in-dash">Served orders</p></button>
             <button class="m-2 p-2 dash-options edit-items  btn btn-secondary" href="#"><i class="icons fa fa-pencil-square-o" aria-hidden="true"></i><p class="p-tags-in-dash">Edit Items</p></button>
             <button class="m-2 p-2 dash-options receipts  btn btn-secondary" href="#"> <i class="fa fa-credit-card-alt"></i><p class="p-tags-in-dash">Receipts</p></button>
         </div>
