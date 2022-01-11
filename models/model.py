@@ -182,12 +182,14 @@ class Receipt(DBModel):
     _id: None
     time_stamp: datetime
     user_token: str
+    is_del: bool
 
-    def __init__(self, total_price, final_price, user_token=None, time_stamp=None, _id=None,is_paid=None) -> None:
+    def __init__(self, total_price, final_price, user_token=None, time_stamp=None, _id=None,is_paid=None, is_del=False) -> None:
         self.total_price = total_price
         self.final_price = final_price
         self.user_token = user_token
         self.is_paid = is_paid
+        self.is_del = is_del
         self.time_stamp = time_stamp if time_stamp else datetime.now()
         if _id:
             self._id = _id
