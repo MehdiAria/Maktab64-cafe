@@ -20,7 +20,7 @@ def orders():
 
 def deldec():
     if request.method == 'POST':
-        print(request.form)
-        # x = request.form.get('item_id')
-        # db.delete(x)
-    return "pass"
+        x = request.form.get('order_id')
+        obj_order = db.read(Order, x)
+        db.delete(obj_order)
+        return "order deleted"
