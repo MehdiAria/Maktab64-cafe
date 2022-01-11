@@ -11,10 +11,11 @@ def orders():
     datetime_list = list(
         map(lambda x: 'T'.join(x.time_stamp.__str__().split()), order_list))
     data = zip(order_list, datetime_list)
-    # data = {'order_list': order_list, 'datetime_list': datetime_list}
     if request.method == 'GET':
         return render_template('cashier/orders.html', data=data)
     elif request.method == 'POST':
+        order = db.read(Order, int(request.form.get('_id')))
+        order.is_del = True if request.form.get('is_del')=='true' else False
         return 'Success'
 
 

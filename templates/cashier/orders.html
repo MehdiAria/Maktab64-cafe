@@ -54,8 +54,8 @@
                                required
                                min="1" max="999" value="{{ i.item_id }}" form="{{ i.id }}"></td>
                     <td>
-{#                        <input type="datetime-local" class="form-control" name="time_stamp" id="time_stamp"#}
-{#                               value="{{ j[0:23] }}" form="{{ i.id }}">#}
+                        {#                        <input type="datetime-local" class="form-control" name="time_stamp" id="time_stamp"#}
+                        {#                               value="{{ j[0:23] }}" form="{{ i.id }}">#}
                         {{ i.time_stamp }}
                     </td>
                     <td><input style="width: 60px" type="number" class="form-control" name="number_item"
@@ -71,7 +71,7 @@
                     {#                        </td>#}
                     {#                    {% endif %}#}
                     <td>
-                        <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id="{{ i.id }}"></button>
+                        <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit</button>
                     </td>
                 </tr>
             {% endfor %}
