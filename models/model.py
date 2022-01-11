@@ -29,7 +29,7 @@ class CafeTable(DBModel):
     space: int
     id: int
 
-    def __init__(self, is_empty,is_del, space, id=None) -> None:
+    def __init__(self, is_empty, is_del, space, id=None) -> None:
         self.is_empty = is_empty
         self.space = space
         self.is_del = is_del
@@ -185,7 +185,8 @@ class Receipt(DBModel):
     user_token: str
     is_del: bool
 
-    def __init__(self, total_price, final_price, user_token=None, time_stamp=None, _id=None,is_paid=None, is_del=False) -> None:
+    def __init__(self, total_price, final_price, user_token=None, time_stamp=None, _id=None, is_paid=None,
+                 is_del=False) -> None:
         self.total_price = total_price
         self.final_price = final_price
         self.user_token = user_token
