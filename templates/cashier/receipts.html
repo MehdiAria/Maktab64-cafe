@@ -6,8 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-{#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">#}
-{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>#}
+    {#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">#}
+    {#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>#}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     {#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>#}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -15,6 +15,7 @@
 
 </head>
 <body>
+<div id="msg-container"></div>
 <div class="container">
     <div class="row">
         <div>
@@ -28,31 +29,60 @@
                     <th class="">Total Price</th>
                     <th class="">FinalPrice</th>
                     <th class="">TimeStamp</th>
-                    <th class="">delete</th>
-                    <th class="">is_checked</th>
+                    <th class="">
+                        <center>
+                            <i class="bi-trash text-center" style="font-size:20px ;color:red"></i>
+                        </center>
+                    </th>
+                    <th class="">
+                        <center>
+                            <i class="bi bi-check-all text-center" style="font-size:25px ;color:green"></i>
+                        </center>
+                    </th>
+                    <th>
+                        <center>Edit</center>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for receipt in data %}
-                    <tr class="p-3 m-2 mt-3 rounded">
-                        <td class="text-white">{{ receipt._id }}</td>
+                    <tr class="p-3 m-2 mt-3 rounded" id="trow-{{ receipt._id }}">
+                        <td class="text-success">{{ receipt._id }}</td>
                         <td class="text-white">{{ receipt.total_price }}</td>
                         <td class="text-white mx-2">
-                            {{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}
+                            <input type="number" name="final_price" class="form-control"
+                                   value={{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}>
                         </td>
                         <td class="text-white">{{ receipt.time_stamp }}</td>
                         <td class="">
                             <center>
-                                <i class="bi-trash text-center" style="font-size:20px ;color:red"></i>
+                                <input type="checkbox" class="form-check-input" name="is_del"
+                                        {% if receipt.is_del %}
+                                       checked="checked"
+                                        {% endif %}>
                             </center>
                         </td>
                         <td class="">
                             <center>
-                                {% if receipt.is_paid %}
-                                    <i class="bi bi-cart-check" style="color:lightgreen; font-size:20px;"></i>
-                                {% else %}
-                                    <i class="bi bi-check-all" style="color:lightgreen; font-size:20px;"></i>
-                                {% endif %}
+                                <input type="checkbox" class="form-check-input" name="is_paid"
+                                        {% if receipt.is_paid %}
+                                       checked="checked"
+                                        {% endif %}>
+                            </center>
+                            {#{{ checked if receipt.is_paid else ""}}#}
+                            {#                            <center>#}
+                            {#                                {% if receipt.is_paid %}#}
+                            {#                                    <i class="bi bi-cart-check" style="color:lightgreen; font-size:20px;"></i>#}
+                            {#                                {% else %}#}
+                            {#                                    <i class="bi bi-check-all" style="color:lightgreen; font-size:20px;"></i>#}
+                            {#                                {% endif %}#}
+                            {#                            </center>#}
+                        </td>
+                        <td>
+                            <center>
+                                <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id={{ receipt._id }}>
+                                    Apply
+                                </button>
                             </center>
                         </td>
                     </tr>
@@ -64,9 +94,38 @@
 </div>
 </body>
 <script>
-    $("#FilterInput").on("input", function () {
+    function ApplyEdits(ButtonId) {
+        let elem = $(`#trow-${ButtonId} input`)
+        let PostJson = {"_id":ButtonId}
+        for (let Input of elem) {
+            let value = null
+            if (Input.type === "checkbox"){
+                value = Input.checked
+            }
+            else{
+                value = Input.value
+            }
+            PostJson[Input.name] = value
+        }
+        console.log(PostJson)
+        $.ajax({
+            type:"POST",
+            url:"http://127.0.0.1:5000/cashier/receipts",
+            data: PostJson,
+            success: function(response){
+                let msg = $(`<div>${response}</div>`)
+                msg.appendTo($(`#msg-container`))
+            },
+            error: function(){
+                let msg = $(`<div>error!!!!!</div>`)
+                msg.appendTo($(`#msg-container`))
+            }
+        })
+    }
+
+    $("#FilterInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
-        $("#ReceiptTable tr").filter(function () {
+        $("#ReceiptTable > tbody  > tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });

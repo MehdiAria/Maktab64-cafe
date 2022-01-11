@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from core.db_manager import DBManager
 from models.model import Receipt
 from datetime import datetime, timedelta
@@ -15,5 +15,7 @@ db = DBManager()
 
 
 def all_receipts():
+    if request.method == "POST":
+        return "good!"
     data = db.read_all(Receipt)
     return render_template("cashier/receipts.html", data=data)
