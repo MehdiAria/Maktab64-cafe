@@ -19,8 +19,8 @@
         <th>Table no.</th>
         <th>Space</th>
         <th>Status</th>
-        <th>Delete</th>
-        <th>Apply</th>
+        <th>Deleted</th>
+        <th>Edit</th>
         <th></th>
     </tr>
     </thead>
@@ -33,11 +33,11 @@
             <td><input type="number" class="form-control" name="space" required
                        oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}"></td>
             <td>
-                <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="status" required {% if i.is_empty %} checked {% endif %}>
+                <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_empty" required {% if i.is_empty %} checked {% endif %}>
 
             </td>
             <td>
-                <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="check_box" {% if i.is_del %} checked {% endif %}>
+                <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_del" {% if i.is_del %} checked {% endif %}>
 
             </td>
             <td>
