@@ -32,35 +32,41 @@
             </tr>
             </thead>
             {% for i,j in data %}
-{#                <form action="{% url_for(orders) %}" method="POST">#}
-                    <tr>
-                        <td class="td-color">{{ i.id }}</td>
-                    <input style="width: 60px; display: none" type="number" class="form-control" name="status_id" id="count" required
-                                   min="1" max="999" value="{{ i.id }}">
-                        <td class="td-color">{{ i.table_id }}</td>
-                    <input style="width: 60px; display: none" type="number" class="form-control" name="status_id" id="count" required
-                                   min="1" max="999" value="{{ i.table_id }}">
-                        <td class="td-color">{{ i.receipt_id }}</td>
-                    <input style="width: 60px; display: none" type="number" class="form-control" name="status_id" id="count" required
-                                   min="1" max="999" value="{{ i.receipt_id }}">
-                        <td><input style="width: 60px" type="number" class="form-control" name="status_id" id="count" required
-                                   min="1" max="999" value="{{ i.status_id }}"></td>
-                        <td><input style="width: 60px" type="number" class="form-control" name="item_id" id="count" required
-                                   min="1" max="999" value="{{ i.item_id }}"></td>
-                        <td><input type="datetime-local" class="form-control" name="" id="count"
-                                   value="{{ j[0:23] }}"></td>
-                        <td><input style="width: 60px" type="number" class="form-control" name="time_stamp" id="count" required
-                                   min="1" max="999" value="{{ i.number_item }}"></td>
-                        {% if i.is_del %}
-                            <td><input type="checkbox" class="form-check-input" name="is_del" id="count" value=''
-                                       checked></td>
-                        {% else %}
-                            <td><input type="checkbox" class="form-check-input" name="count" id="count" value=''>
-                            </td>
-                        {% endif %}
-                        <td><input type="button" class="btn btn-danger" name="" value="Edit"></td>
-                    </tr>
-{#                </form>#}
+                {#                <form action="{% url_for(orders) %}" method="POST">#}
+                <tr>
+                    <form action="{{ url_for('orders') }}" method="POST" id="{{ i.id }}"></form>
+                    <td class="td-color">{{ i.id }}</td>
+                    <input style="width: 60px; display: none" type="number" class="form-control" name="order_id"
+                           id="count" required
+                           min="1" max="999" value="{{ i.id }}" form="{{ i.id }}">
+                    <td class="td-color">{{ i.table_id }}</td>
+                    <input style="width: 60px; display: none" type="number" class="form-control" name="table_id"
+                           id="count" required
+                           min="1" max="999" value="{{ i.table_id }}" form="{{ i.id }}">
+                    <td class="td-color">{{ i.receipt_id }}</td>
+                    <input style="width: 60px; display: none" type="number" class="form-control" name="receipt_id"
+                           id="count" required
+                           min="1" max="999" value="{{ i.receipt_id }}" form="{{ i.id }}">
+                    <td><input style="width: 60px" type="number" class="form-control" name="status_id" id="count"
+                               required
+                               min="1" max="999" value="{{ i.status_id }}" form="{{ i.id }}"></td>
+                    <td><input style="width: 60px" type="number" class="form-control" name="item_id" id="count" required
+                               min="1" max="999" value="{{ i.item_id }}" form="{{ i.id }}"></td>
+                    <td><input type="datetime-local" class="form-control" name="time_stamp" id="count"
+                               value="{{ j[0:23] }}" form="{{ i.id }}"></td>
+                    <td><input style="width: 60px" type="number" class="form-control" name="number_item" id="count"
+                               required
+                               min="1" max="999" value="{{ i.number_item }}" form="{{ i.id }}"></td>
+                    {% if i.is_del %}
+                        <td><input type="checkbox" class="form-check-input" name="is_del" id="count" value='true'
+                                   checked form="{{ i.id }}"></td>
+                    {% else %}
+                        <td><input type="checkbox" class="form-check-input" name="is_del" id="count" value='false'
+                                   form="{{ i.id }}">
+                        </td>
+                    {% endif %}
+                    <td><input type="button" class="btn btn-danger" name="" value="Edit" form="{{ i.id }}"></td>
+                </tr>
             {% endfor %}
         </table>
     </div>
