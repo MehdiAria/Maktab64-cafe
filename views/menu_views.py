@@ -92,7 +92,6 @@ def order(table_id):
             return resp
     return 'server error', 403
 
-
 def del_order():
     if request.method == 'POST':
         x = request.form.get('order_id')

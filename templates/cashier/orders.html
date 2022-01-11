@@ -3,14 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
 </head>
 <body>
-<style>
-    .td-color {
-        color: indigo;
-    }
-</style>
 <div class="container-fluid">
     <h1>Orders</h1>
     <div>
@@ -35,41 +29,25 @@
             {% for i,j in data %}
                 <tr id="trow-{{ i.id }}">
                     <form action="{{ url_for('orders') }}" method="POST" id="{{ i.id }}"></form>
-                    <td class="td-color">{{ i.id }}</td>
-                    {#                    <input style="width: 60px; display: none" type="number" class="form-control" name="order_id"#}
-                    {#                           id="order_id" required#}
-                    {#                           min="1" max="999" value="{{ i.id }}" form="{{ i.id }}">#}
-                    <td class="td-color">{{ i.table_id }}</td>
-                    {#                    <input style="width: 60px; display: none" type="number" class="form-control" name="table_id"#}
-                    {#                           id="table_id" required#}
-                    {#                           min="1" max="999" value="{{ i.table_id }}" form="{{ i.id }}">#}
-                    <td class="td-color">{{ i.receipt_id }}</td>
-                    {#                    <input style="width: 60px; display: none" type="number" class="form-control" name="receipt_id"#}
-                    {#                           id="receipt_id" required#}
-                    {#                           min="1" max="999" value="{{ i.receipt_id }}" form="{{ i.id }}">#}
+                    <td class="text-success">{{ i.id }}</td>
+
+                    <td class="text-white">{{ i.table_id }}</td>
+
+                    <td class="text-white">{{ i.receipt_id }}</td>
+
                     <td><input style="width: 60px" type="number" class="form-control" name="status_id" id="status_id"
                                required
                                min="1" max="999" value="{{ i.status_id }}" form="{{ i.id }}"></td>
                     <td><input style="width: 60px" type="number" class="form-control" name="item_id" id="item_id"
                                required
                                min="1" max="999" value="{{ i.item_id }}" form="{{ i.id }}"></td>
-                    <td>
-                        {#                        <input type="datetime-local" class="form-control" name="time_stamp" id="time_stamp"#}
-                        {#                               value="{{ j[0:23] }}" form="{{ i.id }}">#}
-                        {{ i.time_stamp }}
-                    </td>
+                    <td class="text-white">{{ i.time_stamp }}</td>
                     <td><input style="width: 60px" type="number" class="form-control" name="number_item"
                                id="number_item"
                                required
                                min="1" max="999" value="{{ i.number_item }}" form="{{ i.id }}"></td>
-                    {#                    {% if i.is_del %}#}
                     <td><input type="checkbox" class="form-check-input" name="is_del" id="is_del"
                             {% if i.is_del %} checked {% endif %} form="{{ i.id }}"></td>
-                    {#                    {% else %}#}
-                    {#                        <td><input type="checkbox" class="form-check-input" name="is_del" id="is_del" value='false'#}
-                    {#                                   form="{{ i.id }}">#}
-                    {#                        </td>#}
-                    {#                    {% endif %}#}
                     <td>
                         <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit</button>
                     </td>
