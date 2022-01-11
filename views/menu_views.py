@@ -38,7 +38,8 @@ def panel():
 def order(table_id):
     if request.method == 'GET':
         res = request.cookies
-        order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
+        # order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
+        order_list = db.all_query(Order, f"SELECT orders.id, orders.item_id, orders.number_item, orders.receipt_id, orders.status_id, orders.table_id, orders.time_stamp FROM orders inner join orders.receipt_id=receipt.id where receipt.is_del=false and orders.is_del=false ;")
         order_item = dict()
         for i in order_list:
             i: Order
@@ -90,6 +91,7 @@ def order(table_id):
             return resp
     return 'server error', 403
 
+
 def del_order():
     if request.method == 'POST':
         x = request.form.get('order_id')
@@ -102,4 +104,5 @@ def dec_order():
     if request.method == 'POST':
         x = request.form.get('order_id')
         obj_order = db.read(Order, x)
+        obj_order.number_item = obj_order.number_item - 1
         db.update(obj_order)
