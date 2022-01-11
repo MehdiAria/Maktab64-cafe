@@ -1,8 +1,90 @@
 {% extends "base_layout/_base.html" %}
+<style>
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>#}
+<script src="https://malsup.github.io/jquery.form.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 {% block body %}
-    <h1>receipt ID: {{ data.receipt }}</h1>
-    {% for i in data.order %}
-        <h2>Count: {{ i.number_item }} Table ID: {{ i.table_id }} Item ID: {{ i.item_id }}</h2>
-    {% endfor %}
+    <div class="container">
+
+        <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
+            table: {{ data.order[0].table_id }}</h3>
+        <table class="table table-hover col6" style="color: antiquewhite">
+            <thead>
+            <tr id="tr">
+                <th>Product</th>
+                <th>Count</th>
+                <th>Table no.</th>
+                <th>Price</th>
+                <th>Discount %</th>
+                <th>Delete/Decrease orders</th>
+            </tr>
+            </thead>
+            {% for i in data.item %}
+                <tr>
+{#                    <form action="{{ url_for('deldec') }}" method="POST" id="i.id"></form>#}
+                    <td class="{{ i.id }}">{{ data.item[i].name }}</td>
+                    <td class="{{ i.id }}" id="num_{{ i.id }}">{{ i.number_item }}</td>
+                    <td class="{{ i.id }}">{{ i.table_id }}</td>
+                    <td class="{{ i.id }}">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
+                    <td class="{{ i.id }}">{% if data.item[i].discount==none %}
+                        No discount
+                    {% else %}
+                        {{ data.item[i].discount }}
+                    {% endif %}
+                    </td>
+                    <td class="{{ i.id }}"><button id="dec{{ i.id }}" class="btn btn-danger" value="Decrease Order" name="decrease_ord" onclick="dec_order(this.id)" >Decrease</button></td>
+                    <td class="{{ i.id }}"><button id="{{ i.id }}"  class="btn btn-danger" value="Delete Order" name="delete_ord" onclick="del_order(this.id)">Delete</button></td>
+{#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
+{#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
+
+                </tr>
+            {% endfor %}
+        <tr>
+            <th colspan='5'>Total price without discount: {{ data.price.total_price }}$</th>
+        </tr>
+        </table>
+        <h1></h1>
+
+    </div>
+    <script>
+
+    function del_order(order_id) {
+        $.ajax({
+            type: "POST",
+            url: `http://127.0.0.1:5000/delete`,
+            data: {
+                'order_id': order_id
+            },
+            success:function (){
+                $(`.${order_id}`).empty()
+            }
+        })
+    }
+
+    function dec_order(order_id) {
+        $.ajax({
+            type: "POST",
+            url: `http://127.0.0.1:5000/decrease`,
+            data: {
+                'order_id': order_id
+            },
+            success:function (response){
+                $(`#num_${response['order_id']}`).html(response['number_item'])
+            }
+        })
+
+
+    }
+    {#$(document).ready(function () {#}
+    {#    $("#delorder").click(function () {#}
+    {#        $("#delorder").parent().parent().hide()#}
+    {#    })#}
+
+
+    </script>
 {% endblock %}

@@ -1,38 +1,60 @@
+from datetime import datetime
 from core.db_manager import DBModel, DBManager
-from datetime import datetime, timedelta
+from models.exceptions import *
+from models.utils import number_check
+from models.logger_1 import create_logger
+
+logger = create_logger(__file__, file_skip=0)
 
 
 class Cashier(DBModel):
     TABLE = "cashier"
     aliases = {"_id": "id"}
 
-    def __init__(self, name, last_name, email, phone, password, _id=None) -> None:
+    def __init__(self, name, last_name, email, phone, password, token, _id=None) -> None:
         self.alias_for("_id", "id")
         self.name = name
         self.last_name = last_name
         self.email = email
         self.phone = phone
         self.password = password
+        self.token = token
         if _id:
             self._id = _id
 
 
 class CafeTable(DBModel):
     TABLE = "cafe_table"
+    is_empty: bool
+    space: int
+    id: int
 
-    def __init__(self, is_empty, space, id) -> None:
+    def __init__(self, is_empty, is_del, space, id=None) -> None:
         self.is_empty = is_empty
         self.space = space
-        self.id = id
+        self.is_del = is_del
+        if id:
+            self.id = id
 
     @classmethod
     def empty_table(cls):
         return DBManager().read_filter(cls, 'is_empty=true')
 
+    @classmethod
+    def is_table_empty(cls, _id):
+        return True if DBManager().read_filter(cls, f"id = {_id} AND is_empty = true") else False
+
 
 class MenuItems(DBModel):
     TABLE = 'menu_items'
     aliases = {"_id": "id"}
+    _id: int
+    category_id: int
+    name: str
+    discount: int or float
+    price: int or float
+    image_url: str
+    serving_time: str
 
     def __init__(self, category_id, discount, name, price, image_url, serving_time, _id=None) -> None:
         self.category_id = category_id
@@ -121,29 +143,61 @@ class Category(DBModel):
 
 class Order(DBModel):
     TABLE = "orders"
+    id: int
+    item_id: int
+    number_item: int
+    receipt_id: int
+    status_id: int
+    table_id: int
+    time_stamp: datetime
 
-    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, id=None):
+    def __init__(self, item_id, number_item, receipt_id, status_id, table_id, time_stamp=None, id=None, is_del=False):
+        self.time_stamp = time_stamp if time_stamp else datetime.now()
+        self.data_check(item_id=item_id, receipt_id=receipt_id, status_id=status_id, time_stamp=self.time_stamp,
+                        table_id=table_id, number_item=number_item, order_id=id)
         self.item_id = item_id
         self.number_item = number_item
         self.receipt_id = receipt_id
         self.status_id = status_id
         self.table_id = table_id
-        self.time_stamp = datetime.now()
         if id:
             self.id = id
+        self.is_del = is_del
+
+    @staticmethod
+    def data_check(order_id, item_id, receipt_id, status_id, table_id, time_stamp, number_item):
+        if not isinstance(time_stamp, datetime):
+            error = AddOrderError("time_stamp", time_stamp)
+            logger.error(error)
+            raise error
+        number_check(AddOrderError, item_id=item_id, table_id=table_id,
+                     receipt_id=receipt_id, status_id=status_id, number_item=number_item,
+                     order_id=order_id if order_id else 0)
 
 
 class Receipt(DBModel):
     TABLE = "receipt"
     aliases = {"_id": "id"}
+    total_price: str
+    final_price: str
+    _id: None
+    time_stamp: datetime
+    user_token: str
+    is_del: bool
 
-    def __init__(self, total_price, final_price, _id=None) -> None:
+    def __init__(self, total_price, final_price, user_token=None, time_stamp=None, _id=None, is_paid=None,
+                 is_del=False) -> None:
         self.total_price = total_price
         self.final_price = final_price
-        self.time_stamp = datetime.now()
-        if _id: self._id = _id
+        self.user_token = user_token
+        self.is_paid = is_paid
+        self.is_del = is_del
+        self.time_stamp = time_stamp if time_stamp else datetime.now()
+        if _id:
+            self._id = _id
 
-# cat = Category("cake")
+    # cat = Category("cake")
+
 # db1 = DBManager().create(cat)
 # time_t = datetime.now() + timedelta(minutes=10)
 # item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
@@ -171,3 +225,15 @@ class Receipt(DBModel):
 #     fetch="all")
 # for item in items_category_dict:
 #     print(dict(item))
+# import inspect
+#
+# attributes = inspect.getmembers(Order)
+# b = [a for a in attributes if not (a[0].startswith('__') and a[0].endswith('__'))]
+# print(vars(Receipt)['__annotations__'])
+# print(Order.__class__.__dict__)
+# print(DBManager().join_filter(Order, (Receipt,)))
+# print(DBManager().query("""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
+# print(float("AKLS;DJASKDJASLJD"))
+#     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
+# print(asd)
+# print(__name__, __file__)

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://malsup.github.io/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <h1>Tables</h1>
+    <div>
+        <input id="FilterInput" class="form-control" placeholder="Search Orders...">
+    </div>
+    <div class="table-responsive my-2">
+        <div id="msg-container"></div>
+        <table class="table table-hover col-6 text-center font-size" style="color: #c01d67">
+            <thead class="table-success">
+            <tr id="tr">
+                <th>Table no.</th>
+                <th>Space</th>
+                <th>Status</th>
+                <th><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></th>
+                <th><i class="bi bi-pencil-fill text-center" style="font-size:20px ;color:red"></i></th>
+                <th></th>
+            </tr>
+            </thead>
+            {% for i in data %}
+
+                <tr id="trow-{{ i.id }}">
+                    <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
+                    <td class="text-white">{{ i.id }}<input type="number" style="display: none" value="{{ i.id }}" name="id"
+                                                            form="{{ i.id }}">
+                    </td>
+                    <td><input type="number" class="form-control" name="space" required
+                               oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}"></td>
+                    <td>
+                        <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_empty" required
+                                {% if i.is_empty %} checked {% endif %}>
+
+                    </td>
+                    <td>
+                        <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_del"
+                                {% if i.is_del %} checked {% endif %}>
+
+                    </td>
+                    <td>
+                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-danger" name=""
+                                value="Apply">Edit
+                        </button>
+                    </td>
+
+                </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="button" class="btn btn-success" value="Add"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+
+<script>
+    {#$(document).ready(function () {#}
+    {#    $("#del").click(function () {#}
+    {#        $("#del").parent().hide()#}
+    {#    })#}
+
+
+    function absNumber(number) {
+
+        if (number <= 0) {
+            if (number < 0) {
+                $("#count").val(number * -1)
+            } else {
+                $("#count").val(1)
+            }
+        }
+
+    }
+
+    $("#FilterInput").on("input", function () {
+        var value = $(this).val().toLowerCase();
+        $("#table").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
+    function checkBoxValue(num) {
+        console.log(num)
+        let elm = $(`#${num}`)
+        elm.value = elm.checked
+        console.log(elm.checked)
+    }
+
+    function ApplyEdits(ButtonId) {
+        let elem = $(`#trow-${ButtonId} input`)
+        let PostJson = {"_id": ButtonId}
+        for (let Input of elem) {
+            let value = null
+            if (Input.type === "checkbox") {
+                value = Input.checked
+            } else {
+                value = Input.value
+            }
+            PostJson[Input.name] = value
+        }
+        console.log(PostJson)
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/cashier/tables",
+            data: PostJson,
+            success: function (response) {
+                let msg = $(`<div>${response}</div>`)
+                msg.appendTo($(`#msg-container`))
+            },
+            error: function () {
+                let msg = $(`<div>error!!!!!</div>`)
+                msg.appendTo($(`#msg-container`))
+            }
+        })
+    }
+</script>
+</html>
