@@ -50,29 +50,30 @@
                         </td>
                         <td class="text-white">{{ receipt.time_stamp }}</td>
                         <td class="">
-{#                            <center>#}
-{#                                <i class="bi-trash text-center" style="font-size:20px ;color:red"></i>#}
-{#                            </center>#}
                             <center>
-                                <input id = "aaa" type="checkbox" oninput="asd('aaa')">
+                                <input type="checkbox"{% if receipt.is_paid %}
+                                       checked="checked"
+                                {% else %}
+                                       checked=""
+                                {% endif %}>
                             </center>
                         </td>
                         <td class="">
                             <center>
-                                <input type="checkbox" {%if receipt.is_paid%}
-                                checked="checked"
+                                <input type="checkbox" {% if receipt.is_paid %}
+                                       checked="checked"
                                 {% else %}
-                                checked=""
+                                       checked=""
                                 {% endif %}>
                             </center>
-{#{{ checked if receipt.is_paid else ""}}#}
-{#                            <center>#}
-{#                                {% if receipt.is_paid %}#}
-{#                                    <i class="bi bi-cart-check" style="color:lightgreen; font-size:20px;"></i>#}
-{#                                {% else %}#}
-{#                                    <i class="bi bi-check-all" style="color:lightgreen; font-size:20px;"></i>#}
-{#                                {% endif %}#}
-{#                            </center>#}
+                            {#{{ checked if receipt.is_paid else ""}}#}
+                            {#                            <center>#}
+                            {#                                {% if receipt.is_paid %}#}
+                            {#                                    <i class="bi bi-cart-check" style="color:lightgreen; font-size:20px;"></i>#}
+                            {#                                {% else %}#}
+                            {#                                    <i class="bi bi-check-all" style="color:lightgreen; font-size:20px;"></i>#}
+                            {#                                {% endif %}#}
+                            {#                            </center>#}
                         </td>
                     </tr>
                 {% endfor %}
@@ -86,6 +87,7 @@
     function asd(input_id) {
         console.log($(`#${input_id}`).val())
     }
+
     $("#FilterInput").on("input", function () {
         var value = $(this).val().toLowerCase();
         $("#ReceiptTable tr").filter(function () {
