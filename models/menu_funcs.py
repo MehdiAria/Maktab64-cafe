@@ -27,4 +27,15 @@ def category_parent_dict():
     return cat_dict
 
 
+def menu_categories():
+    cat_items = {}
+    cat_dict = category_parent_dict()
+    for item in all_menu_items:
+        item: MenuItems
+        alias = cat_dict[item.category_id]
+        if cat_items.get(alias, None):
+            cat_items[alias].append(item)
+        else:
+            cat_items[alias] = [item]
+    return cat_items
 
