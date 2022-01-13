@@ -141,14 +141,6 @@ class Category(DBModel):
                                 c_items_dict[c.name] = {child_c.name: m_list}
         return c_items_dict
 
-    @classmethod
-    def find_category(cls, category_id, all_categories: list = None):
-        category_list = all_categories if all_categories else db.read_all(Category)
-        for category in category_list:
-            category: Category
-            if category._id == category_id:
-                return category
-
 
 class Order(DBModel):
     TABLE = "orders"
@@ -306,10 +298,10 @@ class Receipt(DBModel):
 #         menu_cat[asd[i.category_id]] = [i]
 # print(menu_cat)
 
-
-# all_categories = DBManager().read_all(Category)
-
-
+# n = datetime.now()
+# print(all_cat_find())
+# m = datetime.now()
+# print(m - n)
 # def cat_find(c_id):
 #     for mn in all_categories:
 #         mn: Category
@@ -331,3 +323,16 @@ class Receipt(DBModel):
 #         c: Category
 #         cat_dict[c._id] = cat_parent(c).name
 #     return cat_dict
+#
+# def menu_set():
+#     cat_items ={}
+#     cat_dict = all_cat_find()
+#     for i in all_items:
+#         i:MenuItems
+#         alias = cat_dict[i.category_id]
+#         if cat_items.get(alias, None):
+#             cat_items[alias] .append(i)
+#         else:
+#             cat_items[alias] = [i]
+#     return cat_items
+
