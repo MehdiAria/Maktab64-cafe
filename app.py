@@ -7,11 +7,16 @@ from cashier import orders
 from cashier import edit_items
 from cashier.receipts_view import *
 from cashier.views_logout import *
-
+from models.menu_funcs import menu_categories
 app = Flask(__name__, template_folder="templates")
 
 # JINJA_ENVIRONMENT.globals['STATIC_PREFIX'] = '/'
 
+@app.route("/mn_2")
+def new_menu():
+    data = {}
+    data["items"] = menu_categories()
+    return render_template("items.html")
 
 app.add_url_rule("/", "home", index)
 app.add_url_rule("/menu", "menu", menu)
