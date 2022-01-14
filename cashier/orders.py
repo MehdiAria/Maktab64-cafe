@@ -20,7 +20,7 @@ def orders():
         order.status_id = request.form.get('status_id')
         order.number_item = request.form.get('number_item')
         db.update(order)
-        return 'Success'
+        return "Edit was successful!"
 
 
 

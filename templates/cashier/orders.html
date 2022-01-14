@@ -6,6 +6,7 @@
     <title>Title</title>
 </head>
 <body>
+<div id="msg-container"></div>
 <div class="container-fluid">
     <h1>Orders</h1>
     <div>
@@ -78,12 +79,20 @@
             type: "POST",
             url: "http://127.0.0.1:5000/cashier/orders",
             data: PostJson,
-            success: function (response) {
-                let msg = $(`<div>${response}</div>`)
+            success: function(response){
+                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
+                        <strong>Success!</strong> ${response}
+                    </div>`)
                 msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                    }, 2000)
+
             },
-            error: function () {
-                let msg = $(`<div>error!!!!!</div>`)
+            error: function(){
+                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error while adding order!</strong>
+                              </div>`)
                 msg.appendTo($(`#msg-container`))
             }
         })
