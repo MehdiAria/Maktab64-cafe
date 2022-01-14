@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <title>Title</title>
 </head>
 <body>
+<div id="msg-container"></div>
 <div class="container-fluid">
     <h1>Orders</h1>
     <div>
@@ -37,9 +37,23 @@
 
                     <td class="text-white">{{ i.receipt_id }}</td>
 
-                    <td><input style="width: 60px" type="number" class="form-control" name="status_id" id="status_id"
-                               required
-                               min="1" max="999" value="{{ i.status_id }}" form="{{ i.id }}"></td>
+                    <td>
+                        {#                        <input style="width: 60px" type="number" class="form-control" name="status_id" id="status_id"#}
+                        {#                               required#}
+                        {#                               min="1" max="999" value="{{ i.status_id }}" form="{{ i.id }}">#}
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
+                                status
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                            </ul>
+                        </div>
+
+
+                    </td>
                     <td><input style="width: 60px" type="number" class="form-control" name="item_id" id="item_id"
                                required
                                min="1" max="999" value="{{ i.item_id }}" form="{{ i.id }}"></td>
@@ -54,7 +68,7 @@
                         <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit</button>
                     </td>
                 </tr>
-{#                </tbody>#}
+                {#                </tbody>#}
             {% endfor %}
         </table>
     </div>
@@ -79,11 +93,19 @@
             url: "http://127.0.0.1:5000/cashier/orders",
             data: PostJson,
             success: function (response) {
-                let msg = $(`<div>${response}</div>`)
+                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
+                        <strong>Success!</strong> ${response}
+                    </div>`)
                 msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
+
             },
             error: function () {
-                let msg = $(`<div>error!!!!!</div>`)
+                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error while adding order!</strong>
+                              </div>`)
                 msg.appendTo($(`#msg-container`))
             }
         })
