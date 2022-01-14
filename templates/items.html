@@ -14,11 +14,13 @@
             align-items: center;
             justify-content: space-between
         }
-        @media only screen and (max-width :349px){
-            .menu_container{
+
+        @media only screen and (max-width: 349px) {
+            .menu_container {
                 justify-content: center
             }
-            .menu-item{
+
+            .menu-item {
                 flex-basis: 14.5rem
             }
         }
@@ -27,21 +29,19 @@
 <body>
 {% for category, menu_items in data['menu_items'].items() %}
     <h5>{{ category }}</h5>
-    <div class="container bg-light">
+    <div class="container-fluid bg-secondary">
         <div class="row menu_container">
             {% for item in menu_items %}
                 {% set len = menu_items | length %}
                 {#            {{ -1+(12//menu_items | length)  }}#}
-                <div class="col-2 col-sm-12 menu-item" style="width:11rem">
-                    {#                    <div class="container">#}
-                    {#                        <div class="row" style="width:200px">#}
-                    <div class="card" style="border:none">
-                        <img alt="{{ item.name }}" src="{{ item.image_url }}" class="card-img-top">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <h6 class="card-text"><strong>$</strong>{{ item.price }}</h6>
+                <div class="col-2 col-sm-12 text-center menu-item" style="width:11rem">
+                    <div class="card" style="border:none; background:#222528">
+                        <div>
+                            <img alt="{{ item.name }}" src="{{ item.image_url }}" class="card-img-top" style="width:80%!important;">
+                        </div>
+                        <h5 class="card-title text-warning">{{ item.name }}</h5>
+                        <h6 class="card-text text-white"><strong style="color:darkorange">$</strong>{{ item.price }}</h6>
                     </div>
-                    {#                        </div>#}
-                    {#                    </div>#}
                 </div>
             {% endfor %}
         </div>
