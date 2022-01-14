@@ -15,6 +15,13 @@
             justify-content: space-between
         }
 
+        .item-footer {
+            text-align: left !important;
+            display: flex !important;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
         @media only screen and (max-width: 349px) {
             .menu_container {
                 justify-content: center
@@ -33,14 +40,20 @@
         <div class="row menu_container">
             {% for item in menu_items %}
                 {% set len = menu_items | length %}
-                {#            {{ -1+(12//menu_items | length)  }}#}
                 <div class="col-2 col-sm-12 text-center menu-item" style="width:11rem">
                     <div class="card" style="border:none; background:#222528">
                         <div>
-                            <img alt="{{ item.name }}" src="{{ item.image_url }}" class="card-img-top" style="width:80%!important;">
+                            <img alt="{{ item.name }}" src="{{ item.image_url }}" class="card-img-top mt-3"
+                                 style="width:80%!important;">
                         </div>
                         <h5 class="card-title text-warning">{{ item.name }}</h5>
-                        <h6 class="card-text text-white"><strong style="color:darkorange">$</strong>{{ item.price }}</h6>
+                        <h6 class="card-text text-white ms-3 item-footer">
+                            <strong style="color:darkorange; flex-basis: 12px;">$</strong>
+                            <strong style="color:whitesmoke ;flex-basis: 53px">{{ item.price //1000 }}</strong>
+                            <button class="btn btn-warning" style="padding:2.5px 15px!important ;margin: 0 13px 0 0">
+                                Add
+                            </button>
+                        </h6>
                     </div>
                 </div>
             {% endfor %}
