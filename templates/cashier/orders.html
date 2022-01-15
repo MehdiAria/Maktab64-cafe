@@ -20,7 +20,7 @@
                 <th class="text-center">Table No.</th>
                 <th class="text-center">Receipt ID</th>
                 <th class="text-center">Status</th>
-                <th class="text-center">Item ID</th>
+                <th class="text-center">Product</th>
                 <th class="text-center">Time</th>
                 <th class="text-center">Count</th>
                 <th><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></th>
@@ -39,7 +39,7 @@
                         <div class="dropdown btn-group">
                             <button id="drop-stat" type="button"
                                     class="btn btn-warning dropdown-toggle"
-                                    data-bs-toggle="dropdown">
+                                    data-bs-toggle="dropdown" style="width: 8rem">
 
                                 {{ i.status_name }}
                             </button>
@@ -55,10 +55,7 @@
                             </ul>
                         </div>
                     </td>
-                    <td><input style="width: 60px" type="number" class="form-control" name="item_id"
-                               id="item_id"
-                               required
-                               min="1" max="999" value="{{ i.item_id }}" form="{{ i.id }}"></td>
+                    <td class="text-white">{{ i.item_name }}</td>
                     <td class="text-white">{{ i.time_stamp.strftime('%Y-%m-%d %H:%m') }}</td>
                     <td><input style="width: 60px" type="number" class="form-control text-center"
                                name="number_item"
