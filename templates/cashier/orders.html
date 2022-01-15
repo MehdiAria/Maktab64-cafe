@@ -40,8 +40,11 @@
                             <button id="drop-stat" type="button"
                                     class="btn btn-warning dropdown-toggle"
                                     data-bs-toggle="dropdown">
+
                                 {{ i.status_name }}
                             </button>
+                            <input style="display: none" disabled type="text" name="status_name" id="{{ i.id }}"
+                                   value="">
                             <ul class="dropdown-menu">
                                 {% for j in status %}
                                     <li class="dropdown-item">
@@ -87,6 +90,7 @@
         $(this).addClass('active');
         {#$(this).closest('.btn-group').find('button').append($(this).text())#}
         $(this).closest('.btn-group').find('button').html($(this).text())
+        $(this).closest('.btn-group').find('input').val($(this).text())
     })
 
 
