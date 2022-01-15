@@ -33,10 +33,13 @@
                     <form action="{{ url_for('edit_items') }}" method="POST" id="{{ i.id }}"></form>
                     <td class="text-success">{{ i.id }}</td>
 
-                    <td class="text-white"><input style="width: 60px" type="number" class="form-control"
-                                                  name="status_id" id="status_id"
-                                                  required
-                                                  min="1" max="999" value="{{ i.category_id }}" form="{{ i.id }}"></td>
+                    <td class="text-white">
+                        {{ i.cat_name }}
+{#                        <input style="width: 60px" type="number" class="form-control"#}
+{#                                                  name="status_id" id="status_id"#}
+{#                                                  required#}
+{#                                                  min="1" max="999" value="{{ i.category_id }}" form="{{ i.id }}">#}
+                    </td>
                     </td>
 
                     <td class="text-white"><input style="width: 60px" type="number" class="form-control"
