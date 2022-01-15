@@ -45,13 +45,10 @@ def order(table_id):
         order_list = db.all_query(Order,
                                   f"SELECT orders.id, orders.item_id, orders.number_item, orders.receipt_id, orders.status_id, orders.table_id, orders.time_stamp FROM orders inner join receipt on orders.receipt_id=receipt.id where receipt.is_del=false and orders.is_del=false and receipt_id = {res} ;")
         order_item = dict()
-
         for i in order_list:
             i: Order
             order_item[i] = db.read(MenuItems, i.item_id)
-        price_list = db.all_query(Receipt,
-                                  f"SELECT * FROM receipt where id={res};")
-
+        price_list = db.all_query(Receipt, f"SELECT * FROM receipt where id={res} and receipt.is_del = false;")
         data = {'receipt': res,
                 'order': order_list, 'item': order_item, 'price': price_list[0]}
         return render_template('order.html', data=data)

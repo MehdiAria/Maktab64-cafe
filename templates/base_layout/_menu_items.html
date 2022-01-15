@@ -121,9 +121,10 @@
         $('#basket').css('display', 'flex')
     {% endif %}
     function func(ItemValue) {
-        let elem = ItemValue.slice(" ")
+        let elem = ItemValue.split(' ')
         $(`#item_id`).val(elem[0])
-        $(`#item_type`).val(elem)
+        $(`#item_type`).val(elem.slice(1,-1))
+        console.log(elem.slice(1,-1))
         $(`#count`).val(1)
 
     }
