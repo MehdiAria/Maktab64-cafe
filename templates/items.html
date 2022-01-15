@@ -44,9 +44,20 @@
 {#    </style>#}
 {#</head>#}
 {#<body>#}
+{#<div class="container mt-3">#}
+{#  <h2>Show Collapsible Content By Default</h2>#}
+{#  <p>Add the show class next to the collapse class to show the content by default.</p>#}
+{#  <p>Click on the button to toggle between showing and hiding content.</p>#}
+{#  <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#demo">Simple collapsible</button>#}
+{#  <div id="demo" class="collapse show">#}
+{#    Lorem ipsum dolor sit amet, consectetur adipisicing elit,#}
+{#    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,#}
+{#    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.#}
+{#  </div>#}
+{#</div>#}
 {% for category, menu_items in data['menu_items'].items() %}
-    <h4 class="text-warning py-3 px-2" style="background:#222528; margin-bottom:0">{{ category }}</h4>
-    <div class="container-fluid bg-secondary" style="padding:1.5rem; !important">
+    <button class="btn btn-warning py-3 px-2" style="margin-bottom:0" data-bs-toggle="collapse" data-bs-target="#{{ category }}">{{ category }}</button>
+    <div id= "{{ category }}" class="container-fluid bg-secondary collapse show" style="padding:1.5rem; !important">
         <div class="row menu_container my_2">
             {% for item in menu_items %}
                 {% set items_len = menu_items | length %}
