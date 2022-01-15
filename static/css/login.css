@@ -1,14 +1,14 @@
 .text-chocolate {
-    color: chocolate !important;
+    color: chocolate;
 }
 
 .bg-chocolate {
-    background-color: chocolate !important;
+    background-color: chocolate;
 }
 
 .btn-chocolate {
-    background-color: chocolate !important;
-    border-color: chocolate !important;
+    background-color: chocolate;
+    border-color: chocolate;
 }
 
 .login_bg {
@@ -25,10 +25,20 @@
 .login_bg_img {
     background: url("/static/images/menu_items_new/Cafee/back ground.jpg") no-repeat center;
     background-size:cover;
-    min-height: 650px;
+    min-height: 700px;
     position: relative;
 }
 
 .top_header img {
     width: 100%;
+}
+
+.btn{
+    transition-duration: 0.4s;
+    height: 60px;
+}
+.btn:hover{
+    background-color: #f16907;
+    border: 2px;
+    border-color: #65300b;
 }
