@@ -6,14 +6,19 @@ db = DBManager()
 
 
 def orders():
-    status_list = db.all_query(Status, f"SELECT * FROM status WHERE TRUE;")
-    order_list = db.all_query(Order,
-                              f"""SELECT * FROM orders WHERE True;""")
-    datetime_list = list(
-        map(lambda x: 'T'.join(x.time_stamp.__str__().split()), order_list))
-    data = zip(order_list, datetime_list)
+    order_list = db.query(
+        f"SELECT {Order.class_aliases(to_str=True)},menu_items.name as item_name,status.name as status_name FROM orders INNER JOIN status ON orders.status_id=status.id INNER JOIN menu_items ON menu_items.id=orders.item_id;",
+        fetch='all')
+    print(order_list)
+    status_list = db.all_query(Status,
+                               f"SELECT * FROM status where True;")
+    # order_list = db.query(
+    #     f"""-- SELECT * FROM orders INNER JOIN status ON orders.status_id=status.id INNER JOIN menu_items ON menu_items.id=orders.item_id;""")
+    # datetime_list = list(
+    #     map(lambda x: 'T'.join(x.time_stamp.__str__().split()), order_list))
+    # data = zip(order_list, datetime_list)
     if request.method == 'GET':
-        return render_template('cashier/orders.html', status=status_list, data=data)
+        return render_template('cashier/orders.html', status=status_list, data=order_list)
     elif request.method == 'POST':
         order = db.read(Order, int(request.form.get('_id')))
         order.is_del = True if request.form.get('is_del') == 'true' else False
