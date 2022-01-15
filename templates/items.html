@@ -50,7 +50,8 @@
         <div class="row menu_container my_2">
             {% for item in menu_items %}
                 {% set items_len = menu_items | length %}
-                <div class="col-{{ items_len//12 }} col-sm-12 text-center menu-item" style="width:13rem">
+{#                col-{{ items_len//12 }} col-sm-12#}
+                <div class="text-center menu-item" style="width:13rem">
                     <div class="card my-2" style="border:none; background:#222528">
                         <div>
                             <img alt="{{ item.name }}" src="{{ item.image_url }}" class="card-img-top mt-3"
