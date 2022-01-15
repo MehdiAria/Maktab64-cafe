@@ -23,10 +23,9 @@ def orders():
         order = db.read(Order, int(request.form.get('_id')))
         order.is_del = True if request.form.get('is_del') == 'true' else False
         order.item_id = request.form.get('item_id')
-        # order.status_id = request.form.get('status_id')
         order.number_item = request.form.get('number_item')
         status_name = request.form.get('status_name')
         st = db.read_filter(Status, f"name=\'{status_name}\'")[0].id
-        print(st)
+        order.status_id = st
         db.update(order)
         return "Edit was successful!"
