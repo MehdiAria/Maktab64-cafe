@@ -34,19 +34,19 @@
 
     <div class="container-fluide login_bg_img">
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-3 m-5 p-5 login_bg">
                 <form action=" {{ url_for('login') }}" method="POST">
                     <div class="row text-white">
                         <div class="col-12">
                             <h2>Login</h2>
                         </div>
-                        <div class="col-12 mt-4">
-                            <label>Username</label>
-                            <input type="text" class="form-control">
+                        <div class="form-floating col-12 mt-4">
+                            <input type="text" id="uname" class="form-control" placeholder="Enter username" name="username">
+                            <label for="uname" class="text-chocolate mx-2">Username</label>
                         </div>
-                        <div class="col-12 mt-4">
-                            <label>Password</label>
-                            <input type="password" class="form-control">
+                        <div class="form-floating col-12 mt-4">
+                            <input type="password" id="pwd" class="form-control" placeholder="Enter Password" name="password">
+                            <label for="pwd" class="text-chocolate mx-2">Password</label>
                         </div>
                         <div class="col-12 mt-4">
                             <button type="submit" class="btn btn-chocolate form-control">Login</button>
