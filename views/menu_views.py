@@ -4,6 +4,7 @@ from models.model import *
 from datetime import datetime, timedelta
 import uuid, os
 from views.utils import set_user_token, check_table_id, get_cashier_by_cookie
+from models.menu_funcs import menu_categories
 
 db = DBManager()
 
@@ -13,7 +14,9 @@ def index():
 
 
 def menu():
-    data = Category.category_item()
+    # data = Category.category_item()
+    data = {}
+    data["menu_items"] = menu_categories()
     empty_tables = None
     table_id = None
     receipt_id = request.cookies.get('receipt_id', None)
@@ -61,7 +64,7 @@ def order(table_id):
             number_item = order_dict.get('number_item', None)
             check_table_id(receipt_id, table_id)
             table_order = Order(item_id=item_id, table_id=table_id,
-                                status_id=0, number_item=number_item, receipt_id=receipt_id)
+                                status_id=1, number_item=number_item, receipt_id=receipt_id)
             db.create(table_order)
             receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[0]
             # TODO handel error in reading receipt
@@ -82,7 +85,7 @@ def order(table_id):
                 receipt = Receipt(total_price=price, final_price=0)
                 db.create(receipt)
             table_order = Order(item_id=order_dict.get('item_id'), table_id=table_id,
-                                status_id=0, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
+                                status_id=1, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
             resp.set_cookie("receipt_id", f"{receipt._id}", expires=datetime.now() + timedelta(days=1))
             db.create(table_order)
             new_token = set_user_token(receipt)
