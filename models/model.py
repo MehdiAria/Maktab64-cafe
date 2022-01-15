@@ -57,14 +57,16 @@ class MenuItems(DBModel):
     price: int or float
     image_url: str
     serving_time: str
+    is_del: bool
 
-    def __init__(self, category_id, discount, name, price, image_url, serving_time, _id=None) -> None:
+    def __init__(self, category_id, discount, name, price, image_url, serving_time, is_del=False,_id=None) -> None:
         self.category_id = category_id
         self.name = name
         self.discount = discount
         self.price = price
         self.image_url = image_url
         self.serving_time = serving_time
+        self.is_del = is_del
         if _id:
             self.id = _id
 
