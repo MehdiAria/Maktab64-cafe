@@ -122,6 +122,10 @@
                                 <strong>Error while adding order!</strong>
                               </div>`)
                 msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
+
             }
         })
     }
