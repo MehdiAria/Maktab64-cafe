@@ -12,14 +12,14 @@
         .menu_container {
             display: flex;
             align-items: center;
-            justify-content: space-between /*TODO space between space _around ...  */
+            justify-content: space-evenly /*TODO space between space _around ...  */
         }
 
         .item-footer {
             text-align: left !important;
             display: flex !important;
             align-items: center;
-            margin-bottom: 10px!important;
+            margin-bottom: 10px !important;
         }
 
         @media only screen and (max-width: 349px) {
@@ -32,11 +32,12 @@
             }
 
             .add-but {
-                margin: 0 0 0 45px!important;
-                padding: 2.5px 31px!important;
+                margin: 0 0 0 45px !important;
+                padding: 2.5px 31px !important;
             }
-            .item-price{
-                flex-basis: 22px!important;
+
+            .item-price {
+                flex-basis: 22px !important;
             }
         }
     </style>
@@ -56,8 +57,21 @@
                         </div>
                         <h5 class="card-title text-warning my-2">{{ item.name }}</h5>
                         <h6 class="card-text text-white ms-3 item-footer">
+                            {% set price = item.price %}
+                            {% set discount = item.discount if item.discount else 0 %}
                             <strong style="color:darkorange; flex-basis: 12px;">$</strong>
-                            <strong style="color:whitesmoke ;flex-basis: 53px" class="item-price">{{ item.price //1000 }}</strong>
+                            {% if discount %}
+                                <strong style="color:whitesmoke ;flex-basis: 53px;"
+                                        class="item-price text-decoration-line-through">
+                                    {{ price//1000 }}
+                                </strong>
+                                <strong style="color:whitesmoke ;flex-basis: 53px;">{{ (price - discount)//1000 }}</strong>
+                            {% else %}
+                                <strong style="color:whitesmoke ;flex-basis: 53px;"
+                                        class="item-price">
+                                    {{ price//1000 }}
+                                </strong>
+                            {% endif %}
                             <button class="btn btn-warning add-but"
                                     style="padding:2.5px 15px;margin: 0 13px 0 0">
                                 Add
