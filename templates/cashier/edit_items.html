@@ -32,18 +32,31 @@
                 <tr id="trow-{{ i.id }}" class="p-3 m-2 mt-3 rounded">
                     <form action="{{ url_for('edit_items') }}" method="POST" id="{{ i.id }}"></form>
                     <td class="text-success">{{ i.id }}</td>
-
-                    <td class="text-white"><input style="width: 60px" type="number" class="form-control"
-                                                  name="status_id" id="status_id"
-                                                  required
-                                                  min="1" max="999" value="{{ i.category_id }}" form="{{ i.id }}"></td>
+                    <td class="text-white">
+                        <div class="dropdown btn-group">
+                            <button id="drop-stat" type="button"
+                                    class="btn btn-warning dropdown-toggle"
+                                    data-bs-toggle="dropdown" style="width: 8rem">
+                                {{ i.cat_name }}
+                            </button>
+                            <input style="display: none" disabled type="text" name="cat_name" id="{{ i.id }}"
+                                   value="">
+                            <ul class="dropdown-menu">
+                                {% for j in cat %}
+                                    <li class="dropdown-item">
+                                        <a
+                                                class="dropdown-item"
+                                                href="#">{{ j.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </td>
-
+{#                    </td>#}
                     <td class="text-white"><input style="width: 60px" type="number" class="form-control"
                                                   name="status_id" id="status_id"
                                                   required
                                                   min="1" max="999" value="{{ i.discount }}" form="{{ i.id }}"></td>
-                    </td>
+{#                    </td>#}
 
                     <td><input type="text" class="form-control" name="status_id" id="status_id"
                                required
@@ -114,5 +127,12 @@
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
+    $(".dropdown-menu a").click(function () {
+        $(this).closest('.btn-group').find(".dropdown-menu a").removeClass('active');
+        $(this).addClass('active');
+        $(this).closest('.btn-group').find('button').html($(this).text())
+        $(this).closest('.btn-group').find('input').val($(this).text())
+    })
+
 </script>
 </html>
