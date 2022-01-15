@@ -36,16 +36,18 @@
                     <td class="text-white">{{ i.table_id }}</td>
                     <td class="text-white">{{ i.receipt_id }}</td>
                     <td>
-                        <div class="dropdown">
+                        <div class="dropdown btn-group">
                             <button id="drop-stat" type="button"
-                                    class="btn btn-warning dropdown-toggle {{ i.id }}"
+                                    class="btn btn-warning dropdown-toggle"
                                     data-bs-toggle="dropdown">
+
                                 {{ i.status_name }}
                             </button>
+                            <input style="display: none" disabled type="text" name="status_name" id="{{ i.id }}"
+                                   value="">
                             <ul class="dropdown-menu">
                                 {% for j in status %}
-                                    <li value="{{ i.id }}" uid="{{ j.name }}" class="{{ i.id }}-li"
-                                        onclick="drop_change(this.value)">
+                                    <li class="dropdown-item">
                                         <a
                                                 class="dropdown-item"
                                                 href="#">{{ j.name }}</a></li>
@@ -76,14 +78,21 @@
 </div>
 </body>
 <script>
-    function drop_change(n) {
-        let a = $(`.${n}-li`).attr('uid')
-        $(`.${n}`).html(a)
-        console.log(n)
-        console.log(a)
+    {#function drop_change(n) {#}
+    {#    let a = $(`.${n}-li`).attr('uid')#}
+    {#    $(`.${n}`).html(a)#}
+    {#    console.log(n)#}
+    {#    console.log(a)#}
+    {##}
+    {##}
+    $(".dropdown-menu a").click(function () {
+        $(this).closest('.btn-group').find(".dropdown-menu a").removeClass('active');
+        $(this).addClass('active');
+        {#$(this).closest('.btn-group').find('button').append($(this).text())#}
+        $(this).closest('.btn-group').find('button').html($(this).text())
+        $(this).closest('.btn-group').find('input').val($(this).text())
+    })
 
-
-    }
 
     function ApplyEdits(ButtonId) {
         let elem = $(`#trow-${ButtonId} input`)
@@ -117,6 +126,10 @@
                                 <strong>Error while adding order!</strong>
                               </div>`)
                 msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
+
             }
         })
     }
