@@ -111,12 +111,17 @@
 </div>
 
 {#{% if receipt_id  %}#}
-<div id="basket" style="position: fixed;z-index: 11;bottom:-3%;right: 1%;display: none">
-    <a href="http://127.0.0.1:5000/order/1"><i class="bi bi-cart4" style="font-size: 10vw!important;color: "></i></a>
+<div class="border border-primary rounded-circle px-2" id="basket" style="position: fixed;z-index: 11;bottom:0;right: 0;display: none;border: 0.5vw solid dodgerblue!important;
+    border-radius: 100%!important;
+    padding: 0 2vw!important;">
+    <a href="http://127.0.0.1:5000/order/1"><i class="bi bi-cart4" style="font-size: 6vw!important;"></i></a>
 </div>
 {#{% endif %}#}
 
 <script>
+    {% if receipt_id %}
+        $('#basket').css('display', 'flex')
+    {% endif %}
     function func(ItemValue) {
         let elem = ItemValue.slice(" ")
         $(`#item_id`).val(elem[0])
