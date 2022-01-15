@@ -1,0 +1,34 @@
+.text-chocolate {
+    color: chocolate !important;
+}
+
+.bg-chocolate {
+    background-color: chocolate !important;
+}
+
+.btn-chocolate {
+    background-color: chocolate !important;
+    border-color: chocolate !important;
+}
+
+.login_bg {
+    background: rgba(0, 0, 0, .6);
+    position: absolute;
+    right:0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto !important;
+    max-height: 370px;
+}
+
+.login_bg_img {
+    background: url("/static/images/menu_items_new/Cafee/back ground.jpg") no-repeat center;
+    background-size:cover;
+    min-height: 650px;
+    position: relative;
+}
+
+.top_header img {
+    width: 100%;
+}
