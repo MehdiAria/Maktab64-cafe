@@ -34,7 +34,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-6 col-md-3">
-                <form action=" {{ url-for('login') }}" method="POST">
+                <form action=" {{ url_for('login') }}" method="POST">
                     <div class="row">
                         <div class="col-12">
                             <h2>Login</h2>
@@ -48,12 +48,20 @@
                             <input type="password" class="form-control">
                         </div>
                         <div class="col-12 mt-4">
-                            <button class="btn btn-chocolate form-control">Login</button>
+                            <button type="submit" class="btn btn-chocolate form-control">Login</button>
+                        </div>
+                        <div id="msg">
+                            <div id="{{ error.massage }}"></div>
+                            {% if error!='' %}
+                                <div class="alert alert-danger alert-dismissible fade show">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    <strong>{{ error['error'] }}</strong>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
     </div>
 {% endblock %}
