@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-3 m-5 p-5 login_bg">
                 <form action=" {{ url_for('login') }}" method="POST">
-                    <div class="row text-white">
+                    <div class="row text-chocolate">
                         <div class="col-12">
                             <h2>Login</h2>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="col-12 mt-4">
                             <button type="submit" class="btn btn-chocolate form-control">Login</button>
                         </div>
-                        <div id="msg">
+                        <div id="msg" class="text-chocolate m-2">
                             <div id="{{ error.massage }}"></div>
                             {% if error!='' %}
                                 <div class="alert alert-danger alert-dismissible fade show">
