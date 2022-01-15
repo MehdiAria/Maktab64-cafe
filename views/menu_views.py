@@ -4,6 +4,7 @@ from models.model import *
 from datetime import datetime, timedelta
 import uuid, os
 from views.utils import set_user_token, check_table_id, get_cashier_by_cookie
+from models.menu_funcs import menu_categories
 
 db = DBManager()
 
@@ -13,7 +14,9 @@ def index():
 
 
 def menu():
-    data = Category.category_item()
+    # data = Category.category_item()
+    data = {}
+    data["menu_items"] = menu_categories()
     empty_tables = None
     table_id = None
     receipt_id = request.cookies.get('receipt_id', None)
