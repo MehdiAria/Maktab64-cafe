@@ -57,7 +57,7 @@
 {#</div>#}
 {% for category, menu_items in data['menu_items'].items() %}
     <button class="btn btn-warning fs-4 fw-normal" style="margin-bottom:0;padding: 12px 0!important; width:40%" data-bs-toggle="collapse" data-bs-target="#{{ category }}">{{ category }}</button>
-    <div id= "{{ category }}" class="container-fluid bg-secondary collapse show" style="padding:1.5rem !important ;">
+    <div id= "{{ category }}" class="container-fluid collapse show" style="padding:1.5rem !important;background-image:url('/static/images/bg.jpg')">
         <div class="row menu_container my_2">
             {% for item in menu_items %}
                 {% set items_len = menu_items | length %}
