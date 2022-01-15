@@ -17,7 +17,7 @@
     </div>
     <div class="table-responsive my-2">
         <div id="msg-container"></div>
-        <table class="table table-hover col-6 text-center font-size" style="color: #c01d67">
+        <table id="maintable" class="table table-hover col-6 text-center font-size" style="color: #c01d67">
             <thead class="table-success">
             <tr id="tr">
                 <th>Table no.</th>
@@ -60,7 +60,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><input type="button" class="btn btn-success" value="Add"></td>
+                <td><input type="button" id="add_new" class="btn btn-success" value="Add"></td>
             </tr>
         </table>
     </div>
@@ -112,7 +112,6 @@
             }
             PostJson[Input.name] = value
         }
-        console.log(PostJson)
         $.ajax({
             type: "POST",
             url: "http://127.0.0.1:5000/cashier/tables",
@@ -127,5 +126,22 @@
             }
         })
     }
+
+    $("#add_new").click(function () {
+
+        $("#maintable").each(function () {
+
+            var tds = '<tr>';
+            jQuery.each($('tr:last td', this), function () {
+                tds += '<td>' + $(this).html() + '</td>';
+            });
+            tds += '</tr>';
+            if ($('tbody', this).length > 0) {
+                $('tbody', this).append(tds);
+            } else {
+                $(this).append(tds);
+            }
+        });
+    });
 </script>
 </html>
