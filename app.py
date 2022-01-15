@@ -6,6 +6,7 @@ from cashier import tables, orders, edit_items
 from cashier.receipts_view import *
 from cashier.views_logout import *
 from models.menu_funcs import menu_categories
+from views.spa_views import handler
 app = Flask(__name__, template_folder="templates")
 
 # JINJA_ENVIRONMENT.globals['STATIC_PREFIX'] = '/'
@@ -31,5 +32,6 @@ app.add_url_rule("/cashier/receipts", "date_receipts", all_receipts, methods=["G
 # app.add_url_rule("cashier/served_orders", "served_orders", served_orders)
 app.add_url_rule("/cashier/tables", "tables", tables.tables, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/logout", 'logout', logout)
+app.add_url_rule("/handler", 'handler', handler)
 if __name__ == '__main__':
     app.run(debug=True)
