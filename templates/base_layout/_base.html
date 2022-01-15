@@ -59,7 +59,20 @@
 
 {% block menu_items %}{% endblock %}
 {% endblock %}
-
+ <div id="aj"></div>
 {% include 'base_layout/_footer.html' %}
+
+
+<script>
+     $(".aj").click(function (){
+
+        $.ajax({url:$(this).attr("link"),
+    success: function(res) {
+        $("#aj").html(res)
+        console.log(res)
+
+    }})
+    })
+</script>
 </body>
 </html>
