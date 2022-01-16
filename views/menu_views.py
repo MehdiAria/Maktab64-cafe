@@ -121,3 +121,12 @@ def dec_order():
         obj_order.number_item = obj_order.number_item - 1
         db.update(obj_order)
         return {'number_item': obj_order.number_item, "order_id": obj_order.id}
+
+
+def plus_order():
+    if request.method == 'POST':
+        x = int(request.form.get('order_id')[3:])
+        obj_order = db.read(Order, x)
+        obj_order.number_item = obj_order.number_item + 1
+        db.update(obj_order)
+        return {'number_item': obj_order.number_item, "order_id": obj_order.id}
