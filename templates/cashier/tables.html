@@ -73,24 +73,19 @@
     {#    })#}
 
 
-    function absNumber(number) {
-
-        if (number <= 0) {
-            if (number < 0) {
-                $("#count").val(number * -1)
-            } else {
-                $("#count").val(1)
-            }
+    function absNumber(tag) {
+        let val = $(tag).val();
+        if (val < 1) {
+            $(tag).val(1)
         }
-
     }
 
-    $("#FilterInput").on("input", function () {
-        var value = $(this).val().toLowerCase();
-        $("#table").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
+    {#$("#FilterInput").on("input", function () {#}
+    {#    var value = $(this).val().toLowerCase();#}
+    {#    $("#table").filter(function () {#}
+    {#        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)#}
+    {#    });#}
+
 
     function checkBoxValue(num) {
         console.log(num)
