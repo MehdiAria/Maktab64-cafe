@@ -95,10 +95,22 @@ def order(table_id):
 
 def del_order():
     if request.method == 'POST':
-        x = request.form.get('order_id')
-        obj_order = db.read(Order, x)
-        db.delete(obj_order)
-        return "order deleted"
+        receipt_id = request.cookies.get('receipt_id', None)
+        orders = db.read_filter(Order, f"receipt_id = {request.cookies.get('receipt_id', None)} And is_del=false")
+        resp = Response()
+        if orders and len(orders) == 1:
+            receipt = db.read_filter(Receipt, f"id = {receipt_id}")[0]
+            receipt.is_del = True
+            db.update(receipt)
+            resp.delete_cookie("receipt_id")
+            resp.delete_cookie("user_token")
+        else:
+            resp = "order deleted!"
+        order_id = request.form.get('order_id')
+        table_order = db.read(Order, order_id)
+        table_order.is_del = True
+        db.update(table_order)
+        return resp
 
 
 def dec_order():
