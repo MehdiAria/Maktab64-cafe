@@ -104,3 +104,9 @@ ul .dashboard-item i {
 .input-group {
     width: 45vw;
 }
+
+#cash-name{
+            font-size: 14px;
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+        }
