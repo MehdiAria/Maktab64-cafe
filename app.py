@@ -6,9 +6,8 @@ from cashier import tables, orders, edit_items, intro
 from cashier.receipts_view import *
 from cashier.views_logout import *
 from models.menu_funcs import menu_categories
-
+from views.spa_views import handler
 app = Flask(__name__, template_folder="templates")
-
 
 # JINJA_ENVIRONMENT.globals['STATIC_PREFIX'] = '/'
 
@@ -18,7 +17,6 @@ def new_menu():
     data["menu_items"] = menu_categories()
     print(data)
     return render_template("items.html", data=data)
-
 
 app.add_url_rule("/", "home", index)
 app.add_url_rule("/menu", "menu", menu)
@@ -35,5 +33,6 @@ app.add_url_rule("/cashier/receipts", "date_receipts", all_receipts, methods=["G
 app.add_url_rule("/cashier/intro", "intro", intro.intro, methods=["GET", "POST"])
 app.add_url_rule("/cashier/tables", "tables", tables.tables, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/logout", 'logout', logout)
+app.add_url_rule("/handler", 'handler', handler)
 if __name__ == '__main__':
     app.run(debug=True)
