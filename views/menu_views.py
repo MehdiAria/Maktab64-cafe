@@ -74,6 +74,7 @@ def order(table_id):
         else:
             table = db.read(CafeTable, int(table_id))
             table: CafeTable
+            print(table,table.is_empty)
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             if user_token:
