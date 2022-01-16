@@ -34,9 +34,11 @@ def intro():
         fetch='one')['sum']
     yesterday_earning = 0 if yesterday_earning is None else yesterday_earning
     today_earning = 0 if today_earning is None else today_earning
+    percent = (today_earning - yesterday_earning) / yesterday_earning * 100
     return render_template('cashier/intro.html', earning={
         'today_earning': today_earning,
         'yesterday_earning': yesterday_earning,
+        'percent': percent,
     },
                            tables_data={
                                'available_tables': available_tables,
