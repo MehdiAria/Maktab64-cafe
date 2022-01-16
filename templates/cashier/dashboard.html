@@ -30,7 +30,6 @@
 
     <script>
 
-
         $(document).ready(function () {
             $(".orders").click(function () {
                 $(".right-ajax").load('cashier/orders');
@@ -79,7 +78,7 @@
             <hr class="sidebar-divider">
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
                 <li class="dashboard-item text-white py-2 mb-3 dashboard"><i class="me-3 icons fa fa-home side-icon"
-                                                                   aria-hidden="true"><span
+                                                                             aria-hidden="true"><span
                         class="dash">Dashboard</span></i></li>
                 <hr class="sidebar-divider">
                 <li class="dashboard-item text-white py-2 mb-3 tables"><i class="me-3 icons fa fa-table side-icon"
@@ -130,7 +129,7 @@
                         <div>
                             <button class="btn btn-success" type="button" style="background-color: saddlebrown;"
                                     id="logins">
-                                <a href="{{ url_for("logout")}}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url_for("logout") }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                    title="Logout!"><i
                                         class="fa fa-sign-out" style="font-size:20px; color: white"></i></a>
                             </button>
