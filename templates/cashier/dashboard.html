@@ -23,13 +23,13 @@
     <link href="https://fonts.googleapis.com/css?family=Corben" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nobile" rel="stylesheet">
 
-    <link rel="stylesheet"  media="screen and (max-width: 849px)" href="{{ url_for("static",filename="css/q1-max850.css") }}">
-    <link rel="stylesheet"  media="screen and (min-width: 850px)" href="{{ url_for("static",filename="css/q2-min850.css") }}">
+    <link rel="stylesheet" media="screen and (max-width: 849px)"
+          href="{{ url_for("static",filename="css/q1-max850.css") }}">
+    <link rel="stylesheet" media="screen and (min-width: 850px)"
+          href="{{ url_for("static",filename="css/q2-min850.css") }}">
 
     <script>
-        function logout() {
-            $("#logins").load('../login.html');
-        }
+
 
         $(document).ready(function () {
             $(".orders").click(function () {
@@ -90,12 +90,14 @@
                                                                           aria-hidden="true"><span>Orders</span></i>
                 </li>
                 <hr class="sidebar-divider">
-                <li class="dashboard-item text-white py-2 mb-3 edit-items"><i class="me-3 icons fa fa-pencil-square-o side-icon"
-                                                                              aria-hidden="true"><span>Edit items</span></i>
+                <li class="dashboard-item text-white py-2 mb-3 edit-items"><i
+                        class="me-3 icons fa fa-pencil-square-o side-icon"
+                        aria-hidden="true"><span>Edit items</span></i>
                 </li>
                 <hr class="sidebar-divider">
-                <li class="dashboard-item text-white py-2 mb-3 receipts"><i class="me-3 icons fa fa-credit-card-alt side-icon"
-                                                                            aria-hidden="true"><span>Receipts</span></i>
+                <li class="dashboard-item text-white py-2 mb-3 receipts"><i
+                        class="me-3 icons fa fa-credit-card-alt side-icon"
+                        aria-hidden="true"><span>Receipts</span></i>
                 </li>
             </ul>
 
@@ -128,7 +130,8 @@
                         <div>
                             <button class="btn btn-success" type="button" style="background-color: saddlebrown;"
                                     id="logins">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout!"><i
+                                <a href="{{ url_for("logout")}}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="Logout!"><i
                                         class="fa fa-sign-out" style="font-size:20px; color: white"></i></a>
                             </button>
 
