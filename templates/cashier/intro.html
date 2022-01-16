@@ -84,7 +84,7 @@ new Chart("tables_chart", {
 
 var xV = ["Today", "Yesterday", "2 Days ago", "3 Days ago", "4 Days ago"];
 var yV = [{{ receipt_data.receipt_1 }}, {{ receipt_data.receipt_2 }}, {{ receipt_data.receipt_3 }}, {{ receipt_data.receipt_4 }}, {{ receipt_data.receipt_5 }}];
-var barColors = ["red", "green","blue","orange","brown"];
+var barColors = ["#d46b08", "#d46b08","#d46b08","#d46b08","#d46b08"];
 
 new Chart("receipts_chart", {
   type: "bar",
@@ -97,7 +97,8 @@ new Chart("receipts_chart", {
   },
   options: {
     legend: {display: false},
-  }
+  },
+
 });
 
 
