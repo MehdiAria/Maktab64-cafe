@@ -28,8 +28,8 @@ def set_user_token(receipt):
 
 def check_table_id(receipt_id, table_id):
     receipt_table = db.all_query(CafeTable, f"""SELECT cafe_table.id, cafe_table.is_empty, cafe_table.space, cafe_table.is_del
-                                                FROM receipt INNER JOIN orders ON orders.receipt_id = receipt.id
-                                                INNER join cafe_table ON cafe_table.id = orders.table_id
+                                                FROM cafe_table INNER JOIN orders ON orders.table_id = cafe_table.id
+                                                INNER join receipt ON receipt.id = orders.receipt_id
                                                 WHERE receipt.id = {receipt_id} """, fetch="one")
 #  TODO logger here
     receipt_table: CafeTable
