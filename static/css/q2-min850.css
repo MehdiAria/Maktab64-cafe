@@ -38,6 +38,10 @@ body {
 }
 
 
+.dashboard-item i:hover {
+    cursor: pointer;
+    color: #5a0606;
+}
 .dashboard-item i:active {
     cursor: pointer;
     color: #5a0606;

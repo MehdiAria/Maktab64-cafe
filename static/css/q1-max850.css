@@ -50,6 +50,10 @@ body {
     cursor: pointer;
     color: #5a0606;
 }
+.dashboard-item :hover {
+    cursor: pointer;
+    color: #5a0606;
+}
 
 #navbar-top {
     padding-right: 0;
