@@ -116,7 +116,8 @@ def del_order():
 
 def dec_order():
     if request.method == 'POST':
-        x = int(request.form.get('order_id')[3:])
+        x = int(request.form.get('order_id'))
+        print(x)
         obj_order = db.read(Order, x)
         obj_order.number_item = obj_order.number_item - 1
         db.update(obj_order)
@@ -125,7 +126,8 @@ def dec_order():
 
 def plus_order():
     if request.method == 'POST':
-        x = int(request.form.get('order_id')[3:])
+        x = int(request.form.get('order_id'))
+        print(x)
         obj_order = db.read(Order, x)
         obj_order.number_item = obj_order.number_item + 1
         db.update(obj_order)

@@ -45,13 +45,13 @@
                     {% endif %}
                     </td>
                     <td class="{{ i.id }}">
-                        <a style="cursor: pointer" order_id="{{ i.id }}" class="order-btn" link="{{ url_for("order-plus") }}">
+                        <a style="cursor: pointer" order_id="{{ i.id }}" class="order-btn" link="{{ url_for("plus_order") }}">
                             <i class="bi bi-plus-circle-fill" style="color: #549153"></i>
                         </a>
                         <a style="cursor: pointer" order_id="{{ i.id }}" class="order-btn" link="{{ url_for("decrease") }}">
                             <i style="color: #bf3a3a" class="bi bi-dash-circle-fill"></i>
                         </a>
-                        <a style="cursor: pointer" order_id="{{ i.id }}" class="order-btn" link="{{ url_for("delete") }}">
+                        <a style="cursor: pointer" order_id="{{ i.id }}" class="order-delete-btn" link="{{ url_for("delete") }}">
                             <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
                         </a>
                     </td>
@@ -69,7 +69,7 @@
     </div>
     <script>
 
-        $(".order-btn").click(function () {
+        $(".order-delete-btn").click(function () {
             console.log(this)
             let link = $(this).attr("link")
             let order_id = $(this).attr("order_id")
@@ -86,19 +86,36 @@
 
         })
 
-
-        function dec_order(order_id) {
+        $(".order-btn").click(function () {
+            console.log(this)
+            let link = $(this).attr("link")
+            let order_id = $(this).attr("order_id")
             $.ajax({
                 type: "POST",
-                url: `http://127.0.0.1:5000/decrease`,
+                url: link,
                 data: {
                     'order_id': order_id
                 },
-                success: function (response) {
+                success: function () {
                     $(`#num_${response['order_id']}`).html(response['number_item'])
                 }
             })
-        }
+
+        })
+
+
+        {#function dec_order(order_id) {#}
+        {#    $.ajax({#}
+        {#        type: "POST",#}
+        {#        url: `http://127.0.0.1:5000/decrease`,#}
+        {#        data: {#}
+        {#            'order_id': order_id#}
+        {#        },#}
+        {#        success: function (response) {#}
+        {#            $(`#num_${response['order_id']}`).html(response['number_item'])#}
+        {#        }#}
+        {#    })#}
+        {#}#}
 
 
 
