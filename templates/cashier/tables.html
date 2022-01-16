@@ -32,7 +32,7 @@
 
                 <tr id="trow-{{ i.id }}">
                     <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
-                    <td class="text-white">{{ i.id }}<input type="number" style="display: none" value="{{ i.id }}" name="id"
+                    <td class="text-white">{{ i.table_number }}<input type="number" style="display: none" value="{{ i.id }}" name="id"
                                                             form="{{ i.id }}">
                     </td>
                     <td><input type="number" class="form-control" name="space" required
