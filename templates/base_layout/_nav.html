@@ -11,16 +11,16 @@
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
         <li class="nav-item mr-2">
-          <a class="nav-link nav-content org" href="{{ url_for('home') }}">Home</a>
+          <a class="nav-link nav-content org aj" href="#" id="Home" link="{{ url_for('handler') }}?home=true">Home</a>
         </li>
         <li class="nav-item mr-2">
-          <a class="nav-link nav-content org" href="{{ url_for('about') }}">About</a>
+          <a class="nav-link nav-content org aj" href="#" id="About" link="{{ url_for('handler') }}?about=true">About</a>
         </li>
         <li class="nav-item mr-2">
-          <a class="nav-link nav-content org" href="{{ url_for('menu') }}">Menu</a>
+          <a class="nav-link nav-content org aj" id="Menu" href="#" link="{{ url_for('handler') }}?menu=true">Menu</a>
         </li>
           <li class="nav-item mr-2">
-          <a class="nav-link nav-content org" href="{{ url_for('panel') }}">Cashier Panel</a>
+          <a class="nav-link nav-content org aj" id="Chashier" href="{{ url_for('panel') }}">Cashier Panel</a>
         </li>
       </ul>
     </div>
