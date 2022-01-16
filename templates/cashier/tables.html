@@ -11,9 +11,8 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h1>Tables</h1>
     <div>
-        <input id="FilterInput" class="form-control" placeholder="Search Orders...">
+        <input id="FilterInput" class="form-control" placeholder="Search Tables...">
     </div>
     <div class="table-responsive my-2">
         <div id="msg-container"></div>
@@ -32,7 +31,7 @@
 
                 <tr id="trow-{{ i.id }}">
                     <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
-                    <td class="text-white">{{ i.id }}<input type="number" style="display: none" value="{{ i.id }}" name="id"
+                    <td class="text-white">{{ i.table_number }}<input type="number" style="display: none" value="{{ i.id }}" name="id"
                                                             form="{{ i.id }}">
                     </td>
                     <td><input type="number" class="form-control" name="space" required
