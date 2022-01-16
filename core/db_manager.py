@@ -27,11 +27,13 @@ class DBModel(ABC):  # abstract base Database model
         return base_dict
 
     @classmethod
-    def class_aliases(cls):
+    def class_aliases(cls, to_str: bool = False):
         base_dict = vars(cls).get('__annotations__', None)
         aliases = cls.aliases
         alias_list = list(
             map(lambda x: f"{cls.TABLE}.{x}" if x not in aliases.keys() else f"{cls.TABLE}.{aliases[x]}", base_dict))
+        if to_str:
+            return ", ".join(alias_list)
         return alias_list
 
     # def data_type_check(self, data: any, data_type: type, error: Exception, **kwargs):

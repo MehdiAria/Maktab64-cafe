@@ -2,51 +2,51 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script src="https://malsup.github.io/jquery.form.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
-
-<div class="container-fluid">
-    <div class="card-columns">
-        {% for category in data %}
-            {% if data[category] is mapping %}
-                <h1 class="bg-secondary p-4">{{ category }}</h1>
-                {% for child_category in data[category] %}
-                    <h1 class="bg-info p-3">{{ child_category }}</h1>
-                    {% for item in data[category][child_category] %}
-                        <div class="card bg-light">
-                            <div class="card-body">
-                                <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
-                                     style="line-height: 5vh">
-                                <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>
-                                <button type="button" class="btn btn-secondary mt-4 w-100" data-bs-toggle="modal"
-                                        data-bs-target="#myModal" onclick="func(this.id)"
-                                        id="{{ item.id }} {{ item.name }}">
-                                    Add To Cart
-                                </button>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-            {% else %}
-                <h1 class="bg-secondary p-4">{{ category }}</h1>
-                {% for item in data[category] %}
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"
-                                 style="line-height: 5vh">
-                            <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>
-                            <button type="button" class="btn btn-secondary mt-4 w-100" data-bs-toggle="modal"
-                                    data-bs-target="#myModal" onclick="func(this.id)"
-                                    id="{{ item.id }} {{ item.name }}">
-                                Add To Cart
-                            </button>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-    </div>
-</div>
-
+{#<div class="container-fluid">#}
+{#    <div class="card-columns">#}
+{#        {% for category in data %}#}
+{#            {% if data[category] is mapping %}#}
+{#                <h1 class="bg-secondary p-4">{{ category }}</h1>#}
+{#                {% for child_category in data[category] %}#}
+{#                    <h1 class="bg-info p-3">{{ child_category }}</h1>#}
+{#                    {% for item in data[category][child_category] %}#}
+{#                        <div class="card bg-light">#}
+{#                            <div class="card-body">#}
+{#                                <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"#}
+{#                                     style="line-height: 5vh">#}
+{#                                <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>#}
+{#                                <button type="button" class="btn btn-secondary mt-4 w-100" data-bs-toggle="modal"#}
+{#                                        data-bs-target="#myModal" onclick="func(this.id)"#}
+{#                                        id="{{ item.id }} {{ item.name }}">#}
+{#                                    Add To Cart#}
+{#                                </button>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                {% endfor %}#}
+{#            {% else %}#}
+{#                <h1 class="bg-secondary p-4">{{ category }}</h1>#}
+{#                {% for item in data[category] %}#}
+{#                    <div class="card bg-light">#}
+{#                        <div class="card-body">#}
+{#                            <img src="{{ item.image_url }}" alt="tea" class="w-100 card-img-top"#}
+{#                                 style="line-height: 5vh">#}
+{#                            <h3 class="card-text fw-light mt-3">{{ item.name }}</h3>#}
+{#                            <button type="button" class="btn btn-secondary mt-4 w-100" data-bs-toggle="modal"#}
+{#                                    data-bs-target="#myModal" onclick="func(this.id)"#}
+{#                                    id="{{ item.id }} {{ item.name }}">#}
+{#                                Add To Cart#}
+{#                            </button>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#</div>#}
+{% include "items.html" %}
 
 <div class="modal" id="myModal">
     <div class="modal-dialog">
@@ -76,27 +76,29 @@
                             <h3 class="text-danger">there is no empty table!</h3>
                         {% endif %}
                     </div>
-                {% if tables or table_id %}
-                    <lable class="form-label">Count:</lable>
-                    <input type="number" class="form-control" name="number_id" id="count" required
-                           oninput="absNumber(this.value)">
-                    <div class="invalid-feedback">
-                        please fill Count!
-                    </div>
-                    <label class="form-label" for="item_type">Item: </label><input style="border: 0;background: white"
-                                                                                   class="form-control" type="text"
-                                                                                   name="item_type"
-                                                                                   id="item_type" disabled>
-                    <input type="number" class="d-none" id="item_id" name="item_id" required>
-                    <label class="form-label" for="table_id">Table: </label><input style="border: 0;background: white"
-                                                                                   class="form-control" type="text"
-                                                                                   name="table_id"
-                                                                                   id="table_id" disabled>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <input type="button" class="btn btn-success" value="Add to card" onclick="order()">
-                    </div>
-                {% endif %}
+                    {% if tables or table_id %}
+                        <lable class="form-label">Count:</lable>
+                        <input type="number" class="form-control" name="number_id" id="count" required
+                               oninput="absNumber(this.value)">
+                        <div class="invalid-feedback">
+                            please fill Count!
+                        </div>
+                        <label class="form-label" for="item_type">Item: </label>
+                        <input style="border: 0;background: white"
+                               class="form-control" type="text"
+                               name="item_type"
+                               id="item_type" disabled>
+                        <input type="number" class="d-none" id="item_id" name="item_id" required>
+                        <label class="form-label" for="table_id">Table: </label>
+                        <input style="border: 0;background: white"
+                               class="form-control" type="text"
+                               name="table_id"
+                               id="table_id" disabled>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <input type="button" class="btn btn-success" value="Add to card" onclick="order()">
+                        </div>
+                    {% endif %}
                 </form>
                 <div id="msg" class="flash fade-in"></div>
             </div>
@@ -107,17 +109,22 @@
 
 
 </div>
-{% if receipt_id  %}
-<div style="position: fixed;z-index: 11;bottom: 1%;right: 1%;">
-    <a href="http://127.0.0.1:5000/order/1"><img style="width: 100px" src="/static/images/basket.png" alt=""></a>
+
+{#{% if receipt_id  %}#}
+<div class="rounded-circle px-2" id="basket" style="position: fixed;z-index: 11;bottom:0;right: 0;display: none;">
+    <a href="http://127.0.0.1:5000/order/1"><i class="bi bi-cart4" style="font-size: 6vw!important;color: chocolate"></i></a>
 </div>
-{% endif %}
+{#{% endif %}#}
 
 <script>
+    {% if receipt_id %}
+        $('#basket').css('display', 'flex')
+    {% endif %}
     function func(ItemValue) {
-        let elem = ItemValue.slice(" ")
+        let elem = ItemValue.split(' ')
         $(`#item_id`).val(elem[0])
-        $(`#item_type`).val(elem)
+        $(`#item_type`).val(elem.slice(1,-1))
+        console.log(elem.slice(1,-1))
         $(`#count`).val(1)
 
     }
@@ -194,6 +201,7 @@
                     });
                 }, 3000);
                 demo(3000)
+                $('#basket').css('display', 'flex')
 
             },
             error: function () {
@@ -202,7 +210,7 @@
                                 <strong>Error while adding order!</strong>
                               </div>`)
                 msg.appendTo(parrent)
-                 demo(3000)
+                demo(3000)
 
 
                 DisableTableSet(t_id)

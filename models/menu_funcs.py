@@ -1,7 +1,7 @@
 from models.model import Category, db, MenuItems
 
 all_categories = db.read_all(Category)
-all_menu_items = db.read_all(MenuItems)
+all_menu_items = db.read_filter(MenuItems, "is_del = false")
 
 
 def find_category(c_id, categories=None):

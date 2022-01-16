@@ -1,0 +1,63 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{% for category, menu_items in data['menu_items'].items() %}
+    <hr class="bg-warning" style="margin:0!important;">
+    <button class="btn btn-outline-warning fs-4 fw-normal" style="margin-bottom:0;padding: 12px 0!important; width:40%"
+            data-bs-toggle="collapse" data-bs-target="#{{ category }}">
+        {{ category }}
+    </button>
+    <i class="bi bi-caret-down-fill collapse-icon" style="margin:0 0 0 52vw; color:#ffc107" id="{{ category }}-icon"
+       data-bs-toggle="collapse" onclick="rotate(this.id)" data-bs-target="#{{ category }}"></i>
+    <div id="{{ category }}" class="container-fluid collapse show" style="padding:1.5rem !important;background-image:url('static/images/menu_items_new/Cafee/back ground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;">
+        <div class="row menu_container my_2">
+            {% for item in menu_items %}
+                {% set items_len = menu_items | length %}
+                {#                col-{{ items_len//12 }} col-sm-12#}
+                <div class="text-center menu-item" style="width:13rem;">
+                    <div class="card my-2" style="border:none; background:#222528;  border-radius: 10px!important">
+                        <div>
+                            <img alt="{{ item.name }}" src="{{ item.image_url }}" class="card-img-top mt-3"
+                                 style="width:80%!important; height:136px!important;">
+                        </div>
+                        <h5 class="card-title text-warning my-2">{{ item.name }}</h5>
+                        <h6 class="card-text text-white ms-3 item-footer">
+                            {% set price = item.price %}
+                            {% set discount = item.discount if item.discount else 0 %}
+                            <strong style="color:darkorange; flex-basis: 12px;">$</strong>
+                            {% if discount %}
+                                <strong style="color:whitesmoke ;flex-basis: 77px;"
+                                        class="item-price text-decoration-line-through">
+                                    {{ price//1000 }}
+                                </strong>
+                                <strong style="color:whitesmoke ;flex-basis: 77px;">{{ (price - discount)//1000 }}</strong>
+                                <button class="btn btn-warning add-but"
+                                        style="padding:2.5px 15px;margin: 0 16px 0 0"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#myModal" onclick="func(this.id)"
+                                        id="{{ item.id }} {{ item.name }}">
+                                    Add
+                                    {#                                    <i class="bi bi-cart-plus-fill"></i>#}
+                                </button>
+                            {% else %}
+                                <strong style="color:whitesmoke ;flex-basis: 77px;"
+                                        class="item-price">
+                                    {{ price//1000 }}
+                                </strong>
+                                <button class="btn btn-warning add-but"
+                                        style="padding:2.5px 15px;margin: 0 13px 0 0" data-bs-toggle="modal"
+                                        data-bs-target="#myModal" onclick="func(this.id)"
+                                        id="{{ item.id }} {{ item.name }} ">
+                                    Add
+                                    {#                                    <i class="bi bi-cart-plus-fill"></i>#}
+                                </button>
+                            {% endif %}
+                        </h6>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr class="bg-warning" style="margin:0!important;">
+{% endfor %}
