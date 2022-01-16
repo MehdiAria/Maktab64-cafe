@@ -74,6 +74,7 @@ def order(table_id):
         else:
             table = db.read(CafeTable, int(table_id))
             table: CafeTable
+            print(table,table.is_empty)
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             if user_token:
@@ -93,18 +94,44 @@ def order(table_id):
             return resp
     return 'server error', 403
 
+
 def del_order():
     if request.method == 'POST':
-        x = request.form.get('order_id')
-        obj_order = db.read(Order, x)
-        db.delete(obj_order)
-        return "order deleted"
+        receipt_id = request.cookies.get('receipt_id', None)
+        orders = db.read_filter(Order, f"receipt_id = {request.cookies.get('receipt_id', None)} And is_del=false")
+        resp = Response()
+        if orders and len(orders) == 1:
+            receipt = db.read_filter(Receipt, f"id = {receipt_id}")[0]
+            receipt.is_del = True
+            db.update(receipt)
+            resp.delete_cookie("receipt_id")
+            resp.delete_cookie("user_token")
+        else:
+            resp = "order deleted!"
+        order_id = request.form.get('order_id')
+        table_order = db.read(Order, order_id)
+        table_order.is_del = True
+        db.update(table_order)
+        return resp
 
 
 def dec_order():
     if request.method == 'POST':
-        x = int(request.form.get('order_id')[3:])
+        x = int(request.form.get('order_id'))
+        print(x)
         obj_order = db.read(Order, x)
         obj_order.number_item = obj_order.number_item - 1
         db.update(obj_order)
+        print({'number_item': obj_order.number_item, "order_id": obj_order.id})
+        return {'number_item': obj_order.number_item, "order_id": obj_order.id}
+
+
+def plus_order():
+    if request.method == 'POST':
+        x = int(request.form.get('order_id'))
+        print(x)
+        obj_order = db.read(Order, x)
+        obj_order.number_item = obj_order.number_item + 1
+        db.update(obj_order)
+        print({'number_item': obj_order.number_item, "order_id": obj_order.id})
         return {'number_item': obj_order.number_item, "order_id": obj_order.id}

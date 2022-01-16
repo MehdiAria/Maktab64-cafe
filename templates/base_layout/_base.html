@@ -5,6 +5,8 @@
     <title>Cafe Night</title>
 
 {% include 'base_layout/cdns.html' %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
 <style>
         .menu_container {
             display: flex;
@@ -45,6 +47,7 @@
         transform:rotate(180deg)!important;
     }
     </style>
+    {%block extra_head%}{% endblock %}
 </head>
 <body style="background-color: rgb(49,49,49)">
 {#    <div class="welcome" style="background-color: black;">#}

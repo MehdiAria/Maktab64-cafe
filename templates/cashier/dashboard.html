@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard</title>
+    <title>Cashier Panel</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -14,12 +14,22 @@
             integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Corben" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nobile" rel="stylesheet">
+
+    <link rel="stylesheet" media="screen and (max-width: 849px)"
+          href="{{ url_for("static",filename="css/q1-max850.css") }}">
+    <link rel="stylesheet" media="screen and (min-width: 850px)"
+          href="{{ url_for("static",filename="css/q2-min850.css") }}">
+
     <script>
-        function logout() {
-            $("#logins").replaceAll('<h6 class="text-center h6-nav" id="logins">log out</h6>')
-        }
+
 
         $(document).ready(function () {
             $(".orders").click(function () {
@@ -36,8 +46,8 @@
         });
 
         $(document).ready(function () {
-            $(".served-orders").click(function () {
-                $(".right-ajax").load("cashier/served_orders");
+            $(".dashboard").click(function () {
+                $(".right-ajax").load("cashier/intro");
             })
 
         });
@@ -57,218 +67,92 @@
         });
 
     </script>
-    <style>
 
-
-        body {
-            margin: 0;
-            font-family: sans-serif;
-            background-color: rgb(49, 49, 49);
-        }
-
-        .right-dash {
-            background-color: rgba(30, 6, 6, 0.84);
-            height: 100%;
-            height: 98.5vh;
-
-        }
-
-        .dash-options {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            width: 85%;
-            background-color: #361313F4;
-
-        }
-
-        .css-nav {
-            background-color: #C0C0C0;
-        }
-
-        .css-con {
-            margin-top: 5px;
-        }
-
-        .login {
-            background-color: #361313F4;
-            display: flex;
-            justify-content: center;
-
-        }
-
-        .user-logo {
-            font-size: 27px;
-            position: relative;
-            color: rgba(241, 241, 241, 0.32);
-
-        }
-
-        .right-ajax {
-            background-color: #DCA26CA5;
-            width: 74%;
-            height: 98.5vh;
-            overflow: auto;
-        }
-
-        .row-d {
-            color: snow;
-        }
-
-        .logo {
-            display: flex;
-        }
-
-        .h6-nav {
-            color: rgba(241, 241, 241, 0.32);
-        }
-
-
-        /*.login:hover:after{*/
-        /*    content: attr(data-hover);*/
-        /*    font-size: medium;*/
-        /*    color: rgba(241, 241, 241, 0.32);*/
-        /*}*/
-
-
-        @media only screen and (max-width: 385px) {
-            .right-dash {
-                width: auto;
-
-            }
-
-            .right-ajax {
-                width: auto;
-            }
-
-        }
-
-        @media only screen and (max-width: 417px) {
-            .right-dash {
-                display: flex;
-                flex-direction: row;
-
-
-            }
-
-            .dash-options {
-                height: 50px;
-
-            }
-
-            .logo {
-                display: none;
-            }
-
-            .right-dash {
-                height: auto !important;
-                width: 100%;
-            }
-
-            .right-ajax {
-                padding: 186px 192px 330px;
-                margin-top: 21px
-            }
-        }
-
-
-        @media only screen and (max-width: 425px) {
-            .h6-nav {
-                display: none
-            }
-        }
-
-        @media only screen and (max-width: 470px) {
-            .dash-options {
-                width: 70%;
-            }
-
-            .p-tags-in-dash {
-                display: none;
-            }
-
-            .right-dash {
-                height: 650px;
-            }
-
-        }
-
-
-        @media only screen and (max-width: 800px) {
-            .right-ajax {
-                width: 73%;
-            }
-        }
-
-
-    </style>
 </head>
 <body>
-<header>
-    <div class="css-nav nav navbar">
-        <div class="container-fluid ">
-            <a style="text-decoration: none" class="row col-2 login rounded p-1" onmouseout="ret()"
-               onmouseover="del_log()" href="{{ url_for('logout') }}">
-                <i class="fa fa-user-circle-o user-logo text-center" aria-hidden="true"></i>
-                <h6 class="text-center h6-nav" id="logins">logged in</h6>
-
-            </a>
-            <div class="row col-2 login ro rounded p-1">
-                <h6 class="text-center row-d">row data</h6>
-                <h6 class="text-center h6-nav">row data</h6>
-            </div>
-
-            <div class="row col-2 login ro rounded p-1">
-                <h6 class="text-center  row-d">row data</h6>
-                <h6 class="text-center h6-nav row-d">row data</h6>
-            </div>
-
-            <div class="row col-2 login ro rounded p-1">
-                <h6 class="text-center  row-d">row data</h6>
-                <h6 class="text-center h6-nav row-d">row data</h6>
-            </div>
-        </div>
-    </div>
-</header>
-<div class="container-fluid css-con">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-3 right-dash rounded-3">
-            <h3 class="p-3 text-center logo">LOGO</h3>
-            <button class="m-2 p-2 dash-options dashboard btn btn-secondary" href="#"><i class="icons fa fa-home"
-                                                                                         aria-hidden="true"></i>
-                <p class="p-tags-in-dash">Dashboard</p></button>
-            <button class="m-2 p-2 dash-options tables btn btn-secondary" href="#"><i class="icons fa fa-table"
-                                                                                      aria-hidden="true"></i>
-                <p class="p-tags-in-dash">Tables</p></button>
-            <button class="m-2 p-2 dash-options orders btn btn-secondary" href="#"><i class="fa fa-coffee"
-                                                                                      aria-hidden="true"></i>
-                <p class="p-tags-in-dash">Orders</p></button>
-            <button class="m-2 p-2 dash-options edit-items  btn btn-secondary" href="#"><i
-                    class="icons fa fa-pencil-square-o" aria-hidden="true"></i>
-                <p class="p-tags-in-dash">Edit Items</p></button>
-            <button class="m-2 p-2 dash-options receipts  btn btn-secondary" href="#"><i
-                    class="fa fa-credit-card-alt"></i>
-                <p class="p-tags-in-dash">Receipts</p></button>
+        <div class="col-3 right-dash rounded-3 top-page" style="overflow: auto">
+            <div class="sidebar-brand d-flex align-items-center justify-content-center" style="color: #F5DEB3">
+                <img src="/static/images/favicon.png" alt="logo" id="logo-src"><span id="logo-text">Cafe Night</span>
+            </div>
+            <hr class="sidebar-divider">
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+                <li class="dashboard-item text-white py-2 mb-3 dashboard"><i class="me-3 icons fa fa-home side-icon"
+                                                                   aria-hidden="true"><span
+                        class="dash">Dashboard</span></i></li>
+                <hr class="sidebar-divider">
+                <li class="dashboard-item text-white py-2 mb-3 tables"><i class="me-3 icons fa fa-table side-icon"
+                                                                          aria-hidden="true"><span>Tables</span></i>
+                </li>
+                <hr class="sidebar-divider">
+                <li class="dashboard-item text-white py-2 mb-3 orders"><i class="me-3 icons fa fa-coffee side-icon"
+                                                                          aria-hidden="true"><span>Orders</span></i>
+                </li>
+                <hr class="sidebar-divider">
+                <li class="dashboard-item text-white py-2 mb-3 edit-items"><i
+                        class="me-3 icons fa fa-pencil-square-o side-icon"
+                        aria-hidden="true"><span>Edit items</span></i>
+                </li>
+                <hr class="sidebar-divider">
+                <li class="dashboard-item text-white py-2 mb-3 receipts"><i
+                        class="me-3 icons fa fa-credit-card-alt side-icon"
+                        aria-hidden="true"><span>Receipts</span></i>
+                </li>
+            </ul>
+
         </div>
 
-        <div class=" col-9 right-ajax rounded ms-2" id="ajax">
-            wevevec
+        <div class=" col-9 right-ajax rounded ms-2" id="navbar-top">
+            <nav class="navbar navbar-expand  mb-4 static-top">
+                <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" style="background-color: saddlebrown;">
+                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search!"><i
+                                        class="fa fa-search" aria-hidden="true" style="color: white"></i></a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown no-arrow">
+                        <div>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Akbar Babaii</span>
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="profile name!">
+                                <img class="img-profile rounded-circle" src="/static/images/undraw_profile.svg">
+                        </div>
+                    </li>
+                    <li style="margin-top: 1rem">
+                        <div>
+                            <button class="btn btn-success" type="button" style="background-color: saddlebrown;"
+                                    id="logins">
+                                <a href="{{ url_for("logout")}}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="Logout!"><i
+                                        class="fa fa-sign-out" style="font-size:20px; color: white"></i></a>
+                            </button>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+
         </div>
     </div>
 </div>
 
-<script>
-    function del_log() {
-        $("#logins").empty()
-        $("#logins").html('<h6 class="text-center h6-nav" id="logins">log out</h6>')
-    }
-
-    function ret() {
-        $("#logins").empty()
-        $("#logins").html('<h6 class="text-center h6-nav" id="logins">logged in</h6>')
-    }
-</script>
 </body>
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+
+</script>
 </html>

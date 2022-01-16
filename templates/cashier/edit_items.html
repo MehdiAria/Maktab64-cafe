@@ -53,17 +53,21 @@
                     <td class="text-white"><input style="width: 60px" type="number" class="form-control"
                                                   name="discount" id="status_id"
                                                   required
-                                                  min="1" max="999" value="{{ i.discount }}" form="{{ i.id }}"></td>
+                                                  min="0" max="999" value="{{ i.discount }}" form="{{ i.id }}"></td>
                     <td><input type="text" class="form-control" name="name" id="status_id"
                                required
                                min="1" max="999" value="{{ i.name }}" form="{{ i.id }}"></td>
                     <td><input type="number" class="form-control" name="price" id="item_id"
                                required
                                min="1" max="999" value="{{ i.price }}" form="{{ i.id }}"></td>
-                    <td><input type="text" class="form-control text-center" name=""
-                               id="number_item"
-                               required
-                               min="1" max="999" value="{{ i.image_url }}" form="{{ i.id }}"></td>
+                    <td>
+                        {#                        <input type="text" class="form-control text-center" name=""#}
+                        {#                               id="number_item"#}
+                        {#                               required#}
+                        {#                               min="1" max="999" value="{{ i.image_url }}" form="{{ i.id }}">#}
+                        <img src="{{i.image_url}}" alt="" width="50px" height="45px">
+
+                    </td>
                     <td><input type="number" class="form-control text-center" name="serving_time"
                                id="number_item"
                                required

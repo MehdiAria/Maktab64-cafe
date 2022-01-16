@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div class="container-fluid my-2">
+    <div style="display: flex;flex-wrap: wrap;justify-content: center;align-items: center;margin-top:2rem">
+        <div class="card col-5 m-2">
+            <div class="card-body">
+                <h5 class="card-title text-center m-0">Tables</h5>
+                <div class="card-text">
+                    <canvas id="tables_chart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="card col-5 m-2">
+            <div class="card-body">
+                <h5 class="card-title text-center m-0">Receipts</h5>
+                <div class="card-text">
+                    <canvas id="receipts_chart"></canvas>
+                </div>
+            </div>
+        </div>
+         <div class="card col-5 m-2">
+            <div class="card-body">
+                <h5 class="card-title text-center m-0">Tables</h5>
+                <div class="card-text">
+                    <canvas id="tables_chart"></canvas>
+                </div>
+            </div>
+        </div>
+         <div class="card col-5 m-2">
+            <div class="card-body">
+                <h5 class="card-title text-center m-0">Tables</h5>
+                <div class="card-text">
+                    <canvas id="tables_chart"></canvas>
+                </div>
+            </div>
+        </div>
+         <div class="card col-5 m-2">
+            <div class="card-body">
+                <h5 class="card-title text-center m-0">Tables</h5>
+                <div class="card-text">
+                    <canvas id="tables_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+var xValues = ["Reserved", "Deleted", "Available"];
+var yValues = [{{tables_data.reserved_tables}},{{tables_data.deleted_tables}},{{tables_data.available_tables}}];
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+];
+
+new Chart("tables_chart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+});
+
+
+
+
+
+
+var xV = ["Today", "Yesterday", "2 Days ago", "3 Days ago", "4 Days ago"];
+var yV = [{{ receipt_data.receipt_1 }}, {{ receipt_data.receipt_2 }}, {{ receipt_data.receipt_3 }}, {{ receipt_data.receipt_4 }}, {{ receipt_data.receipt_5 }}];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("receipts_chart", {
+  type: "bar",
+  data: {
+    labels: xV,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yV
+    }]
+  },
+  options: {
+    legend: {display: false},
+  }
+});
+
+
+</script>
+
+
+
+
+</body>
+</html>
