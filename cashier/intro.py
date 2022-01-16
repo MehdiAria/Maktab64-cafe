@@ -27,14 +27,14 @@ def intro():
         f"SELECT count(*) FROM receipt WHERE time_stamp BETWEEN CAST ('{today - timedelta(days=1)}' AS timestamp) AND CAST ('{today - timedelta(days=0)}' AS timestamp);",
         fetch='one')['count']
     today_earning = db.query(
-        f"SELECT sum(total_price) FROM receipt WHERE time_stamp BETWEEN CAST ('{today - timedelta(days=1)}' AS timestamp) AND CAST ('{today - timedelta(days=0)}' AS timestamp);",
+        f"SELECT sum(total_price) FROM receipt WHERE is_del=false and is_paid=true and time_stamp BETWEEN CAST ('{today - timedelta(days=1)}' AS timestamp) AND CAST ('{today - timedelta(days=0)}' AS timestamp);",
         fetch='one')['sum']
     yesterday_earning = db.query(
-        f"SELECT sum(total_price) FROM receipt WHERE time_stamp BETWEEN CAST ('{today - timedelta(days=2)}' AS timestamp) AND CAST ('{today - timedelta(days=1)}' AS timestamp);",
+        f"SELECT sum(total_price) FROM receipt WHERE is_del=false and is_paid=true and time_stamp BETWEEN CAST ('{today - timedelta(days=2)}' AS timestamp) AND CAST ('{today - timedelta(days=1)}' AS timestamp);",
         fetch='one')['sum']
-    yesterday_earning = 0 if yesterday_earning is None else yesterday_earning
-    today_earning = 0 if today_earning is None else today_earning
-    percent = (today_earning - yesterday_earning) / yesterday_earning * 100
+    yesterday_earning = 1 if yesterday_earning is None else yesterday_earning
+    today_earning = 1 if today_earning is None else today_earning
+    percent = round((today_earning - yesterday_earning) / yesterday_earning * 100,2)
     return render_template('cashier/intro.html', earning={
         'today_earning': today_earning,
         'yesterday_earning': yesterday_earning,
