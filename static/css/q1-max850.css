@@ -45,10 +45,6 @@ body {
     padding-right: 1rem;
 }
 
-.dashboard-item :hover {
-    cursor: pointer;
-    color: #5a0606;
-}
 
 .dashboard-item :active {
     cursor: pointer;
