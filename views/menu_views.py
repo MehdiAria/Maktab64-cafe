@@ -99,9 +99,11 @@ def order(table_id):
 def del_order():
     if request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
-        receipt = db.read_filter(Receipt, f"id = {receipt_id}")[0]
+        receipt = db.read_filter(Receipt, f"id = {receipt_id}", fetch="one")
         orders = db.read_filter(Order, f"receipt_id = {request.cookies.get('receipt_id', None)} And is_del=false")
         resp = Response()
+        receipt.total_price -= int(request.form.get("number_item")) * int(request.form.get("item_price"))
+        db.update(receipt)
         if orders and len(orders) == 1:
             receipt.is_del = True
             db.update(receipt)

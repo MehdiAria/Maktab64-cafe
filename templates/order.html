@@ -46,7 +46,7 @@
                             <i style="color: #bf3a3a; " class="bi bi-dash-circle-fill"></i>
                         </a>
                         <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}" class="order-delete-btn"
-                           link="{{ url_for("delete") }}">
+                           number_item={{ i.number_item }} link="{{ url_for("delete") }}" item_price = {{ data.item[i].price }}>
                             <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
                         </a>
                     </td>
@@ -65,11 +65,15 @@
             console.log(this)
             let link = $(this).attr("link")
             let order_id = $(this).attr("order_id")
+            let number_item = $(this).attr("number_item")
+            let item_price = $(this).attr("item_price")
             $.ajax({
                 type: "POST",
                 url: link,
                 data: {
-                    'order_id': order_id
+                    'order_id': order_id,
+                    'number_item': number_item,
+                    'item_price': item_price
                 },
                 success: function () {
                     $(`.${order_id}`).empty()
