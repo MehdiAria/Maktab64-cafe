@@ -15,45 +15,141 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-</head>
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
 
-<style>
-    body {
-        margin: 0;
-        font-family: sans-serif;
-        background-color: rgb(49, 49, 49);
-    }
-</style>
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Corben" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nobile" rel="stylesheet">
+
+    <link rel="stylesheet"  media="screen and (max-width: 849px)" href="q1-max850.css">
+    <link rel="stylesheet"  media="screen and (min-width: 850px)" href="q2-min850.css">
+
+    <script>
+        function logout() {
+            $("#logins").load('../login.html');
+        }
+
+        $(document).ready(function () {
+            $(".orders").click(function () {
+                $(".right-ajax").load('cashier/orders');
+            })
+
+        });
+
+        $(document).ready(function () {
+            $(".tables").click(function () {
+                $(".right-ajax").load("cashier/tables");
+            })
+
+        });
+
+        $(document).ready(function () {
+            $(".served-orders").click(function () {
+                $(".right-ajax").load("cashier/served_orders");
+            })
+
+        });
+
+        $(document).ready(function () {
+            $(".edit-items").click(function () {
+                $(".right-ajax").load("cashier/edit_items");
+            })
+
+        });
+
+        $(document).ready(function () {
+            $(".receipts").click(function () {
+                $(".right-ajax").load("cashier/receipts");
+            })
+
+        });
+
+    </script>
+
+</head>
 <body>
 <div class="container-fluid">
     <div class="row">
         <div class="col-3 right-dash rounded-3 top-page" style="overflow: auto">
             <div class="sidebar-brand d-flex align-items-center justify-content-center" style="color: #F5DEB3">
-
+                <img src="/static/images/favicon.png" alt="logo" id="logo-src"><span id="logo-text">Cafe Night</span>
             </div>
             <hr class="sidebar-divider">
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
-                <li class="dashboard-item text-white py-2 mb-3">
-
-
-                <li class="dashboard-item text-white py-2 mb-3 tables">
+                <li class="dashboard-item text-white py-2 mb-3"><i class="me-3 icons fa fa-home side-icon"
+                                                                   aria-hidden="true"><span
+                        class="dash">Dashboard</span></i></li>
+                <hr class="sidebar-divider">
+                <li class="dashboard-item text-white py-2 mb-3 tables"><i class="me-3 icons fa fa-table side-icon"
+                                                                          aria-hidden="true"><span>Tables</span></i>
                 </li>
-                <li class="dashboard-item text-white py-2 mb-3 orders">
+                <hr class="sidebar-divider">
+                <li class="dashboard-item text-white py-2 mb-3 orders"><i class="me-3 icons fa fa-coffee side-icon"
+                                                                          aria-hidden="true"><span>Orders</span></i>
                 </li>
-                <li class="dashboard-item text-white py-2 mb-3 edit-items">
+                <hr class="sidebar-divider">
+                <li class="dashboard-item text-white py-2 mb-3 edit-items"><i class="me-3 icons fa fa-pencil-square-o side-icon"
+                                                                              aria-hidden="true"><span>Edit items</span></i>
                 </li>
-                <li class="dashboard-item text-white py-2 mb-3 receipts">
+                <hr class="sidebar-divider">
+                <li class="dashboard-item text-white py-2 mb-3 receipts"><i class="me-3 icons fa fa-credit-card-alt side-icon"
+                                                                            aria-hidden="true"><span>Receipts</span></i>
                 </li>
             </ul>
 
         </div>
 
         <div class=" col-9 right-ajax rounded ms-2" id="navbar-top">
+            <nav class="navbar navbar-expand  mb-4 static-top">
+                <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" style="background-color: saddlebrown;">
+                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search!"><i
+                                        class="fa fa-search" aria-hidden="true" style="color: white"></i></a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
 
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown no-arrow">
+                        <div>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Akbar Babaii</span>
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="profile name!">
+                                <img class="img-profile rounded-circle" src="/static/images/undraw_profile.svg">
+                        </div>
+                    </li>
+                    <li style="margin-top: 1rem">
+                        <div>
+                            <button class="btn btn-success" type="button" style="background-color: saddlebrown;"
+                                    id="logins">
+                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout!"><i
+                                        class="fa fa-sign-out" style="font-size:20px; color: white"></i></a>
+                            </button>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
 
         </div>
     </div>
 </div>
 
 </body>
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+
+</script>
 </html>
