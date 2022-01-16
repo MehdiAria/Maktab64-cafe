@@ -11,12 +11,9 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div>
-        <input id="FilterInput" class="form-control" placeholder="Search Tables...">
-    </div>
     <div class="table-responsive my-2">
         <div id="msg-container"></div>
-        <table class="table table-hover col-6 text-center font-size" style="color: #c01d67">
+        <table id="maintable" class="table table-hover col-6 text-center font-size bg-white" style="color: #c01d67">
             <thead class="table-success">
             <tr id="tr">
                 <th>Table no.</th>
@@ -31,8 +28,9 @@
 
                 <tr id="trow-{{ i.id }}">
                     <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
-                    <td class="text-white">{{ i.table_number }}<input type="number" style="display: none" value="{{ i.id }}" name="id"
-                                                            form="{{ i.id }}">
+                    <td class="text-dark">{{ i.table_number }}<input type="number" style="display: none"
+                                                                     value="{{ i.id }}" name="id"
+                                                                     form="{{ i.id }}">
                     </td>
                     <td><input type="number" class="form-control" name="space" required
                                oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}"></td>
@@ -47,21 +45,20 @@
 
                     </td>
                     <td>
-                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-danger" name=""
-                                value="Apply">Edit
+                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-danger"
+                                name=""
+                                value="Apply">Apply
                         </button>
                     </td>
 
                 </tr>
             {% endfor %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><input type="button" class="btn btn-success" value="Add"></td>
-            </tr>
         </table>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-6 col-sm-5 col-md-3">
+            <button type="button" onclick="addNewTable()" class="btn btn-success w-100 form-control">Add New row</button>
+        </div>
     </div>
 </div>
 </body>
@@ -125,6 +122,25 @@
                 msg.appendTo($(`#msg-container`))
             }
         })
+    }
+
+    function addNewTable() {
+        let main_table = $("#maintable");
+
+        let tr = '<tr id="">' +
+            '<td class="text-dark"><input placeholder="Table number:" type="number" class="form-control" name="id">' +
+            '</td>' +
+            '<td><input placeholder="Table space:" type="number" class="form-control" name="space" required oninput="absNumber(this.value)" value="" form="10"></td>' +
+            '<td colspan="2">' +
+            '<button onclick="addNewTableSubmit(this.id)" class="btn btn-success form-control">Add' +
+            '</button>' +
+            '</td>' +
+            '<td>' +
+            '<button onclick="removeTr(this)" class="btn btn-danger"> X </button>' +
+            '</td>' +
+            '</tr>';
+
+        main_table.append(tr);
     }
 </script>
 </html>
