@@ -77,7 +77,9 @@
                 },
                 success: function (response) {
                     $(`#tr-${order_id}`).empty()
-                    let resp_price = response["total_price"]
+                    let resp_price = Number(response)
+                    console.log(resp_price)
+                    console.log(response)
                     $("#total_price").html(`Total price: ${resp_price}$`)
 
                 }

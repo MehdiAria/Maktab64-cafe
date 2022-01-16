@@ -2,7 +2,7 @@ from datetime import datetime
 from core.db_manager import DBModel, DBManager
 from models.exceptions import *
 from models.utils import number_check
-from models.logger_1 import create_logger
+from core.logger import create_logger
 
 logger = create_logger(__file__, file_skip=0)
 

@@ -1,11 +1,10 @@
 from flask import render_template, request, Response, redirect, url_for
-from core.db_manager import DBManager
 from models.model import *
 from datetime import datetime, timedelta
-import uuid, os
 from views.utils import set_user_token, check_table_id, get_cashier_by_cookie
 from models.menu_funcs import menu_categories
-
+from core.logger import create_logger
+logger = create_logger(__file__, file_skip=0)
 db = DBManager()
 
 
@@ -50,8 +49,7 @@ def order(table_id):
             i: Order
             order_item[i] = db.read(MenuItems, i.item_id)
         price_list = db.all_query(Receipt, f"SELECT * FROM receipt where id={res} and receipt.is_del = false;")
-        data = {'receipt': res,
-                'order': order_list, 'item': order_item, 'price': price_list[0]}
+        data = {'receipt': res,'order': order_list, 'item': order_item, 'price': price_list[0]}
         return render_template('order.html', data=data)
     elif request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
@@ -108,7 +106,8 @@ def del_order():
         orders = db.read_filter(Order, f"receipt_id = {request.cookies.get('receipt_id', None)} And is_del=false")
         receipt.total_price -= int(request.form.get("number_item")) * int(request.form.get("item_price"))
         db.update(receipt)
-        resp = Response({"total_price": receipt.total_price}, status=201)
+        logger.warning(f"changed total_price of {receipt_id} with {order_id} -> {receipt.total_price}")
+        resp = Response(f"{receipt.total_price}", status=201)
         if orders and len(orders) == 1:
             receipt.is_del = True
             db.update(receipt)
