@@ -7,10 +7,6 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h1>Edit Items</h1>
-    <div>
-        <input id="FilterInput" class="form-control" placeholder="Search Items...">
-    </div>
     <div class="table-responsive my-2 text-center">
         <div id="msg-container"></div>
         <table id="ordertable" class="table table-hover col-6 text-center font-size" style="color: #c01d67">
@@ -22,7 +18,7 @@
                 <th class="text-center">Name</th>
                 <th class="text-center">Price</th>
                 <th class="text-center">Image</th>
-                <th class="text-center">Serving Time</th>
+                <th class="text-center"><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></th>
                 <th><i class="bi bi-pencil-fill text-center" style="font-size:20px ;color:red"></i></th>
             </tr>
 
@@ -68,10 +64,15 @@
                         <img src="{{i.image_url}}" alt="" width="50px" height="45px">
 
                     </td>
-                    <td><input type="number" class="form-control text-center" name="serving_time"
-                               id="number_item"
-                               required
-                               min="1" max="999" value="{{ i.serving_time }}" form="{{ i.id }}"></td>
+                    <td>
+
+{#                        <input type="number" class="form-control text-center" name="serving_time"#}
+{#                               id="number_item"#}
+{#                               required#}
+{#                               min="1" max="999" value="{{ i.serving_time }}" form="{{ i.id }}">#}
+                        <input type="checkbox" class="form-check-input" name="is_del" id="is_del"
+                            {% if i.is_del %} checked {% endif %} form="{{ i.id }}">
+                    </td>
 
                     <td>
                         <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit</button>

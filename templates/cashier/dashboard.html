@@ -77,24 +77,27 @@
             </div>
             <hr class="sidebar-divider">
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
-                <li class="dashboard-item text-white py-2 mb-3 dashboard"><i class="me-3 icons fa fa-home side-icon"
-                                                                             aria-hidden="true"><span
+                <li id="item-1" class="dashboard-item text-white py-2 mb-3 dashboard"><i
+                        class="me-3 icons fa fa-home side-icon"
+                        aria-hidden="true"><span
                         class="dash">Dashboard</span></i></li>
                 <hr class="sidebar-divider">
-                <li class="dashboard-item text-white py-2 mb-3 tables"><i class="me-3 icons fa fa-table side-icon"
-                                                                          aria-hidden="true"><span>Tables</span></i>
+                <li id="item-2" class="dashboard-item text-white py-2 mb-3 tables"><i
+                        class="me-3 icons fa fa-table side-icon"
+                        aria-hidden="true"><span>Tables</span></i>
                 </li>
                 <hr class="sidebar-divider">
-                <li class="dashboard-item text-white py-2 mb-3 orders"><i class="me-3 icons fa fa-coffee side-icon"
-                                                                          aria-hidden="true"><span>Orders</span></i>
+                <li id="item-3" class="dashboard-item text-white py-2 mb-3 orders"><i
+                        class="me-3 icons fa fa-coffee side-icon"
+                        aria-hidden="true"><span>Orders</span></i>
                 </li>
                 <hr class="sidebar-divider">
-                <li class="dashboard-item text-white py-2 mb-3 edit-items"><i
+                <li id="item-4" class="dashboard-item text-white py-2 mb-3 edit-items"><i
                         class="me-3 icons fa fa-pencil-square-o side-icon"
                         aria-hidden="true"><span>Edit items</span></i>
                 </li>
                 <hr class="sidebar-divider">
-                <li class="dashboard-item text-white py-2 mb-3 receipts"><i
+                <li id="item-5" class="dashboard-item text-white py-2 mb-3 receipts"><i
                         class="me-3 icons fa fa-credit-card-alt side-icon"
                         aria-hidden="true"><span>Receipts</span></i>
                 </li>
@@ -107,7 +110,8 @@
                 <form
                         class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search...">
+                        <input id="FilterInput" type="text" class="form-control bg-light border-0 small"
+                               placeholder="Search...">
                         <div class="input-group-append">
                             <button class="btn btn-success" type="button" style="background-color: saddlebrown;">
                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search!"><i
@@ -120,9 +124,10 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown no-arrow">
                         <div>
-                            <span id="cash-name" class="d-none mr-2 d-lg-inline text-gray-600 small">{{data.name}}  {{ data.last_name }}</span>
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="profile name!">
-                                <img class="img-profile rounded-circle" src="/static/images/undraw_profile.svg">
+                            <span id="cash-name"
+                                  class="d-none mr-2 d-lg-inline text-gray-600 small">{{ data.name }} {{ data.last_name }}</span>
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="profile name!"></a>
+                            <img class="img-profile rounded-circle" src="/static/images/undraw_profile.svg">
                         </div>
                     </li>
                     <li style="margin-top: 1rem">
@@ -152,7 +157,13 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-
+    $(".dashboard-item").click(function () {
+        $(".dashboard-item i").css("color", "white")
+        $(".dashboard-item i span").css("color", "white")
+        let ch = $(this).attr("id")
+        $(`#${ch} i span`).css("color", "#5a0606")
+        $(`#${ch} i `).css("color", "#5a0606")
+    })
 
 </script>
 </html>
