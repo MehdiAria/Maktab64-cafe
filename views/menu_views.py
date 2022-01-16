@@ -32,8 +32,9 @@ def menu():
 
 
 def panel():
-    if get_cashier_by_cookie(request):
-        return render_template('cashier/dashboard.html')
+    cashier = get_cashier_by_cookie(request)[0]
+    if cashier:
+        return render_template('cashier/dashboard.html', data=cashier)
     else:
         return redirect(url_for('login'))
 
@@ -74,7 +75,7 @@ def order(table_id):
         else:
             table = db.read(CafeTable, int(table_id))
             table: CafeTable
-            print(table,table.is_empty)
+            print(table, table.is_empty)
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             if user_token:

@@ -30,11 +30,11 @@
                 <div class="card-text">
 
                     Today's earning: {{ earning.today_earning }}$
-                    {% if earning.today_earning>earning.yesterday_earning %}
-                        <i class="fa fa-arrow-up" aria-hidden="true" style="color: green"></i>
+                    {% if earning.today_earning > earning.yesterday_earning %}
+                        <i class="fa fa-arrow-up" aria-hidden="true" style="color: green">{{ earning.percent }}%</i>
                     {% endif %}
-                {% if earning.today_earning<earning.yesterday_earning %}
-                        <i class="fa fa-arrow-down" aria-hidden="true" style="color: red"></i>
+                    {% if earning.today_earning < earning.yesterday_earning %}
+                        <i class="fa fa-arrow-down" aria-hidden="true" style="color: red">{{ earning.percent }}%</i>
                     {% endif %}
                     <br>
                     Yesterday's earning: {{ earning.yesterday_earning }}$
