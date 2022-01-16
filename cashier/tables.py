@@ -17,12 +17,3 @@ def tables():
         table.is_empty = request.form.get('is_empty')
         db.update(table)
         return "success"
-
-                <div>
-                    <div class="topbar-divider d-none d-sm-block">ho</div>
-                    <button class="btn btn-success" type="button" style="background-color: saddlebrown;" id="logins">
-                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout!"><i
-                                class="fa fa-sign-out" style="font-size:20px; color: white"></i></a>
-                    </button>
-
-                </div>
