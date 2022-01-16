@@ -2,11 +2,12 @@
 <style>
 
 </style>
+{#<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">#}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>#}
-<script src="https://malsup.github.io/jquery.form.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{#<script src="https://malsup.github.io/jquery.form.js"></script>#}
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>#}
 
 {% block body %}
     <div class="container">
@@ -14,16 +15,16 @@
         <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
             table: {{ data.order[0].table_id }}</h3>
         <table class="table table-hover col6" style="color: antiquewhite">
-            <thead>
-            <tr id="tr">
-                <th>Product</th>
-                <th>Count</th>
+{#            <thead>#}
+{#            <tr id="tr">#}
+{#                <th>Product</th>#}
+{#                <th>Count</th>#}
 {#                <th>Table no.</th>#}
-                <th>Price</th>
-                <th>Discount %</th>
-                <th>Delete/Decrease orders</th>
-            </tr>
-            </thead>
+{#                <th>Price</th>#}
+{#                <th>Discount %</th>#}
+{#                <th>Delete/Decrease orders</th>#}
+{#            </tr>#}
+{#            </thead>#}
             {% for i in data.item %}
                 <tr>
 {#                    <form action="{{ url_for('deldec') }}" method="POST" id="i.id"></form>#}
@@ -37,8 +38,8 @@
                         {{ data.item[i].discount }}
                     {% endif %}
                     </td>
-                    <td class="{{ i.id }}"><a id="dec{{ i.id }}" class="btn btn-danger" value="Decrease Order" name="decrease_ord" onclick="dec_order(this.id)" >Decrease</a></td>
-                    <td class="{{ i.id }}"><a id="{{ i.id }}"  class="delete-btn" link="{{ url_for("delete") }}">Delete</a></td>
+                    <td class="{{ i.id }}"><a style="cursor: pointer" id="dec{{ i.id }}" value="Decrease Order" name="decrease_ord" onclick="dec_order(this.id)" ><i style="color: #bf3a3a" class="bi bi-dash-circle-fill"></i></a></td>
+                    <td class="{{ i.id }}"><a style="cursor: pointer" id="{{ i.id }}"  class="delete-btn" link="{{ url_for("delete") }}"><i class="bi bi-trash-fill" style="color: #bf3a3a"></i></a></td>
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
 

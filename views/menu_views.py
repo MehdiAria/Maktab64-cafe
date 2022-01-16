@@ -93,6 +93,7 @@ def order(table_id):
             return resp
     return 'server error', 403
 
+
 def del_order():
     if request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
