@@ -151,6 +151,7 @@ class DBManager:
         assert issubclass(model_class, DBModel)
         model_dict = self.query(f"SELECT * FROM {model_class.TABLE} WHERE {condition}", fetch='all')
         res = []
+        print(model_dict)
         for i in model_dict:
             reverse_alias = {value: key for key, value in model_class.aliases.items()}
             i = alias_for_model(i, reverse_alias)
