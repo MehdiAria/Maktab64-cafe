@@ -28,9 +28,9 @@
 
                 <tr id="trow-{{ i.id }}">
                     <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
-                    <td class="text-dark">{{ i.table_number }}<input type="number" style="display: none"
-                                                                     value="{{ i.id }}" name="id"
-                                                                     form="{{ i.id }}">
+                    <td class="text-dark">{{ i.id }}<input type="number" style="display: none"
+                                                           value="{{ i.id }}" name="id"
+                                                           form="{{ i.id }}">
                     </td>
                     <td><input type="number" class="form-control" name="space" required
                                oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}"></td>
@@ -58,8 +58,8 @@
         </table>
     </div>
     <div class="row justify-content-end">
-        <div class="col-6 col-sm-5 col-md-3">
-            <button type="button" onclick="addNewTable()" class="btn btn-success w-100 form-control">Add New row
+        <div class="col-6 col-sm-5 col-md-3 col-lg-1">
+            <button type="button" onclick="addNewTable()" class="btn btn-success form-control">Add Table
             </button>
         </div>
     </div>
@@ -134,16 +134,22 @@
             '<td class="text-dark"><input placeholder="Table number:" type="number" class="form-control" name="id">' +
             '</td>' +
             '<td><input placeholder="Table space:" type="number" class="form-control" name="space" required oninput="absNumber(this.value)" value="" form="10"></td>' +
-            '<td colspan="2">' +
+            '<td>' +
+            '</td>' +
+            '<td>' +
             '<button onclick="addNewTableSubmit(this.id)" class="btn btn-success form-control">Add' +
             '</button>' +
             '</td>' +
             '<td>' +
-            '<button onclick="removeTr(this)" class="btn btn-danger"> X </button>' +
+            '<button onclick="removeTr(this)" class="btn btn-danger"> Close </button>' +
             '</td>' +
             '</tr>';
 
         main_table.append(tr);
+    }
+
+    function removeTr(tag) {
+        $(tag).parents('tr').remove();
     }
 
     function deleteTable(table_id) {
