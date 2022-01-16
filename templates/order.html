@@ -1,19 +1,7 @@
 {% extends "base_layout/_base.html" %}
 {% block extra_head %}
-<style>
-    @media only screen and (max-width: 448px) {
-        th{
-
-
-        }
-    }
-</style>
-{#<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">#}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>#}
-{#<script src="https://malsup.github.io/jquery.form.js"></script>#}
-{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>#}
 {% endblock %}
 {% block body %}
     <div class="container">
@@ -25,7 +13,6 @@
             <tr id="tr">
                 <th>Product</th>
                 <th>Count</th>
-                {#                            <th>Table no.</th>#}
                 <th>Price</th>
                 <th>Discount$</th>
                 <th>+-delete</th>
@@ -33,10 +20,8 @@
             </thead>
             {% for i in data.item %}
                 <tr>
-                    {#                    <form action="{{ url_for('deldec') }}" method="POST" id="i.id"></form>#}
                     <td class="{{ i.id }}">{{ data.item[i].name }}</td>
                     <td class="{{ i.id }}" id="num_{{ i.id }}">{{ i.number_item }}</td>
-                    {#                    <td class="{{ i.id }}">{{ i.table_id }}</td>#}
                     <td class="{{ i.id }}">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
                     <td class="{{ i.id }}">{% if data.item[i].discount==none %}
                         No discount
@@ -55,9 +40,6 @@
                             <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
                         </a>
                     </td>
-                    {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
-                    {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
-
                 </tr>
             {% endfor %}
             <tr>
@@ -102,28 +84,6 @@
             })
 
         })
-
-
-        {#function dec_order(order_id) {#}
-        {#    $.ajax({#}
-        {#        type: "POST",#}
-        {#        url: `http://127.0.0.1:5000/decrease`,#}
-        {#        data: {#}
-        {#            'order_id': order_id#}
-        {#        },#}
-        {#        success: function (response) {#}
-        {#            $(`#num_${response['order_id']}`).html(response['number_item'])#}
-        {#        }#}
-        {#    })#}
-
-
-
-
-
-        {#$(document).ready(function () {#}
-        {#    $("#delorder").click(function () {#}
-        {#        $("#delorder").parent().parent().hide()#}
-        {#    })#}
 
 
     </script>
