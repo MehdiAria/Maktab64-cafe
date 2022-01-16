@@ -44,6 +44,7 @@ def order(table_id):
         # order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
         order_list = db.all_query(Order,
                                   f"SELECT orders.id, orders.item_id, orders.number_item, orders.receipt_id, orders.status_id, orders.table_id, orders.time_stamp FROM orders inner join receipt on orders.receipt_id=receipt.id where receipt.is_del=false and orders.is_del=false and receipt_id = {res} ;")
+        #TODO error receipt_id = None ! redirect
         order_item = dict()
         for i in order_list:
             i: Order
@@ -97,10 +98,10 @@ def order(table_id):
 def del_order():
     if request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
+        receipt = db.read_filter(Receipt, f"id = {receipt_id}")[0]
         orders = db.read_filter(Order, f"receipt_id = {request.cookies.get('receipt_id', None)} And is_del=false")
         resp = Response()
         if orders and len(orders) == 1:
-            receipt = db.read_filter(Receipt, f"id = {receipt_id}")[0]
             receipt.is_del = True
             db.update(receipt)
             resp.delete_cookie("receipt_id")
@@ -115,22 +116,22 @@ def del_order():
 
 
 def dec_order():
+    #TODO - count! /// redirect !
     if request.method == 'POST':
-        x = int(request.form.get('order_id'))
-        print(x)
-        obj_order = db.read(Order, x)
-        obj_order.number_item = obj_order.number_item - 1
-        db.update(obj_order)
-        print({'number_item': obj_order.number_item, "order_id": obj_order.id})
-        return {'number_item': obj_order.number_item, "order_id": obj_order.id}
+        order_id = int(request.form.get('order_id'))
+        table_order = db.read(Order, order_id)
+        table_order.number_item = table_order.number_item - 1
+        db.update(table_order)
+        print({'number_item': table_order.number_item, "order_id": table_order.id})
+        return {'number_item': table_order.number_item, "order_id": table_order.id}
 
 
 def plus_order():
+    # TODO - count! /// redirect !
     if request.method == 'POST':
-        x = int(request.form.get('order_id'))
-        print(x)
-        obj_order = db.read(Order, x)
-        obj_order.number_item = obj_order.number_item + 1
-        db.update(obj_order)
-        print({'number_item': obj_order.number_item, "order_id": obj_order.id})
-        return {'number_item': obj_order.number_item, "order_id": obj_order.id}
+        order_id = int(request.form.get('order_id'))
+        table_order = db.read(Order, order_id)
+        table_order.number_item = table_order.number_item + 1
+        db.update(table_order)
+        print({'number_item': table_order.number_item, "order_id": table_order.id})
+        return {'number_item': table_order.number_item, "order_id": table_order.id}
