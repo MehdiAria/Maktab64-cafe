@@ -26,7 +26,7 @@
             </tr>
             </thead>
             {% for i in data.item %}
-                <tr>
+                <tr id="tr-{{ i.id }}">
                     <td class="{{ i.id }}">{{ data.item[i].name }}</td>
                     <td class="{{ i.id }}" id="num_{{ i.id }}">{{ i.number_item }}</td>
                     <td class="{{ i.id }}">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
@@ -53,7 +53,7 @@
                 </tr>
             {% endfor %}
             <tr>
-                <th colspan='5'>Total price without discount: {{ data.price.total_price }}$</th>
+                <th colspan='5' id="total_price">Total price: {{ data.price.total_price }}$</th>
             </tr>
         </table>
         <h1></h1>
@@ -75,8 +75,11 @@
                     'number_item': number_item,
                     'item_price': item_price
                 },
-                success: function () {
-                    $(`.${order_id}`).empty()
+                success: function (response) {
+                    $(`#tr-${order_id}`).empty()
+                    let resp_price = response["total_price"]
+                    $("#total_price").html(`Total price: ${resp_price}$`)
+
                 }
             })
 

@@ -97,21 +97,26 @@ def order(table_id):
 
 
 def del_order():
+    """
+    updates (set is_del = true) order, receipt using order_id
+    :return: a Response object has delete cookie if there is just one order
+    """
     if request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
+        order_id = request.form.get('order_id')
         receipt = db.read_filter(Receipt, f"id = {receipt_id}", fetch="one")
         orders = db.read_filter(Order, f"receipt_id = {request.cookies.get('receipt_id', None)} And is_del=false")
-        resp = Response()
         receipt.total_price -= int(request.form.get("number_item")) * int(request.form.get("item_price"))
         db.update(receipt)
+        resp = Response({"total_price": receipt.total_price}, status=201)
         if orders and len(orders) == 1:
             receipt.is_del = True
             db.update(receipt)
             resp.delete_cookie("receipt_id")
             resp.delete_cookie("user_token")
-        else:
-            resp = "order deleted!"
-        order_id = request.form.get('order_id')
+            table = db.all_query(CafeTable,f"SELECT {CafeTable.class_aliases(to_str=True)} FROM cafe_table  INNER JOIN orders on orders.table_id = cafe_table.id WHERE orders.id = {order_id}", fetch="one")
+            table.is_empty = True
+            db.update(table)
         table_order = db.read(Order, order_id)
         table_order.is_del = True
         db.update(table_order)
