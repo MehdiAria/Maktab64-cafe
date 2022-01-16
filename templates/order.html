@@ -18,7 +18,7 @@
             <tr id="tr">
                 <th>Product</th>
                 <th>Count</th>
-                <th>Table no.</th>
+{#                <th>Table no.</th>#}
                 <th>Price</th>
                 <th>Discount %</th>
                 <th>Delete/Decrease orders</th>
@@ -29,7 +29,7 @@
 {#                    <form action="{{ url_for('deldec') }}" method="POST" id="i.id"></form>#}
                     <td class="{{ i.id }}">{{ data.item[i].name }}</td>
                     <td class="{{ i.id }}" id="num_{{ i.id }}">{{ i.number_item }}</td>
-                    <td class="{{ i.id }}">{{ i.table_id }}</td>
+{#                    <td class="{{ i.id }}">{{ i.table_id }}</td>#}
                     <td class="{{ i.id }}">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
                     <td class="{{ i.id }}">{% if data.item[i].discount==none %}
                         No discount
@@ -37,8 +37,8 @@
                         {{ data.item[i].discount }}
                     {% endif %}
                     </td>
-                    <td class="{{ i.id }}"><button id="dec{{ i.id }}" class="btn btn-danger" value="Decrease Order" name="decrease_ord" onclick="dec_order(this.id)" >Decrease</button></td>
-                    <td class="{{ i.id }}"><button id="{{ i.id }}"  class="btn btn-danger" value="Delete Order" name="delete_ord" onclick="del_order(this.id)">Delete</button></td>
+                    <td class="{{ i.id }}"><a id="dec{{ i.id }}" class="btn btn-danger" value="Decrease Order" name="decrease_ord" onclick="dec_order(this.id)" >Decrease</a></td>
+                    <td class="{{ i.id }}"><a id="{{ i.id }}"  class="delete-btn" link="{{ url_for("delete") }}">Delete</a></td>
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-minus"></span> Decrease</a></td>#}
 {#                    <td><a href="#" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-trash"></span> Delete</a></td>#}
 
@@ -53,10 +53,13 @@
     </div>
     <script>
 
-    function del_order(order_id) {
+    $(".delete-btn").click(function(){
+        console.log(this)
+        let link = $(this).attr("link")
+        let order_id = $(this).attr("id")
         $.ajax({
             type: "POST",
-            url: `http://127.0.0.1:5000/delete`,
+            url: link,
             data: {
                 'order_id': order_id
             },
@@ -64,7 +67,9 @@
                 $(`.${order_id}`).empty()
             }
         })
-    }
+
+    })
+
 
     function dec_order(order_id) {
         $.ajax({
