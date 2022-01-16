@@ -1,14 +1,21 @@
 {% extends "base_layout/_base.html" %}
 {% block extra_head %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        .order-operation {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+    </style>
 {% endblock %}
 {% block body %}
     <div class="container">
 
         <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
             table: {{ data.order[0].table_id }}</h3>
-        <table class="table table-hover col6" style="color: antiquewhite">
+        <table class="table col6" style="color: antiquewhite">
             <thead>
             <tr id="tr">
                 <th>Product</th>
@@ -29,14 +36,17 @@
                         {{ data.item[i].discount }}
                     {% endif %}
                     </td>
-                    <td class="{{ i.id }}">
-                        <a style="cursor: pointer" order_id="{{ i.id }}" class="order-btn" link="{{ url_for("plus_order") }}">
+                    <td class="{{ i.id }} order-operation">
+                        <a style="cursor: pointer ; text-decoration: none" order_id="{{ i.id }}" class="order-btn"
+                           link="{{ url_for("plus_order") }}">
                             <i class="bi bi-plus-circle-fill" style="color: #549153"></i>
                         </a>
-                        <a style="cursor: pointer" order_id="{{ i.id }}" class="order-btn" link="{{ url_for("decrease") }}">
-                            <i style="color: #bf3a3a" class="bi bi-dash-circle-fill"></i>
+                        <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}" class="order-btn"
+                           link="{{ url_for("decrease") }}">
+                            <i style="color: #bf3a3a; " class="bi bi-dash-circle-fill"></i>
                         </a>
-                        <a style="cursor: pointer" order_id="{{ i.id }}" class="order-delete-btn" link="{{ url_for("delete") }}">
+                        <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}" class="order-delete-btn"
+                           link="{{ url_for("delete") }}">
                             <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
                         </a>
                     </td>
