@@ -26,14 +26,24 @@ def intro():
     receipt_1 = db.query(
         f"SELECT count(*) FROM receipt WHERE time_stamp BETWEEN CAST ('{today - timedelta(days=1)}' AS timestamp) AND CAST ('{today - timedelta(days=0)}' AS timestamp);",
         fetch='one')['count']
-    return render_template('cashier/intro.html', tables_data={
-        'available_tables': available_tables,
-        'deleted_tables': deleted_tables,
-        'reserved_tables': reserved_tables,
-    }, receipt_data={
-        'receipt_1': receipt_1,
-        'receipt_2': receipt_2,
-        'receipt_3': receipt_3,
-        'receipt_4': receipt_4,
-        'receipt_5': receipt_5,
-    })
+    today_earning = db.query(
+        f"SELECT sum(total_price) FROM receipt WHERE time_stamp BETWEEN CAST ('{today - timedelta(days=1)}' AS timestamp) AND CAST ('{today - timedelta(days=0)}' AS timestamp);",
+        fetch='one')['sum']
+    yesterday_earning = db.query(
+        f"SELECT sum(total_price) FROM receipt WHERE time_stamp BETWEEN CAST ('{today - timedelta(days=3)}' AS timestamp) AND CAST ('{today - timedelta(days=2)}' AS timestamp);",
+        fetch='one')['sum']
+    return render_template('cashier/intro.html', earning={
+        'today_earning': today_earning,
+        'yesterday_earning': yesterday_earning,
+    },
+                           tables_data={
+                               'available_tables': available_tables,
+                               'deleted_tables': deleted_tables,
+                               'reserved_tables': reserved_tables,
+                           }, receipt_data={
+            'receipt_1': receipt_1,
+            'receipt_2': receipt_2,
+            'receipt_3': receipt_3,
+            'receipt_4': receipt_4,
+            'receipt_5': receipt_5,
+        })
