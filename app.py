@@ -2,7 +2,7 @@ from flask import Flask
 from views.menu_views import *
 from views.about import *
 from views.login import *
-from cashier import tables, orders, edit_items
+from cashier import tables, orders, edit_items, intro
 from cashier.receipts_view import *
 from cashier.views_logout import *
 from models.menu_funcs import menu_categories
@@ -26,10 +26,11 @@ app.add_url_rule("/panel", "panel", panel)
 app.add_url_rule("/order/<string:table_id>", "order", order, methods=['GET', 'POST'])
 app.add_url_rule("/delete", "delete", del_order, methods=['GET', 'POST'])
 app.add_url_rule("/decrease", "decrease", dec_order, methods=['GET', 'POST'])
+app.add_url_rule("/order-plus", "plus_order", plus_order, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/edit_items", "edit_items", edit_items.edit_items, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/orders", "orders", orders.orders, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/receipts", "date_receipts", all_receipts, methods=["GET", "POST"])
-# app.add_url_rule("cashier/served_orders", "served_orders", served_orders)
+app.add_url_rule("/cashier/intro", "intro", intro.intro, methods=["GET", "POST"])
 app.add_url_rule("/cashier/tables", "tables", tables.tables, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/logout", 'logout', logout)
 app.add_url_rule("/handler", 'handler', handler)

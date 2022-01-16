@@ -1,12 +1,16 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 {% for category, menu_items in data['menu_items'].items() %}
     <hr class="bg-warning" style="margin:0!important;">
     <button class="btn btn-outline-warning fs-4 fw-normal" style="margin-bottom:0;padding: 12px 0!important; width:40%"
             data-bs-toggle="collapse" data-bs-target="#{{ category }}">
         {{ category }}
     </button>
-        <i class="bi bi-caret-down-fill collapse-icon" style="margin:0 0 0 52vw; color:#ffc107" id="{{ category }}-icon" data-bs-toggle="collapse" onclick="rotate(this.id)" data-bs-target="#{{ category }}"></i>
-    <div id= "{{ category }}" class="container-fluid collapse show" style="padding:1.5rem !important;background-image:url('/static/images/slider/7.jpg')">
+    <i class="bi bi-caret-down-fill collapse-icon" style="margin:0 0 0 52vw; color:#ffc107" id="{{ category }}-icon"
+       data-bs-toggle="collapse" onclick="rotate(this.id)" data-bs-target="#{{ category }}"></i>
+    <div id="{{ category }}" class="container-fluid collapse show" style="padding:1.5rem !important;background-image:url('static/images/page-bg/menu_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;">
         <div class="row menu_container my_2">
             {% for item in menu_items %}
                 {% set items_len = menu_items | length %}
@@ -44,7 +48,7 @@
                                 <button class="btn btn-warning add-but"
                                         style="padding:2.5px 15px;margin: 0 13px 0 0" data-bs-toggle="modal"
                                         data-bs-target="#myModal" onclick="func(this.id)"
-                                        id="{{ item.id }} {{ item.name }}">
+                                        id="{{ item.id }} {{ item.name }} ">
                                     Add
                                     {#                                    <i class="bi bi-cart-plus-fill"></i>#}
                                 </button>

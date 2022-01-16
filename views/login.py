@@ -51,7 +51,7 @@ def login():
         # form view !
         cashier = get_cashier_by_cookie(request)
         if cashier:
-            return render_template('cashier/dashboard.html', cashier=cashier)
+            return render_template('cashier/old_dashboard.html', cashier=cashier)
         error = ''
         return render_template("login.html", error=error)
 
