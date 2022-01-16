@@ -17,135 +17,72 @@
     </div>
     <div class="table-responsive my-2">
         <div id="msg-container"></div>
-        <table id="maintable" class="table table-hover bg-white col-6 text-center font-size" style="color: #c01d67">
+        <table class="table table-hover col-6 text-center font-size" style="color: #c01d67">
             <thead class="table-success">
             <tr id="tr">
                 <th>Table no.</th>
                 <th>Space</th>
                 <th>Status</th>
-                <th><i class="bi bi-pencil-fill text-center" style="font-size:20px ;color:red"></i></th>
                 <th><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></th>
+                <th><i class="bi bi-pencil-fill text-center" style="font-size:20px ;color:red"></i></th>
                 <th></th>
             </tr>
             </thead>
-            {% set x = 0 %}
             {% for i in data %}
 
                 <tr id="trow-{{ i.id }}">
-                    <td class="text-dark">
-                        <input class="form-control TableNumberInput" type="number" value="{{ i.id }}">
+                    <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
+                    <td class="text-white">{{ i.id }}<input type="number" style="display: none" value="{{ i.id }}" name="id"
+                                                            form="{{ i.id }}">
                     </td>
+                    <td><input type="number" class="form-control" name="space" required
+                               oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}"></td>
                     <td>
-                        <input type="number" class="form-control TableSpaceInput" oninput="absNumber(this)"
-                               value="{{ i.space }}">
-                    </td>
-                    <td>
-                        <input type="checkbox" class="form-check-input TableIsEmptyInput" {% if i.is_empty %}
-                               checked {% endif %}>
-                    </td>
+                        <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_empty" required
+                                {% if i.is_empty %} checked {% endif %}>
 
-                    <td>
-                        <button onclick="ApplyEdits(this, {{ i.id }})" class="btn btn-warning">
-                            Edit
-                        </button>
                     </td>
-
                     <td>
-                        <button onclick="deleteTable({{ i.id }})" class="btn btn-danger">
-                            Delete
+                        <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_del"
+                                {% if i.is_del %} checked {% endif %}>
+
+                    </td>
+                    <td>
+                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-danger" name=""
+                                value="Apply">Edit
                         </button>
                     </td>
 
                 </tr>
-                {% set x = i.id %}
             {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="button" class="btn btn-success" value="Add"></td>
+            </tr>
         </table>
-    </div>
-
-    <div class="row justify-content-end">
-        <div class="col-6 col-sm-5 col-md-3">
-            <button type="button" onclick="addNewTable()" class="btn btn-success form-control">Add new row</button>
-        </div>
     </div>
 </div>
 </body>
 
 <script>
-    function absNumber(tag) {
-        let val = $(tag).val();
-        if (val < 1) {
-            $(tag).val(1)
-        }
-    }
+    {#$(document).ready(function () {#}
+    {#    $("#del").click(function () {#}
+    {#        $("#del").parent().hide()#}
+    {#    })#}
 
-    function ApplyEdits(tag, id) {
-        console.log(tag)
-        console.log(id)
-        let table_number = $(tag).parents('.row').find('.TableNumberInput').val();
-        let table_space = $(tag).parents('.row').find('.TableSpaceInput').val();
-        let TableIsEmptyInput = $(tag).parents('.row').find('.TableIsEmptyInput');
 
-        let table_is_empty = 0;
-        if (TableIsEmptyInput.is(':checked')) {
-            table_is_empty = 1;
-        }
+    function absNumber(number) {
 
-        let PostJson = {
-            id: id,
-            table_number: table_number,
-            table_space: table_space,
-            table_is_empty: table_is_empty,
-        }
-
-        {#let formData = new FormData;#}
-        {#formData.append('id', id);#}
-        {#formData.append('table_number', table_number);#}
-        {#formData.append('table_space', table_space);#}
-        {#formData.append('table_is_empty', table_is_empty);#}
-
-        $.ajax({
-            type: "POST",
-            url: "http://127.0.0.1:5000/cashier/tables",
-            data: PostJson,
-            success: function (response) {
-                let msg = $(`<div>' + response + '</div>`);
-                msg.appendTo($(`#msg-container`));
-            },
-            error: function (err) {
-                let msg = $(`<div>' + err + '</div>`);
-                msg.appendTo($(`#msg-container`));
+        if (number <= 0) {
+            if (number < 0) {
+                $("#count").val(number * -1)
+            } else {
+                $("#count").val(1)
             }
-        })
-    }
-
-    function addNewTable() {
-        let main_table = $("#maintable");
-
-        let tr = '<tr id="">' +
-            '<td class="text-dark"><input placeholder="Table number:" type="number" class="form-control" name="id">' +
-            '</td>' +
-            '<td><input placeholder="Table space:" type="number" class="form-control" name="space" required oninput="absNumber(this.value)" value="" form="10"></td>' +
-            '<td colspan="2">' +
-            '<button onclick="addNewTableSubmit(this.id)" class="btn btn-success form-control">Add' +
-            '</button>' +
-            '</td>' +
-            '<td>' +
-            '<button onclick="removeTr(this)" class="btn btn-danger"> X </button>' +
-            '</td>' +
-            '</tr>';
-
-        main_table.append(tr);
-    }
-
-    function removeTr(tag) {
-        $(tag).parents('tr').remove();
-    }
-
-    function addNewTableSubmit() {
-
-    }
-
-    function deleteTable(table_id) {
+        }
 
     }
 
@@ -155,5 +92,40 @@
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
+
+    function checkBoxValue(num) {
+        console.log(num)
+        let elm = $(`#${num}`)
+        elm.value = elm.checked
+        console.log(elm.checked)
+    }
+
+    function ApplyEdits(ButtonId) {
+        let elem = $(`#trow-${ButtonId} input`)
+        let PostJson = {"_id": ButtonId}
+        for (let Input of elem) {
+            let value = null
+            if (Input.type === "checkbox") {
+                value = Input.checked
+            } else {
+                value = Input.value
+            }
+            PostJson[Input.name] = value
+        }
+        console.log(PostJson)
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/cashier/tables",
+            data: PostJson,
+            success: function (response) {
+                let msg = $(`<div>${response}</div>`)
+                msg.appendTo($(`#msg-container`))
+            },
+            error: function () {
+                let msg = $(`<div>error!!!!!</div>`)
+                msg.appendTo($(`#msg-container`))
+            }
+        })
+    }
 </script>
 </html>
