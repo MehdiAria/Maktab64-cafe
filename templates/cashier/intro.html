@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <title>Title</title>
 </head>
 <body>
 <div class="container-fluid my-2">
     <div style="display: flex;flex-wrap: wrap;justify-content: center;align-items: center;margin-top:2rem">
-        <div class="card col-3 m-2">
+        <div class="card col-4 m-2">
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title text-center m-0">Tables</h5>
+                <div class="card-text">
+                    <canvas id="tables_chart"></canvas>
+                </div>
             </div>
         </div>
         <div class="card col-3 m-2">
@@ -52,5 +54,35 @@
     </div>
 
 </div>
+
+
+
+
+
+<script>
+var xValues = ["Reserved", "Deleted", "Available","Total"];
+var yValues = [{{tables_data.reserved_tables}},{{tables_data.deleted_tables}},{{tables_data.available_tables}},{{ tables_data.total_tables }}];
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+];
+
+new Chart("tables_chart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+});
+</script>
+
+
+
+
 </body>
 </html>
