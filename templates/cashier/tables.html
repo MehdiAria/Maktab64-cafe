@@ -11,9 +11,6 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div>
-        <input id="FilterInput" class="form-control" placeholder="Search Tables...">
-    </div>
     <div class="table-responsive my-2">
         <div id="msg-container"></div>
         <table id="maintable" class="table table-hover col-6 text-center font-size bg-white" style="color: #c01d67">
@@ -22,8 +19,8 @@
                 <th>Table no.</th>
                 <th>Space</th>
                 <th>Status</th>
-                <th><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></th>
                 <th><i class="bi bi-pencil-fill text-center" style="font-size:20px ;color:red"></i></th>
+                <th><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></th>
                 <th></th>
             </tr>
             </thead>
@@ -42,25 +39,28 @@
                                 {% if i.is_empty %} checked {% endif %}>
 
                     </td>
-                    <td>
-                        <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_del"
-                                {% if i.is_del %} checked {% endif %}>
 
-                    </td>
                     <td>
-                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-danger"
+                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-warning"
                                 name=""
                                 value="Apply">Apply
                         </button>
                     </td>
-
+                    <td>
+                        {#                        <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_del"#}
+                        {#                                {% if i.is_del %} checked {% endif %}>#}
+                        <button type="submit" id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn btn-danger">
+                            Delete
+                        </button>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
     </div>
     <div class="row justify-content-end">
         <div class="col-6 col-sm-5 col-md-3">
-            <button type="button" onclick="addNewTable()" class="btn btn-success w-100 form-control">Add New row</button>
+            <button type="button" onclick="addNewTable()" class="btn btn-success w-100 form-control">Add New row
+            </button>
         </div>
     </div>
 </div>
@@ -144,6 +144,10 @@
             '</tr>';
 
         main_table.append(tr);
+    }
+
+    function deleteTable(table_id) {
+
     }
 </script>
 </html>
