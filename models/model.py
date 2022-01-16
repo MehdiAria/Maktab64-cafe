@@ -31,9 +31,10 @@ class CafeTable(DBModel):
     space: int
     id: int
 
-    def __init__(self, is_empty, is_del, space, id=None) -> None:
+    def __init__(self, is_empty, is_del, space, table_number, id=None) -> None:
         self.is_empty = is_empty
         self.space = space
+        self.table_number = table_number
         self.is_del = is_del
         if id:
             self.id = id
