@@ -96,7 +96,7 @@
                 data: {
                     'order_id': order_id
                 },
-                success: function () {
+                success: function (response) {
                     $(`#num_${response['order_id']}`).html(response['number_item'])
                 }
             })
@@ -115,7 +115,7 @@
         {#            $(`#num_${response['order_id']}`).html(response['number_item'])#}
         {#        }#}
         {#    })#}
-        {#}#}
+
 
 
 
