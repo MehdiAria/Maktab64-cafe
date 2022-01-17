@@ -26,12 +26,12 @@
             {% for i in data %}
                 <tr id="trow-{{ i.id }}" class="p-3 m-2 mt-3 rounded">
                     <form action="{{ url_for('edit_items') }}" method="POST" id="{{ i.id }}"></form>
-                    <td class="text-success">{{ i.id }}</td>
+                    <td class="text-white">{{ i.id }}</td>
                     <td class="text-white">
                         <div class="dropdown btn-group">
                             <button id="drop-stat" type="button"
                                     class="btn btn-warning dropdown-toggle"
-                                    data-bs-toggle="dropdown" style="width: 8rem">
+                                    data-bs-toggle="dropdown" style="width: 8rem;background-color: rgb(139,69,19);color: #F5DEB3;">
                                 {{ i.cat_name }}
                             </button>
                             <input style="display: none" disabled type="text" name="cat_name" id="{{ i.id }}"
@@ -61,7 +61,7 @@
                         {#                               id="number_item"#}
                         {#                               required#}
                         {#                               min="1" max="999" value="{{ i.image_url }}" form="{{ i.id }}">#}
-                        <img src="{{i.image_url}}" alt="" width="50px" height="45px">
+                        <img src="{{i.image_url}}" alt="" width="50px" height="40px">
 
                     </td>
                     <td>
@@ -75,7 +75,7 @@
                     </td>
 
                     <td>
-                        <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit</button>
+                        <button class="btn btn-warning" onclick="ApplyEdits(this.id)" id="{{ i.id }}" style="background-color: rgb(139,69,19);color: #F5DEB3;">Edit</button>
                     </td>
                 </tr>
             {% endfor %}

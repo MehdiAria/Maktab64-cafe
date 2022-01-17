@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
 <div id="msg-container"></div>
@@ -28,13 +29,13 @@
             {% for i in data %}
                 <tr id="trow-{{ i.id }}" class="p-3 m-2 mt-3 rounded">
                     <form action="{{ url_for('orders') }}" method="POST" id="{{ i.id }}"></form>
-                    <td class="text-success">{{ i.id }}</td>
+                    <td class="text-white">{{ i.id }}</td>
                     <td class="text-white">{{ i.table_id }}</td>
                     <td class="text-white">{{ i.receipt_id }}</td>
                     <td>
                         <div class="dropdown btn-group">
                             <button id="drop-stat" type="button"
-                                    class="btn dropdown-toggle"
+                                    class="btn dropdown-toggle btn-warning"
                                     data-bs-toggle="dropdown" style="width: 7rem;background-color: rgb(139,69,19);color: #F5DEB3;">
 
                                 {{ i.status_name }}
@@ -61,7 +62,7 @@
                     <td><input type="checkbox" class="form-check-input" name="is_del" id="is_del"
                             {% if i.is_del %} checked {% endif %} form="{{ i.id }}"></td>
                     <td>
-                        <button class="btn" style="background-color: rgb(139,69,19);color: #F5DEB3;" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit
+                        <button class="btn btn-warning" style="background-color: rgb(139,69,19);color: #F5DEB3;" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit
                         </button>
                     </td>
                 </tr>
