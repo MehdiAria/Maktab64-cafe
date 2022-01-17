@@ -147,15 +147,20 @@ class DBManager:
                     models_dict = curs.fetchall()
                     return models_dict
 
-    def read_filter(self, model_class: type, condition):
+    def read_filter(self, model_class: type, condition, fetch="all"):
         assert issubclass(model_class, DBModel)
-        model_dict = self.query(f"SELECT * FROM {model_class.TABLE} WHERE {condition}", fetch='all')
-        res = []
-        for i in model_dict:
+        model_dict = self.query(f"SELECT * FROM {model_class.TABLE} WHERE {condition}", fetch=fetch)
+        if fetch == "all":
+            res = []
+            for i in model_dict:
+                reverse_alias = {value: key for key, value in model_class.aliases.items()}
+                i = alias_for_model(i, reverse_alias)
+                res.append(model_class(**dict(i)))
+            return res
+        elif fetch == "one":
             reverse_alias = {value: key for key, value in model_class.aliases.items()}
-            i = alias_for_model(i, reverse_alias)
-            res.append(model_class(**dict(i)))
-        return res
+            res = alias_for_model(model_dict, reverse_alias)
+            return model_class(**dict(res))
 
     def all_query(self, model_class: type, condition, fetch="all"):  # TODO change condition to query
         assert issubclass(model_class, DBModel)
