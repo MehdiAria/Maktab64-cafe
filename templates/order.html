@@ -24,11 +24,11 @@
 {% endblock %}
 {% block body %}
     {% if not data.error %}
-        <div class="container">
+        <div class="container" id="all-orders">
 
             <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
                 table: {{ data.order[0].table_id }}</h3>
-            <table class="table col6 table-borderless" style="color: antiquewhite">
+            <table class="table col6 table-borderless" id="orders-table" style="color: antiquewhite">
                 {#                <thead>#}
                 {#                <tr id="tr">#}
                 {#                    <th>Image</th>#}
@@ -109,7 +109,14 @@
                         console.log(resp_price)
                         console.log(response)
                         $("#total_price").html(`Total price: ${resp_price}$`)
-
+                        let trows = $(`#orders-table tr`)
+                        console.log(trows)
+                        if (trows.length === 2){
+                            $("#all-orders").html(`<h3 class="text-danger p-4 text-center">
+                                                        <i class="bi bi-info-circle-fill m-3 fs-3"></i>
+                                                    you have no orders!
+                                                    </h3>`)
+                        }
                     }
                 })
 

@@ -136,7 +136,6 @@ def del_order():
 
 
 def dec_order():
-    #TODO - count! /// redirect total_price !
     if request.method == 'POST':
         order_id = int(request.form.get('order_id'))
         table_order = db.read(Order, order_id)
@@ -147,7 +146,7 @@ def dec_order():
 
 
 def plus_order():
-    # TODO - count! /// redirect total_price !
+    # TODO - count!  total_price !
     if request.method == 'POST':
         order_id = int(request.form.get('order_id'))
         table_order = db.read(Order, order_id)
