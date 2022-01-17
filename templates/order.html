@@ -11,7 +11,7 @@
 
         @media only screen and (max-width: 288px) {
             .td-res {
-                padding: 10px 0!important;
+                padding: 10px 0 !important;
             }
         }
 
@@ -25,7 +25,7 @@
 {% block body %}
     {% if not data.error %}
         <div class="container" id="all-orders">
-{#        TODO cappochino has many char!!!#}
+            {#        TODO cappochino has many char!!!#}
             <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
                 table: {{ data.order[0].table_id }}</h3>
             <table class="table col6 table-borderless" id="orders-table" style="color: antiquewhite">
@@ -50,17 +50,21 @@
                             <div>{{ data.item[i].name }}</div>
                         </td>
                         <td class="{{ i.id }} td-res" style="display: flex;align-items: center">
-                            <a style="cursor: pointer ; text-decoration: none" order_id="{{ i.id }}"
-                               class="order-btn"
-                               link="{{ url_for("plus_order") }}">
-                                <i class="bi bi-plus-square-fill" style="color: #549153"></i>
-                            </a>
-                            <span class="mx-2" id="num_{{ i.id }}">{{ i.number_item }}</span>
-                            <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
-                               class="order-btn"
-                               link="{{ url_for("decrease") }}">
-                                <i style="color: #bf3a3a; " class="bi bi-dash-square-fill"></i>
-                            </a>
+                            {% if i.status_id == 1 %}
+                                <a style="cursor: pointer ; text-decoration: none" order_id="{{ i.id }}"
+                                   class="order-btn"
+                                   link="{{ url_for("plus_order") }}">
+                                    <i class="bi bi-plus-square-fill" style="color: #549153"></i>
+                                </a>
+                                <span class="mx-2" id="num_{{ i.id }}">{{ i.number_item }}</span>
+                                <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
+                                   class="order-btn"
+                                   link="{{ url_for("decrease") }}">
+                                    <i style="color: #bf3a3a; " class="bi bi-dash-square-fill"></i>
+                                </a>
+                            {% else %}
+                                <span class="mx-2" id="num_{{ i.id }}">count: {{ i.number_item }}</span>
+                            {% endif %}
                         </td>
                         <td class="{{ i.id }} td-res">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
                         <td class="{{ i.id }} td-res td-discount">{% if data.item[i].discount == none %}
@@ -69,20 +73,24 @@
                             dis: {{ data.item[i].discount }}
                         {% endif %}
                         </td>
-                        <td class="{{ i.id }} td-res order-operation">
-                            <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
-                               class="order-delete-btn"
-                               number_item={{ i.number_item }} link="{{ url_for("delete") }}"
-                               item_price= {{ data.item[i].price }}>
-                                <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
-                            </a>
-                        </td>
+                        {% if i.status_id == 1 %}
+                            <td class="{{ i.id }} td-res order-operation">
+                                <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
+                                   class="order-delete-btn"
+                                   number_item={{ i.number_item }} link="{{ url_for("delete") }}"
+                                   item_price= {{ data.item[i].price }}>
+                                    <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
+                                </a>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
                 <tr>
                     <th colspan='5' id="total_price" class="d-flex align-items-center justify-content-between">
                         Total price: {{ data.price.total_price }}$
-                        <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order")}}">Check Out</button>
+                        <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order") }}" style="display: none">
+                            Check Out
+                        </button>
                     </th>
                 </tr>
                 </tbody>
@@ -110,7 +118,7 @@
                         let resp_price = Number(response)
                         $("#total_price").html(`Total price: ${resp_price}$`)
                         let trows = $(`#orders-table tr`)
-                        if (trows.length === 2){
+                        if (trows.length === 2) {
                             $("#all-orders").html(`<h3 class="text-danger p-4 text-center">
                                                         <i class="bi bi-info-circle-fill m-3 fs-3"></i>
                                                     you have no orders!
@@ -135,7 +143,7 @@
                         let count = $(`#num_${response['order_id']}`)
                         count.html(response['number_item'])
                         let new_count = Number(count.html())
-                        if (new_count === 0){
+                        if (new_count === 0) {
                             let elem = count.closest('tr')
                             let deleteButton = (elem.find('a')[2])
                             deleteButton.click()
@@ -146,15 +154,25 @@
 
             })
 
-            $("#check-out-btn").click(function(){
+            $("#check-out-btn").click(function () {
                 let link = $(this).attr("link")
                 $.get({
                     url: link,
-                    success: function(response){
-                        alert(response)
+                    success: function (response) {
+                        $(".order-delete-btn").remove()
+                        $(".order-btn").remove()
+                        $("#check-out-btn").remove()
                     }
                 })
             })
+            function CheckOutBtnDisplay() {
+                let orderBtn = $("#orders-table").find("a")[0]
+                if (orderBtn) {
+                    $("#check-out-btn").css("display", "block")
+
+                }
+            }
+            CheckOutBtnDisplay()
         </script>
     {% else %}
         <h3 class="text-danger p-4 text-center">
