@@ -34,12 +34,34 @@ def intro():
         fetch='one')['sum']
     yesterday_earning = 1 if yesterday_earning is None else yesterday_earning
     today_earning = 1 if today_earning is None else today_earning
-    percent = round((today_earning - yesterday_earning) / yesterday_earning * 100,2)
-    return render_template('cashier/intro.html', earning={
-        'today_earning': today_earning,
-        'yesterday_earning': yesterday_earning,
-        'percent': percent,
-    },
+    percent = round((today_earning - yesterday_earning) / yesterday_earning * 100, 2)
+    total_orders = db.query(
+        f"SELECT count(*) FROM orders WHERE is_del=false;",
+        fetch='one')['count']
+    new_orders = db.query(
+        f"SELECT count(*) FROM orders WHERE is_del=false AND status_id=1;",
+        fetch='one')['count']
+    cook_orders = db.query(
+        f"SELECT count(*) FROM orders WHERE is_del=false AND status_id=2;",
+        fetch='one')['count']
+    serving_orders = db.query(
+        f"SELECT count(*) FROM orders WHERE is_del=false AND status_id=3;",
+        fetch='one')['count']
+    finished_orders = db.query(
+        f"SELECT count(*) FROM orders WHERE is_del=false AND status_id=4;",
+        fetch='one')['count']
+    return render_template('cashier/intro.html', orders={
+        'total_orders': total_orders,
+        'new_orders': new_orders,
+        'cook_orders': cook_orders,
+        'serving_orders': serving_orders,
+        'finished_orders': finished_orders,
+    }
+                           , earning={
+            'today_earning': today_earning,
+            'yesterday_earning': yesterday_earning,
+            'percent': percent,
+        },
                            tables_data={
                                'available_tables': available_tables,
                                'deleted_tables': deleted_tables,

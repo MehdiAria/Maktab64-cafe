@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .bt_color {
-            background-color: rgb(139,69,19);
+            background-color: rgb(139, 69, 19);
             color: #F5DEB3;
         }
     </style>
@@ -31,31 +31,25 @@
             </tr>
             </thead>
             {% for i in data %}
-
                 <tr id="trow-{{ i.id }}">
-                    <form action="{{ url_for('tables') }}" method="POST" id="{{ i.id }}"></form>
-                    <td class="text-dark">{{ i.id }}<input type="number" style="display: none"
-                                                           value="{{ i.id }}" name="id"
-                                                           form="{{ i.id }}">
+                    <td class="text-dark">{{ i.id }}
+                        <input type="number" style="display: none" value="{{ i.id }}" name="id">
                     </td>
-                    <td><input type="number" class="form-control" name="space" required
-                               oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}"></td>
                     <td>
-                        <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_empty" required
+                        <input type="number" class="form-control" name="space" required
+                               oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}">
+                    </td>
+                    <td>
+                        <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_empty"
                                 {% if i.is_empty %} checked {% endif %}>
-
                     </td>
-
                     <td>
-                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn bt_color"
-                                name=""
-                                value="Apply">Apply
+                        <button id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn bt_color" value="Apply">
+                            Apply
                         </button>
                     </td>
                     <td>
-                        {#                        <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_del"#}
-                        {#                                {% if i.is_del %} checked {% endif %}>#}
-                        <button type="submit" id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn bt_color">
+                        <button id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn bt_color">
                             Delete
                         </button>
                     </td>
@@ -91,14 +85,7 @@
         $("#maintable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-
-
-    function checkBoxValue(num) {
-        console.log(num)
-        let elm = $(`#${num}`)
-        elm.value = elm.checked
-        console.log(elm.checked)
-    }
+    });
 
     function ApplyEdits(ButtonId) {
         let elem = $(`#trow-${ButtonId} input`)
@@ -112,7 +99,6 @@
             }
             PostJson[Input.name] = value
         }
-        console.log(PostJson)
         $.ajax({
             type: "POST",
             url: "http://127.0.0.1:5000/cashier/tables",
@@ -132,13 +118,13 @@
         let main_table = $("#maintable");
 
         let tr = '<tr id="">' +
-            '<td class="text-dark"><input placeholder="Table number:" type="number" class="form-control" name="id">' +
+            '<td class="text-dark">' +
             '</td>' +
             '<td><input placeholder="Table space:" type="number" class="form-control" name="space" required oninput="absNumber(this.value)" value="" form="10"></td>' +
             '<td>' +
             '</td>' +
             '<td>' +
-            '<button onclick="addNewTableSubmit(this.id)" class="btn bt_color w-50 form-control">Add' +
+            '<button class="btn bt_color w-50" onclick="add_table(this)">Add' +
             '</button>' +
             '</td>' +
             '<td>' +
@@ -156,5 +142,24 @@
     function deleteTable(table_id) {
 
     }
+
+
+    function add_table(elm) {
+        let trow = $(elm).closest('tr')
+        let value = $(trow).find('input').val()
+        let data = {'space': value}
+            $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/cashier/add_table",
+            data: data,
+            success: function (response) {
+                alert(response)
+            }
+
+        })
+
+    }
+
+
 </script>
 </html>

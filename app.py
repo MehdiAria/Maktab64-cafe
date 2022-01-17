@@ -32,6 +32,7 @@ app.add_url_rule("/cashier/orders", "orders", orders.orders, methods=['GET', 'PO
 app.add_url_rule("/cashier/receipts", "date_receipts", all_receipts, methods=["GET", "POST"])
 app.add_url_rule("/cashier/intro", "intro", intro.intro, methods=["GET", "POST"])
 app.add_url_rule("/cashier/tables", "tables", tables.tables, methods=['GET', 'POST'])
+app.add_url_rule("/cashier/add_table", "add_table", tables.add_table, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/logout", 'logout', logout)
 app.add_url_rule("/handler", 'handler', handler)
 if __name__ == '__main__':

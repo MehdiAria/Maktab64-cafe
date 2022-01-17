@@ -5,7 +5,7 @@
     <title>Cafe Night</title>
 
 {% include 'base_layout/cdns.html' %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
 
 <style>
         .menu_container {
@@ -57,13 +57,13 @@
 {#    </div>#}
 
 {% include 'base_layout/_nav.html' %}
-  <div id="aj"></div>
+  <div id="aj">
 {% block body %}
 
 {% block menu_items %}{% endblock %}
 
 {% endblock %}
-
+  </div>
 {% include 'base_layout/_footer.html' %}
 
 
