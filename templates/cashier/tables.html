@@ -8,17 +8,23 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://malsup.github.io/jquery.form.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .bt_color {
+            background-color: rgb(139,69,19);
+            color: #F5DEB3;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="table-responsive my-2">
         <div id="msg-container"></div>
-        <table id="maintable" class="table table-hover col-6 text-center font-size bg-white" style="color: #c01d67">
+        <table id="maintable" class="table table-hover col-6 text-center font-size" style="color: #c01d67">
             <thead class="table-success">
             <tr id="tr">
                 <th>Table no.</th>
                 <th>Space</th>
-                <th>Status</th>
+                <th>Empty</th>
                 <th><i class="bi bi-pencil-fill text-center" style="font-size:20px ;color:red"></i></th>
                 <th><i class="bi-trash text-center" style="font-size:20px ;color:red"></i></th>
                 <th></th>
@@ -41,7 +47,7 @@
                     </td>
 
                     <td>
-                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-warning"
+                        <button type="submit" id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn bt_color"
                                 name=""
                                 value="Apply">Apply
                         </button>
@@ -49,7 +55,7 @@
                     <td>
                         {#                        <input id="check" type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_del"#}
                         {#                                {% if i.is_del %} checked {% endif %}>#}
-                        <button type="submit" id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn btn-danger">
+                        <button type="submit" id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn bt_color">
                             Delete
                         </button>
                     </td>
@@ -58,8 +64,8 @@
         </table>
     </div>
     <div class="row justify-content-end">
-        <div class="col-6 col-sm-5 col-md-3 col-lg-1">
-            <button type="button" onclick="addNewTable()" class="btn btn-success form-control">Add Table
+        <div class="col-6 col-sm-5 col-md-2">
+            <button type="button" onclick="addNewTable()" class="btn bt_color w-40 rm-control">Add Table
             </button>
         </div>
     </div>
@@ -132,11 +138,11 @@
             '<td>' +
             '</td>' +
             '<td>' +
-            '<button onclick="addNewTableSubmit(this.id)" class="btn btn-success form-control">Add' +
+            '<button onclick="addNewTableSubmit(this.id)" class="btn bt_color w-50 form-control">Add' +
             '</button>' +
             '</td>' +
             '<td>' +
-            '<button onclick="removeTr(this)" class="btn btn-danger"> Close </button>' +
+            '<button onclick="removeTr(this)" class="btn bt_color"> Close </button>' +
             '</td>' +
             '</tr>';
 
