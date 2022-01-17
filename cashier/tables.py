@@ -18,3 +18,10 @@ def tables():
         table.is_empty = request.form.get('is_empty')
         db.update(table)
         return "success"
+
+def add_table():
+    if request.method == 'POST':
+        space = request.form.get('space')
+        new_table = CafeTable(False, False, space)
+        db.create(new_table)
+        return 'success'
