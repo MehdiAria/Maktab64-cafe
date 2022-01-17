@@ -8,7 +8,7 @@
 <body>
 <div class="container-fluid my-2">
     <div style="display: flex;flex-wrap: wrap;justify-content: center;align-items: center;margin-top:2rem">
-        <div class="card col-5 m-2">
+        <div class="card col-5 m-2" style="height: 15.5rem">
             <div class="card-body">
                 <h5 class="card-title text-center m-0">Tables</h5>
                 <div class="card-text">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="card col-5 m-2">
+        <div class="card col-5 m-2" style="height: 15.5rem">
             <div class="card-body">
                 <h5 class="card-title text-center m-0">Receipts</h5>
                 <div class="card-text">
@@ -24,11 +24,10 @@
                 </div>
             </div>
         </div>
-        <div class="card col-5 m-2">
+        <div class="card col-5 m-2" style="height: 15.5rem">
             <div class="card-body">
                 <h5 class="card-title text-center">Earning</h5>
                 <div class="card-text">
-
                     Today's earning: {{ earning.today_earning }}$
                     {% if earning.today_earning > earning.yesterday_earning %}
                         <i class="fa fa-arrow-up" aria-hidden="true" style="color: green">{{ earning.percent }}%</i>
@@ -38,26 +37,54 @@
                     {% endif %}
                     <br>
                     Yesterday's earning: {{ earning.yesterday_earning }}$
+                    <br>
+                {% if earning.today_earning > earning.yesterday_earning %}
+                <p class="text-center m-2">Congratulations! During last 24 hours, we had {{ earning.percent }} percent more earning comparing to yesterday. However, this calculation is based on total price and possible discounts by cashier is not included. Keep it up.</p>
+                    {% endif %}
+                {% if earning.today_earning < earning.yesterday_earning %}
+                <p class="text-center m-2">Unfortunately, During last 24 hours, we had {{ earning.percent }} percent less earning comparing to yesterday. However, this calculation is based on total price and possible discounts by cashier is not included. Try harder.</p>
+                    {% endif %}
 
                 </div>
             </div>
         </div>
-        <div class="card col-5 m-2">
+        <div class="card col-5 m-2" style="height: 15.5rem">
             <div class="card-body">
-                <h5 class="card-title text-center m-0">Tables</h5>
+                <h5 class="card-title text-center m-0">Orders:</h5>
                 <div class="card-text">
-                    {#                    <canvas id="tables_chart"></canvas>#}
+                    <table class="m-2" style="width: 70%">
+                        <tr>
+                            <td>New Orders</td>
+                            <td> {{ orders.new_orders }}</td>
+                        </tr>
+                        <tr>
+                            <td>Cooking Orders</td>
+                            <td> {{ orders.cook_orders }}</td>
+                        </tr>
+                        <tr>
+                            <td>Serving Orders</td>
+                            <td> {{ orders.serving_orders }}</td>
+                        </tr>
+                        <tr>
+                            <td>Finished Orders</td>
+                            <td> {{ orders.finished_orders }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Orders</td>
+                            <td> {{ orders.total_orders }}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
-        <div class="card col-5 m-2">
-            <div class="card-body">
-                <h5 class="card-title text-center m-0">Tables</h5>
-                <div class="card-text">
-                    {#                    <canvas id="tables_chart"></canvas>#}
-                </div>
-            </div>
-        </div>
+        {#        <div class="card col-5 m-2">#}
+        {#            <div class="card-body">#}
+        {#                <h5 class="card-title text-center m-0">Tables</h5>#}
+        {#                <div class="card-text">#}
+        {#                    <canvas id="tables_chart"></canvas>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
     </div>
 
 </div>
