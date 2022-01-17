@@ -15,7 +15,7 @@
             }
         }
 
-        @media only screen and (max-width: 342px) {
+        @media only screen and (max-width: 351px) {
             .td-discount {
                 display: none
             }
@@ -42,20 +42,20 @@
                 <tbody>
                 {% for i in data.item %}
                     <tr id="tr-{{ i.id }}"
-                        style="display: flex;justify-content: space-around;border-bottom: 1px solid gray;">
+                        style="display: flex;justify-content: space-around;border-bottom: 1px solid gray;align-items: center">
                         {#                    <td>#}
                         {#                        <img src="{{ data.item[i].image_url}}">#}
                         {#                    </td>#}
                         <td class="{{ i.id }}" style="width:10%; flex-basis: 60px">
                             <div>{{ data.item[i].name }}</div>
                         </td>
-                        <td class="{{ i.id }} td-res" id="num_{{ i.id }}">
+                        <td class="{{ i.id }} td-res" style="display: flex;align-items: center">
                             <a style="cursor: pointer ; text-decoration: none" order_id="{{ i.id }}"
                                class="order-btn"
                                link="{{ url_for("plus_order") }}">
                                 <i class="bi bi-plus-square-fill" style="color: #549153"></i>
                             </a>
-                            <span class="mx-2">{{ i.number_item }}</span>
+                            <span class="mx-2" id="num_{{ i.id }}">{{ i.number_item }}</span>
                             <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
                                class="order-btn"
                                link="{{ url_for("decrease") }}">
@@ -66,7 +66,7 @@
                         <td class="{{ i.id }} td-res td-discount">{% if data.item[i].discount == none %}
                             No discount
                         {% else %}
-                            {{ data.item[i].discount }}
+                            dis: {{ data.item[i].discount }}
                         {% endif %}
                         </td>
                         <td class="{{ i.id }} td-res order-operation">
