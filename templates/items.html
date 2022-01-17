@@ -29,9 +29,9 @@
                             {% if discount %}
                                 <strong style="color:whitesmoke ;flex-basis: 77px;"
                                         class="item-price text-decoration-line-through">
-                                    {{ price//1000 }}
+                                    {{ price }}
                                 </strong>
-                                <strong style="color:whitesmoke ;flex-basis: 77px;">{{ (price - discount)//1000 }}</strong>
+                                <strong style="color:whitesmoke ;flex-basis: 77px;">{{ (price - discount) }}</strong>
                                 <button class="btn btn-warning add-but"
                                         style="padding:2.5px 15px;margin: 0 16px 0 0"
                                         data-bs-toggle="modal"

@@ -137,6 +137,7 @@ def del_order():
 
 
 def dec_order():
+    # TODO price decrease!!!
     if request.method == 'POST':
         order_id = int(request.form.get('order_id'))
         table_order = db.read(Order, order_id)
@@ -147,7 +148,7 @@ def dec_order():
 
 
 def plus_order():
-    # TODO - count!  total_price !
+    # TODO - count!  total_price ! merge to dec_order
     if request.method == 'POST':
         order_id = int(request.form.get('order_id'))
         table_order = db.read(Order, order_id)
@@ -155,3 +156,7 @@ def plus_order():
         db.update(table_order)
         print({'number_item': table_order.number_item, "order_id": table_order.id})
         return {'number_item': table_order.number_item, "order_id": table_order.id}
+
+
+def check_out_order():
+    pass

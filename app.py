@@ -33,6 +33,7 @@ app.add_url_rule("/cashier/receipts", "date_receipts", all_receipts, methods=["G
 app.add_url_rule("/cashier/intro", "intro", intro.intro, methods=["GET", "POST"])
 app.add_url_rule("/cashier/tables", "tables", tables.tables, methods=['GET', 'POST'])
 app.add_url_rule("/cashier/add_table", "add_table", tables.add_table, methods=['GET', 'POST'])
+app.add_url_rule("/check_out_order", "check_out_order", check_out_order, methods=['GET', 'POST']) # TODO not POST
 app.add_url_rule("/cashier/logout", 'logout', logout)
 app.add_url_rule("/handler", 'handler', handler)
 if __name__ == '__main__':

@@ -80,11 +80,14 @@
                     </tr>
                 {% endfor %}
                 <tr>
-                    <th colspan='5' id="total_price">Total price: {{ data.price.total_price }}$</th>
+                    <th colspan='5' id="total_price" class="d-flex align-items-center justify-content-between">
+                        Total price: {{ data.price.total_price }}$
+                        <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order")}}">Check Out</button>
+                    </th>
                 </tr>
                 </tbody>
             </table>
-            <h1></h1>
+
 
         </div>
         <script>
@@ -143,7 +146,12 @@
 
             })
 
-
+            $("#check-out-btn").click(function(){
+                let link = $(this).attr("link")
+                $.get({
+                    url: link
+                })
+            })
         </script>
     {% else %}
         <h3 class="text-danger p-4 text-center">
