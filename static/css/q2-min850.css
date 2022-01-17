@@ -38,7 +38,15 @@ body {
 }
 
 
+.dashboard-item i:hover {
+    cursor: pointer;
+    color: #5a0606;
+}
 .dashboard-item i:active {
+    cursor: pointer;
+    color: #5a0606;
+}
+.dashboard-item i:focus {
     cursor: pointer;
     color: #5a0606;
 }
@@ -129,3 +137,8 @@ ul .dashboard-item {
 li span {
     padding-left: 0.7rem;
 }
+#cash-name{
+            font-size: 14px;
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+        }

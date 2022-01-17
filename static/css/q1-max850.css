@@ -50,6 +50,10 @@ body {
     cursor: pointer;
     color: #5a0606;
 }
+.dashboard-item :hover {
+    cursor: pointer;
+    color: #5a0606;
+}
 
 #navbar-top {
     padding-right: 0;
@@ -100,3 +104,9 @@ ul .dashboard-item i {
 .input-group {
     width: 45vw;
 }
+
+#cash-name{
+            font-size: 14px;
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+        }
