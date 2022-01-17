@@ -90,7 +90,6 @@
         <script>
 
             $(".order-delete-btn").click(function () {
-                console.log(this)
                 let link = $(this).attr("link")
                 let order_id = $(this).attr("order_id")
                 let number_item = $(this).attr("number_item")
@@ -134,7 +133,9 @@
                         count.html(response['number_item'])
                         let new_count = Number(count.html())
                         if (new_count === 0){
-                            count.closest('tr').empty()
+                            let elem = count.closest('tr')
+                            let deleteButton = (elem.find('a')[2])
+                            deleteButton.click()
                         }
 
                     }
