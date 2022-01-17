@@ -1,4 +1,4 @@
-from flask import render_template, request, Response, redirect, url_for
+from flask import render_template, request, Response, redirect, url_for, escape
 from models.model import *
 from datetime import datetime, timedelta
 from views.utils import set_user_token, check_table_id, get_cashier_by_cookie
@@ -39,18 +39,29 @@ def panel():
 
 
 def order(table_id):
+    """
+    :param table_id:
+    POST:
+        gets table_id from url, (item_id & number_item) from html from
+        if the user has not user_token and receipt_id it would create a receipt for that user
+        :return Response with no template
+    GET:
+        :return renders a html file to show user orders
+    """
     if request.method == 'GET':
-        res = request.cookies.get('receipt_id', None)
-        # order_list = db.join_filter(Order, (Receipt, f"id = {res.get('receipt_id', None)}"))
-        order_list = db.all_query(Order,
-                                  f"SELECT orders.id, orders.item_id, orders.number_item, orders.receipt_id, orders.status_id, orders.table_id, orders.time_stamp FROM orders inner join receipt on orders.receipt_id=receipt.id where receipt.is_del=false and orders.is_del=false and receipt_id = {res} ;")
-        #TODO error receipt_id = None ! redirect
-        order_item = dict()
-        for i in order_list:
-            i: Order
-            order_item[i] = db.read(MenuItems, i.item_id)
-        price_list = db.all_query(Receipt, f"SELECT * FROM receipt where id={res} and receipt.is_del = false;")
-        data = {'receipt': res,'order': order_list, 'item': order_item, 'price': price_list[0]}
+        receipt_id = request.cookies.get('receipt_id', None)
+        data = {"error": "you have no orders!"}
+        if receipt_id:
+            order_list = db.all_query(Order,
+                                  f"SELECT orders.id, orders.item_id, orders.number_item, orders.receipt_id, orders.status_id, orders.table_id, orders.time_stamp FROM orders inner join receipt on orders.receipt_id=receipt.id where receipt.is_del=false and orders.is_del=false and receipt_id = {receipt_id} ;")
+            order_item = dict()
+            for i in order_list:
+                i: Order
+                order_item[i] = db.read(MenuItems, i.item_id)
+            price_list = db.all_query(Receipt, f"SELECT * FROM receipt where id={receipt_id} and receipt.is_del = false;")
+            # price_list_2 = db.read_filter(Receipt,f"id= {receipt_id} AND is_del = false")
+            data = {'receipt': receipt_id, 'order': order_list, 'item': order_item, 'price': price_list[0],"error": None}
+
         return render_template('order.html', data=data)
     elif request.method == 'POST':
         receipt_id = request.cookies.get('receipt_id', None)
@@ -58,8 +69,8 @@ def order(table_id):
         order_dict = request.form
         resp = Response("your order is added!", status=201)
         if receipt_id and user_token:
-            item_id = order_dict.get('item_id', None)
-            number_item = order_dict.get('number_item', None)
+            item_id = escape(order_dict.get('item_id', None))
+            number_item = escape(order_dict.get('number_item', None))
             check_table_id(receipt_id, table_id)
             table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=1, number_item=number_item, receipt_id=receipt_id)
@@ -124,7 +135,7 @@ def del_order():
 
 
 def dec_order():
-    #TODO - count! /// redirect !
+    #TODO - count! /// redirect total_price !
     if request.method == 'POST':
         order_id = int(request.form.get('order_id'))
         table_order = db.read(Order, order_id)
@@ -135,7 +146,7 @@ def dec_order():
 
 
 def plus_order():
-    # TODO - count! /// redirect !
+    # TODO - count! /// redirect total_price !
     if request.method == 'POST':
         order_id = int(request.form.get('order_id'))
         table_order = db.read(Order, order_id)
