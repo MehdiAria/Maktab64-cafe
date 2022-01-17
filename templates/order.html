@@ -87,7 +87,8 @@
                 {% endfor %}
                 <tr>
                     <th colspan='5' id="total_price" class="d-flex align-items-center justify-content-between">
-                        Total price: {{ data.price.total_price }}$
+                        <span>Total: {{ data.price.total_price }}$</span>
+                        <span>Final: {{ data.price.final_price }}$</span>
                         <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order") }}" style="display: none">
                             Check Out
                         </button>
@@ -95,8 +96,6 @@
                 </tr>
                 </tbody>
             </table>
-
-
         </div>
         <script>
 

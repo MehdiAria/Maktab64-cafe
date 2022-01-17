@@ -58,7 +58,6 @@ def order(table_id):
             for i in order_list:
                 i: Order
                 order_item[i] = db.read(MenuItems, i.item_id)
-            print(order_item)
             price_list = db.all_query(Receipt, f"SELECT * FROM receipt where id={receipt_id} and receipt.is_del = false;")
             # price_list_2 = db.read_filter(Receipt,f"id= {receipt_id} AND is_del = false")
             data = {'receipt': receipt_id, 'order': order_list, 'item': order_item, 'price': price_list[0],"error": None}
