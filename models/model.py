@@ -31,10 +31,10 @@ class CafeTable(DBModel):
     space: int
     id: int
 
-    def __init__(self, is_empty, is_del, space,table_number=None, id=None) -> None:
+    def __init__(self, is_empty, is_del, space, id=None) -> None:
         self.is_empty = is_empty
         self.space = space
-        self.table_number = table_number
+        # self.table_number = table_number
         self.is_del = is_del
 
         if id:
@@ -61,7 +61,7 @@ class MenuItems(DBModel):
     serving_time: str
     is_del: bool
 
-    def __init__(self, category_id, discount, name, price, image_url, serving_time, is_del=False,_id=None) -> None:
+    def __init__(self, category_id, discount, name, price, image_url, serving_time, is_del=False, _id=None) -> None:
         self.category_id = category_id
         self.name = name
         self.discount = discount
@@ -203,7 +203,6 @@ class Receipt(DBModel):
 
     # cat = Category("cake")
 
-
 # db1 = DBManager().create(cat)
 # time_t = datetime.now() + timedelta(minutes=10)
 # item = MenuItems(1, 0, 'cake', 50000, 'img_url', time_t)
@@ -339,4 +338,3 @@ class Receipt(DBModel):
 #         else:
 #             cat_items[alias] = [i]
 #     return cat_items
-
