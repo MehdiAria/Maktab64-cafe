@@ -86,11 +86,11 @@
         }
     }
 
-    {#$("#FilterInput").on("input", function () {#}
-    {#    var value = $(this).val().toLowerCase();#}
-    {#    $("#table").filter(function () {#}
-    {#        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)#}
-    {#    });#}
+    $("#FilterInput").on("input", function () {
+        var value = $(this).val().toLowerCase();
+        $("#maintable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
 
 
     function checkBoxValue(num) {
