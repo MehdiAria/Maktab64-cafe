@@ -8,108 +8,142 @@
             justify-content: space-around;
             flex-wrap: wrap;
         }
+
+        @media only screen and (max-width: 288px) {
+            .td-res {
+                padding: 10px 0!important;
+            }
+        }
+
+        @media only screen and (max-width: 351px) {
+            .td-discount {
+                display: none
+            }
+        }
     </style>
 {% endblock %}
 {% block body %}
     {% if not data.error %}
-    <div class="container">
+        <div class="container" id="all-orders">
 
-        <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
-            table: {{ data.order[0].table_id }}</h3>
-        <table class="table col6" style="color: antiquewhite">
-            <thead>
-            <tr id="tr">
-                <th>Product</th>
-                <th>Count</th>
-                <th>Price</th>
-                <th>Discount$</th>
-                <th>+-delete</th>
-            </tr>
-            </thead>
-            {% for i in data.item %}
-                <tr id="tr-{{ i.id }}">
-                    <td class="{{ i.id }}">{{ data.item[i].name }}</td>
-                    <td class="{{ i.id }}" id="num_{{ i.id }}">{{ i.number_item }}</td>
-                    <td class="{{ i.id }}">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
-                    <td class="{{ i.id }}">{% if data.item[i].discount==none %}
-                        No discount
-                    {% else %}
-                        {{ data.item[i].discount }}
-                    {% endif %}
-                    </td>
-                    <td class="{{ i.id }} order-operation">
-                        <a style="cursor: pointer ; text-decoration: none" order_id="{{ i.id }}" class="order-btn"
-                           link="{{ url_for("plus_order") }}">
-                            <i class="bi bi-plus-circle-fill" style="color: #549153"></i>
-                        </a>
-                        <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}" class="order-btn"
-                           link="{{ url_for("decrease") }}">
-                            <i style="color: #bf3a3a; " class="bi bi-dash-circle-fill"></i>
-                        </a>
-                        <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}" class="order-delete-btn"
-                           number_item={{ i.number_item }} link="{{ url_for("delete") }}" item_price = {{ data.item[i].price }}>
-                            <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
-                        </a>
-                    </td>
+            <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
+                table: {{ data.order[0].table_id }}</h3>
+            <table class="table col6 table-borderless" id="orders-table" style="color: antiquewhite">
+                {#                <thead>#}
+                {#                <tr id="tr">#}
+                {#                    <th>Image</th>#}
+                {#                    <th>Product</th>#}
+                {#                    <th>Count</th>#}
+                {#                    <th>Price</th>#}
+                {#                    <th>Discount$</th>#}
+                {#                    <th>+-delete</th>#}
+                {#                </tr>#}
+                {#                </thead>#}
+                <tbody>
+                {% for i in data.item %}
+                    <tr id="tr-{{ i.id }}"
+                        style="display: flex;justify-content: space-around;border-bottom: 1px solid gray;align-items: center">
+                        {#                    <td>#}
+                        {#                        <img src="{{ data.item[i].image_url}}">#}
+                        {#                    </td>#}
+                        <td class="{{ i.id }}" style="width:10%; flex-basis: 60px">
+                            <div>{{ data.item[i].name }}</div>
+                        </td>
+                        <td class="{{ i.id }} td-res" style="display: flex;align-items: center">
+                            <a style="cursor: pointer ; text-decoration: none" order_id="{{ i.id }}"
+                               class="order-btn"
+                               link="{{ url_for("plus_order") }}">
+                                <i class="bi bi-plus-square-fill" style="color: #549153"></i>
+                            </a>
+                            <span class="mx-2" id="num_{{ i.id }}">{{ i.number_item }}</span>
+                            <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
+                               class="order-btn"
+                               link="{{ url_for("decrease") }}">
+                                <i style="color: #bf3a3a; " class="bi bi-dash-square-fill"></i>
+                            </a>
+                        </td>
+                        <td class="{{ i.id }} td-res">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
+                        <td class="{{ i.id }} td-res td-discount">{% if data.item[i].discount == none %}
+                            No discount
+                        {% else %}
+                            dis: {{ data.item[i].discount }}
+                        {% endif %}
+                        </td>
+                        <td class="{{ i.id }} td-res order-operation">
+                            <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
+                               class="order-delete-btn"
+                               number_item={{ i.number_item }} link="{{ url_for("delete") }}"
+                               item_price= {{ data.item[i].price }}>
+                                <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th colspan='5' id="total_price">Total price: {{ data.price.total_price }}$</th>
                 </tr>
-            {% endfor %}
-            <tr>
-                <th colspan='5' id="total_price">Total price: {{ data.price.total_price }}$</th>
-            </tr>
-        </table>
-        <h1></h1>
+                </tbody>
+            </table>
+            <h1></h1>
 
-    </div>
-    <script>
+        </div>
+        <script>
 
-        $(".order-delete-btn").click(function () {
-            console.log(this)
-            let link = $(this).attr("link")
-            let order_id = $(this).attr("order_id")
-            let number_item = $(this).attr("number_item")
-            let item_price = $(this).attr("item_price")
-            $.ajax({
-                type: "POST",
-                url: link,
-                data: {
-                    'order_id': order_id,
-                    'number_item': number_item,
-                    'item_price': item_price
-                },
-                success: function (response) {
-                    $(`#tr-${order_id}`).empty()
-                    let resp_price = Number(response)
-                    console.log(resp_price)
-                    console.log(response)
-                    $("#total_price").html(`Total price: ${resp_price}$`)
+            $(".order-delete-btn").click(function () {
+                console.log(this)
+                let link = $(this).attr("link")
+                let order_id = $(this).attr("order_id")
+                let number_item = $(this).attr("number_item")
+                let item_price = $(this).attr("item_price")
+                $.ajax({
+                    type: "POST",
+                    url: link,
+                    data: {
+                        'order_id': order_id,
+                        'number_item': number_item,
+                        'item_price': item_price
+                    },
+                    success: function (response) {
+                        $(`#tr-${order_id}`).empty()
+                        let resp_price = Number(response)
+                        console.log(resp_price)
+                        console.log(response)
+                        $("#total_price").html(`Total price: ${resp_price}$`)
+                        let trows = $(`#orders-table tr`)
+                        console.log(trows)
+                        if (trows.length === 2){
+                            $("#all-orders").html(`<h3 class="text-danger p-4 text-center">
+                                                        <i class="bi bi-info-circle-fill m-3 fs-3"></i>
+                                                    you have no orders!
+                                                    </h3>`)
+                        }
+                    }
+                })
 
-                }
             })
 
-        })
+            $(".order-btn").click(function () {
+                console.log(this)
+                let link = $(this).attr("link")
+                let order_id = $(this).attr("order_id")
+                $.ajax({
+                    type: "POST",
+                    url: link,
+                    data: {
+                        'order_id': order_id
+                    },
+                    success: function (response) {
+                        $(`#num_${response['order_id']}`).html(response['number_item'])
+                    }
+                })
 
-        $(".order-btn").click(function () {
-            console.log(this)
-            let link = $(this).attr("link")
-            let order_id = $(this).attr("order_id")
-            $.ajax({
-                type: "POST",
-                url: link,
-                data: {
-                    'order_id': order_id
-                },
-                success: function (response) {
-                    $(`#num_${response['order_id']}`).html(response['number_item'])
-                }
             })
 
-        })
 
-
-    </script>
+        </script>
     {% else %}
-        <h3 class="bg-danger">
-        {{ data.error }}
+        <h3 class="text-danger p-4 text-center">
+            <i class="bi bi-info-circle-fill m-3 fs-3"></i>{{ data.error }}
         </h3>
     {% endif %}
 {% endblock %}
