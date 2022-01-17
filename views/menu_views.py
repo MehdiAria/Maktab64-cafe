@@ -33,7 +33,7 @@ def menu():
 def panel():
     cashier = get_cashier_by_cookie(request)
     if cashier:
-        return render_template('cashier/dashboard.html', data=cashier)
+        return render_template('cashier/dashboard.html', data=cashier[0])
     else:
         return redirect(url_for('login'))
 

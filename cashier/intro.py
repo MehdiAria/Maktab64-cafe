@@ -27,7 +27,7 @@ def intro():
         f"SELECT count(*) FROM receipt WHERE time_stamp BETWEEN CAST ('{today - timedelta(days=1)}' AS timestamp) AND CAST ('{today - timedelta(days=0)}' AS timestamp);",
         fetch='one')['count']
     today_earning = db.query(
-        f"SELECT sum(total_price) FROM receipt WHERE is_del=false and is_paid=true and time_stamp BETWEEN CAST ('{today - timedelta(days=1)}' AS timestamp) AND CAST ('{today - timedelta(days=0)}' AS timestamp);",
+        f"SELECT sum(total_price) FROM receipt WHERE is_del=false and is_paid=true and time_stamp BETWEEN CAST ('{today - timedelta(days=1)}' AS timestamp) AND CAST ('{today}' AS timestamp);",
         fetch='one')['sum']
     yesterday_earning = db.query(
         f"SELECT sum(total_price) FROM receipt WHERE is_del=false and is_paid=true and time_stamp BETWEEN CAST ('{today - timedelta(days=2)}' AS timestamp) AND CAST ('{today - timedelta(days=1)}' AS timestamp);",
