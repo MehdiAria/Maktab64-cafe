@@ -159,4 +159,8 @@ def plus_order():
 
 
 def check_out_order():
-    pass
+    receipt_id = request.cookies.get("receipt_id", None)
+    if receipt_id:
+        db.query(f"UPDATE orders SET status_id = 2 WHERE orders.receipt_id = {receipt_id} AND orders.is_del = false AND orders.status_id = 1")
+        return "Success! orders checked"
+
