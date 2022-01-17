@@ -25,7 +25,7 @@
 {% block body %}
     {% if not data.error %}
         <div class="container" id="all-orders">
-
+{#        TODO cappochino has many char!!!#}
             <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
                 table: {{ data.order[0].table_id }}</h3>
             <table class="table col6 table-borderless" id="orders-table" style="color: antiquewhite">
@@ -106,11 +106,8 @@
                     success: function (response) {
                         $(`#tr-${order_id}`).empty()
                         let resp_price = Number(response)
-                        console.log(resp_price)
-                        console.log(response)
                         $("#total_price").html(`Total price: ${resp_price}$`)
                         let trows = $(`#orders-table tr`)
-                        console.log(trows)
                         if (trows.length === 2){
                             $("#all-orders").html(`<h3 class="text-danger p-4 text-center">
                                                         <i class="bi bi-info-circle-fill m-3 fs-3"></i>
@@ -133,7 +130,13 @@
                         'order_id': order_id
                     },
                     success: function (response) {
-                        $(`#num_${response['order_id']}`).html(response['number_item'])
+                        let count = $(`#num_${response['order_id']}`)
+                        count.html(response['number_item'])
+                        let new_count = Number(count.html())
+                        if (new_count === 0){
+                            count.closest('tr').empty()
+                        }
+
                     }
                 })
 
