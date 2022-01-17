@@ -44,12 +44,12 @@
                                 {% if i.is_empty %} checked {% endif %}>
                     </td>
                     <td>
-                        <button id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn bt_color" value="Apply">
+                        <button id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-warning bt_color" value="Apply">
                             Apply
                         </button>
                     </td>
                     <td>
-                        <button id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn bt_color">
+                        <button id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn btn-danger bt_color">
                             Delete
                         </button>
                     </td>
@@ -59,7 +59,7 @@
     </div>
     <div class="row justify-content-end">
         <div class="col-6 col-sm-5 col-md-2">
-            <button type="button" onclick="addNewTable()" class="btn bt_color w-40 rm-control">Add Table
+            <button type="button" onclick="addNewTable()" class="btn bt_color btn-warning w-40 rm-control">Add Table
             </button>
         </div>
     </div>
@@ -104,12 +104,10 @@
             url: "http://127.0.0.1:5000/cashier/tables",
             data: PostJson,
             success: function (response) {
-                let msg = $(`<div>${response}</div>`)
-                msg.appendTo($(`#msg-container`))
+                alert(response)
             },
-            error: function () {
-                let msg = $(`<div>error!!!!!</div>`)
-                msg.appendTo($(`#msg-container`))
+            error: function (response) {
+                alert(response)
             }
         })
     }
@@ -124,11 +122,11 @@
             '<td>' +
             '</td>' +
             '<td>' +
-            '<button class="btn bt_color w-50" onclick="add_table(this)">Add' +
+            '<button class="btn bt_color btn-warning" onclick="add_table(this)" style="width: 66px;">Add' +
             '</button>' +
             '</td>' +
             '<td>' +
-            '<button onclick="removeTr(this)" class="btn bt_color"> Close </button>' +
+            '<button onclick="removeTr(this)" class="btn btn-warning bt_color"> Close </button>' +
             '</td>' +
             '</tr>';
 
@@ -137,10 +135,6 @@
 
     function removeTr(tag) {
         $(tag).parents('tr').remove();
-    }
-
-    function deleteTable(table_id) {
-
     }
 
 
@@ -155,11 +149,20 @@
             success: function (response) {
                 alert(response)
             }
-
         })
-
     }
 
+    function deleteTable(id) {
+        let data = {'_id': id}
+            $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/cashier/del_table",
+            data: data,
+            success: function (response) {
+                alert(response)
+            }
+        })
+    }
 
 </script>
 </html>

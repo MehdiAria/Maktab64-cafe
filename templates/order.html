@@ -149,7 +149,10 @@
             $("#check-out-btn").click(function(){
                 let link = $(this).attr("link")
                 $.get({
-                    url: link
+                    url: link,
+                    success: function(response){
+                        alert(response)
+                    }
                 })
             })
         </script>
