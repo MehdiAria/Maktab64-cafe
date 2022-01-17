@@ -79,21 +79,22 @@ def order(table_id):
             receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[0]
             # TODO handel error in reading receipt
             receipt: Receipt
-            receipt.total_price += int(number_item) * int(db.read(MenuItems, item_id).price)
+            price = int(number_item) * int(db.read(MenuItems, item_id).price)
+            receipt.total_price += price
+            receipt.final_price += price
             new_token = set_user_token(receipt)
             resp.set_cookie("user_token", new_token)
             return resp, 201
         else:
             table = db.read(CafeTable, int(table_id))
             table: CafeTable
-            print(table, table.is_empty)
             assert table and (table.is_empty or user_token)
             price = db.read(MenuItems, int(order_dict.get("item_id"))).price * int(order_dict.get("number_item"))
             if user_token:
                 receipt = db.read_filter(Receipt, f"user_token = \'{user_token}\'")[
                     0]  # TODO handel error in reading receipt!
             else:
-                receipt = Receipt(total_price=price, final_price=0)
+                receipt = Receipt(total_price=price, final_price=price)
                 db.create(receipt)
             table_order = Order(item_id=order_dict.get('item_id'), table_id=table_id,
                                 status_id=1, number_item=order_dict.get('number_item'), receipt_id=receipt._id)
