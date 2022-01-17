@@ -19,6 +19,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
 
     <link href="https://fonts.googleapis.com/css?family=Corben" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nobile" rel="stylesheet">
@@ -32,35 +33,35 @@
 
         $(document).ready(function () {
             $(".orders").click(function () {
-                $(".row-fluid").load('cashier/orders');
+                $(".body-table").load('cashier/orders');
             })
 
         });
 
         $(document).ready(function () {
             $(".tables").click(function () {
-                $(".row-fluid").load("cashier/tables");
+                $(".body-table").load("cashier/tables");
             })
 
         });
 
         $(document).ready(function () {
             $(".dashboard").click(function () {
-                $(".row-fluid").load("cashier/intro");
+                $(".body-table").load("cashier/intro");
             })
 
         });
 
         $(document).ready(function () {
             $(".edit-items").click(function () {
-                $(".row-fluid").load("cashier/edit_items");
+                $(".body-table").load("cashier/edit_items");
             })
 
         });
 
         $(document).ready(function () {
             $(".receipts").click(function () {
-                $(".row-fluid").load("cashier/receipts");
+                $(".body-table").load("cashier/receipts");
             })
 
         });
@@ -145,7 +146,9 @@
                 </ul>
 
             </nav>
-            <div class="row-fluid"></div>
+            <div class="body-table" >
+                <div id="welcome" class="container-fluid" style="width: 90%;height: 90%;border: 2px solid brown; border-radius: 25px; background-image: url('/static/images/welcome.jpg');"> <div style="font-size: 35px;padding: 10rem;text-align: right;color: #F5DEB3;font-family: 'Dancing Script', Georgia, Times, serif;font-weight: bold; ">WELCOME <br>Dear {{ data.name }} !</div></div>
+            </div>
 
         </div>
     </div>

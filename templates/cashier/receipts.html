@@ -19,21 +19,21 @@
 <div class="container">
     <div class="row">
         <div class="table-responsive my-2">
-            <table id="ReceiptTable" class="table table-borderless table-hover">
-                <thead>
-                <tr class="bg-light">
-                    <th class="">Id</th>
-                    <th class="">Total Price</th>
-                    <th class="">FinalPrice</th>
-                    <th class="">TimeStamp</th>
-                    <th class="">
+            <table id="ReceiptTable" class="table table-hover col-6 text-center font-size" style="color: #c01d67">
+                <thead class="table-warning">
+                <tr>
+                    <th class="text-center">#ID</th>
+                    <th class="text-center">Total Price</th>
+                    <th class="text-center">FinalPrice</th>
+                    <th class="text-center">Time</th>
+                    <th class="text-center">
                         <center>
                             <i class="bi-trash text-center" style="font-size:20px ;color:red"></i>
                         </center>
                     </th>
-                    <th class="">
+                    <th class="text-center">
                         <center>
-                            <i class="bi bi-check-all text-center" style="font-size:25px ;color:green"></i>
+                            <i class="bi bi-cart-check-fill" style="font-size:25px ;color:red"></i>
                         </center>
                     </th>
                     <th>
@@ -44,7 +44,7 @@
                 <tbody>
                 {% for receipt in data %}
                     <tr class="p-3 m-2 mt-3 rounded" id="trow-{{ receipt._id }}">
-                        <td class="text-success">{{ receipt._id }}</td>
+                        <td class="text-white">{{ receipt._id }}</td>
                         <td class="text-white">{{ receipt.total_price }}</td>
                         <td class="text-white mx-2">
                             <input type="number" name="final_price" class="form-control"
@@ -69,7 +69,7 @@
                         </td>
                         <td>
                             <center>
-                                <button class="btn btn-danger" onclick="ApplyEdits(this.id)" id={{ receipt._id }}>
+                                <button class="btn btn-warning" style="background-color: rgb(139,69,19);color: #F5DEB3;" onclick="ApplyEdits(this.id)" id={{ receipt._id }}>
                                     Apply
                                 </button>
                             </center>
