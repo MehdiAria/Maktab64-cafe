@@ -115,17 +115,19 @@
         <h4 class="modal-title">Your cart</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body" id="basket-ajax"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      <div class="modal-body" id="basket-ajax" style="background: #3c3d3e">
+          <span class="text-white">Loading...</span>
       </div>
+{#      <div class="modal-footer">#}
+{#        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>#}
+{#      </div>#}
     </div>
   </div>
 </div>
 
 {#{% if receipt_id  %}#}
 <div class="rounded-circle px-2" id="basket" style="position: fixed;z-index: 11;bottom:0;right: 0;display: none;">
-    <a style="cursor: pointer" link="{{ url_for("order", table_id=table_id)}}" id="cart-link" data-bs-toggle="modal" data-bs-target="#ajaxModal">
+    <a style="cursor: pointer" link="{{ url_for("order", table_id=table_id if table_id else 1)}}" id="cart-link" data-bs-toggle="modal" data-bs-target="#ajaxModal">
         <i class="bi bi-cart4" style="font-size: 6vw!important;color: chocolate"></i>
     </a>
 </div>
@@ -204,11 +206,10 @@
                 let msg = $(` <div class="alert alert-success alert-dismissible fade show">
                         <strong>Success!</strong> ${response}
                     </div>`)
+                $('#basket').css('display', 'flex')
 
                 msg.appendTo(parrent)
                 demo(3000)
-
-
                 DisableTableSet(t_id)
                 window.setTimeout(function () {
                     $(".flash").fadeTo(500, 0).slideUp(500, function () {
@@ -226,9 +227,6 @@
                               </div>`)
                 msg.appendTo(parrent)
                 demo(3000)
-
-
-                DisableTableSet(t_id)
                 window.setTimeout(function () {
                     $(".flash").fadeTo(500, 0).slideUp(500, function () {
                         $(this).remove();
@@ -242,7 +240,6 @@
 
     $("#cart-link").click(function(){
         let link = $(this).attr("link")
-        console.log(link, typeof link)
         $.ajax({
             url:link,
             success:function(response){

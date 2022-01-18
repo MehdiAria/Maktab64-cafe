@@ -136,22 +136,18 @@
 
             $("#check-out-btn").click(function () {
                 let link = $(this).attr("link")
-                let trs = $(".trow-item")
-                let discount = 0
-                for (let trow of trs) {
-                    if ($(trow).find("a")[0]) {
-                        let itemDis = $(trow).find(".span-discount")[0]
-                        let discountNumber = $(itemDis).html().split(":")[1][0]
-                            discount += Number(discountNumber)
-                        }
-                    }
-                console.log(discount)
+                {#let trs = $(".trow-item")#}
+                {#let discount = 0#}
+                {#for (let trow of trs) {#}
+                {#    if ($(trow).find("a")[0]) {#}
+                {#        let itemDis = $(trow).find(".span-discount")[0]#}
+                {#        let discountNumber = $(itemDis).html().split(":")[1][0]#}
+                {#            discount += Number(discountNumber)#}
+                {#        }#}
+                {#    }#}
+                {#console.log(discount)#}
                 $.ajax({
                     url: link,
-                    type:"POST",
-                    data:{
-                        "discount": discount
-                    },
                     success: function (response) {
                         $(".order-operation").remove()
                         $(".order-btn").remove()
