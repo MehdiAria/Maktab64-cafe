@@ -1,7 +1,7 @@
-from models.model import Cashier
-from db_manager import DBModel
+from model import Cashier
+from core.db_manager import DBManager, DBModel
 
-db = DBModel()
+db = DBManager()
 
 
 if __name__ == '__main__':
@@ -10,4 +10,5 @@ if __name__ == '__main__':
     email = input("Enter Cashier Email: ")
     phone = input("Enter Cashier Phone No.: ")
     pw = input("Enter Cashier Password: ")
-    # cashier = Cashier(fname, lname, email, phone, pw)
+    cashier:DBModel = Cashier(fname, lname, email, phone, pw)
+    db.create(cashier)
