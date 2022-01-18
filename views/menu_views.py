@@ -13,13 +13,11 @@ def index():
 
 
 def menu():
-    # data = Category.category_item()
     data = {}
     data["menu_items"] = menu_categories()
     empty_tables = None
     table_id = None
     receipt_id = request.cookies.get('receipt_id', None)
-    # print(receipt_id)
     if receipt_id:
         table_id = db.query(f"""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
                                             orders.table_id = cafe_table.id INNER JOIN receipt ON
