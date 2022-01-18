@@ -2,7 +2,13 @@ from flask import render_template, request,redirect, url_for
 from views.menu_views import db
 from models.model import CafeTable
 from models.menu_funcs import menu_categories
+
+
 def handler():
+    """
+    Handler function for SPA Page
+    :return Spa Menu Page:
+    """
     if request.args.get('home'):
         return render_template("spa/spa-index.html")
     elif request.args.get('about'):
@@ -24,10 +30,3 @@ def handler():
             empty_tables = CafeTable.empty_table()
         return render_template("spa/spa-menu.html", receipt_id=receipt_id, data=data, tables=empty_tables, table_id=table_id)
 
-
-    # elif request.args.get('cashier'):
-    #     if get_cashier_by_cookie(request):
-    #         return redirect('cashier/dashboard.html')
-    #     else:
-    #         return redirect(url_for('login'))
-    #
