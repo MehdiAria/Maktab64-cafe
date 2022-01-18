@@ -56,14 +56,14 @@
                                    link="{{ url_for("plus_order") }}">
                                     <i class="bi bi-plus-square-fill" style="color: #549153"></i>
                                 </a>
-                                <span class="mx-2" id="num_{{ i.id }}">{{ i.number_item }}</span>
+                                <span class="mx-2 count-item" id="num_{{ i.id }}">{{ i.number_item }}</span>
                                 <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
                                    class="order-btn"
                                    link="{{ url_for("decrease") }}">
                                     <i style="color: #bf3a3a; " class="bi bi-dash-square-fill"></i>
                                 </a>
                             {% else %}
-                                <span class="mx-2" id="num_{{ i.id }}">count: {{ i.number_item }}</span>
+                                <span class="mx-2 count-item" id="num_{{ i.id }}">count: {{ i.number_item }}</span>
                             {% endif %}
                         </td>
                         <td class="{{ i.id }} td-res">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
@@ -160,9 +160,15 @@
                 $.get({
                     url: link,
                     success: function (response) {
-                        $(".order-delete-btn").remove()
+                        $(".order-operation").remove()
                         $(".order-btn").remove()
                         $("#check-out-btn").remove()
+                        let count = $(".count-item")
+                        for (let c of count){
+                            if (!isNaN(c.innerHTML)){
+                                c.innerHTML= "count: "+c.innerHTML
+                            }
+                        }
                     }
                 })
             })
