@@ -1,0 +1,55 @@
+.text-chocolate {
+    color: chocolate;
+}
+
+.bg-chocolate {
+    background-color: chocolate;
+}
+
+.btn-chocolate {
+    background-color: chocolate;
+    border-color: chocolate;
+}
+
+.login_bg {
+    background: rgba(0, 0, 0, .6);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto !important;
+    max-height: 370px;
+    max-width: 28%;
+}
+
+.login_bg_img {
+    background: url("/static/images/menu_items_new/Cafee/back ground.jpg") no-repeat center;
+    background-size: cover;
+    min-height: 700px;
+    position: relative;
+}
+
+.top_header img {
+    width: 100%;
+}
+
+.btn {
+    transition-duration: 0.4s;
+    height: 60px;
+}
+
+.btn:hover {
+    background-color: #f16907;
+    border: 2px;
+    border-color: #65300b;
+}
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-right: 10px;
+    margin-top: -35px;
+    position: relative;
+    z-index: 2;
+}

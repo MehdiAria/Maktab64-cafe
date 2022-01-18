@@ -2,23 +2,26 @@ from datetime import datetime
 from core.db_manager import DBModel, DBManager
 from models.exceptions import *
 from models.utils import number_check
-from models.logger_1 import create_logger
+from core.logger import create_logger
 
 logger = create_logger(__file__, file_skip=0)
+
+db = DBManager()
 
 
 class Cashier(DBModel):
     TABLE = "cashier"
     aliases = {"_id": "id"}
 
-    def __init__(self, name, last_name, email, phone, password, token, _id=None) -> None:
+    def __init__(self, name, last_name, email, phone, password, token=None, _id=None) -> None:
         self.alias_for("_id", "id")
         self.name = name
         self.last_name = last_name
         self.email = email
         self.phone = phone
         self.password = password
-        self.token = token
+        if token:
+            self.token = token
         if _id:
             self._id = _id
 
@@ -28,11 +31,13 @@ class CafeTable(DBModel):
     is_empty: bool
     space: int
     id: int
+    is_del: bool
 
-    def __init__(self, is_empty, is_del, space, id=None) -> None:
+    def __init__(self, is_empty, is_del, space,id=None) -> None:
         self.is_empty = is_empty
         self.space = space
         self.is_del = is_del
+
         if id:
             self.id = id
 
@@ -55,20 +60,21 @@ class MenuItems(DBModel):
     price: int or float
     image_url: str
     serving_time: str
+    is_del: bool
 
-    def __init__(self, category_id, discount, name, price, image_url, serving_time, _id=None) -> None:
+    def __init__(self, category_id, discount, name, price, image_url, serving_time, is_del=False,_id=None) -> None:
         self.category_id = category_id
         self.name = name
         self.discount = discount
         self.price = price
         self.image_url = image_url
         self.serving_time = serving_time
+        self.is_del = is_del
         if _id:
             self.id = _id
 
     @classmethod
     def read_with_category(cls):
-        db = DBManager()
         menu_items = db.read_all(cls)
         categories = db.read_all(Category)
         items_category_dict = {}
@@ -185,7 +191,7 @@ class Receipt(DBModel):
     user_token: str
     is_del: bool
 
-    def __init__(self, total_price, final_price, user_token=None, time_stamp=None, _id=None, is_paid=None,
+    def __init__(self, total_price, final_price, user_token=None, time_stamp=None, _id=None, is_paid=False,
                  is_del=False) -> None:
         self.total_price = total_price
         self.final_price = final_price
@@ -197,6 +203,7 @@ class Receipt(DBModel):
             self._id = _id
 
     # cat = Category("cake")
+
 
 # db1 = DBManager().create(cat)
 # time_t = datetime.now() + timedelta(minutes=10)
@@ -237,3 +244,100 @@ class Receipt(DBModel):
 #     orders.table_id = cafe_table.id INNER JOIN receipt ON orders.receipt_id = receipt.id WHERE receipt_id = 5;""", fetch="one"))
 # print(asd)
 # print(__name__, __file__)
+
+# asd = DBManager().read_all(Category)
+#
+# categories = asd
+
+
+# def read_cat(category_id, db=DBManager()):
+#     db: DBManager
+#     category = db.read(Category, category_id)
+#     category: Category
+#     parent_id = category.category_id
+#     if parent_id:
+#         yield read_cat(parent_id)
+#     yield category.name
+
+
+# def s_cat():
+#     for i in categories:
+#         if i.category_id:
+#             print
+
+# def all_cat():
+#     db = DBManager()
+#     cats = db.read_all(Category)
+#     cat_list = {}
+#     for i in cats:
+#         i: Category
+#         parent_cat = read_cat(i._id, db)
+#         cat_list[i._id] = parent_cat
+#         # if parent_cat != i.name:
+#         # # print(i.name, "-> ", parent_cat)
+#         # pr_ = cat_list.get(parent_cat, None)
+#         # # print("\n",pr_)
+#         # if pr_ :
+#         #     print(cat_list)
+#         #     print(pr_, " klasdjalsdj", parent_cat, i.name)
+#         #     cat_list[parent_cat] += i.name
+#         # else:
+#         #     # print(parent_cat)
+#         #     print(i.name, parent_cat," asdasd")
+#         #     cat_list[parent_cat] = [i.name]
+#         # # print(cat_list)
+#
+#     return cat_list
+#
+#
+# asd = all_cat()
+#
+# items = DBManager().read_all(MenuItems)
+# menu_cat = {}
+# for i in items:
+#     i: MenuItems
+#     a = menu_cat.get(asd[i.category_id], None)
+#     if a:
+#         menu_cat[asd[i.category_id]].append(i)
+#     else:
+#         menu_cat[asd[i.category_id]] = [i]
+# print(menu_cat)
+
+# n = datetime.now()
+# print(all_cat_find())
+# m = datetime.now()
+# print(m - n)
+# def cat_find(c_id):
+#     for mn in all_categories:
+#         mn: Category
+#         if mn._id == c_id:
+#             return mn
+#
+#
+# def cat_parent(c):
+#     c: Category
+#     p_id = c.category_id
+#     if p_id:
+#         return cat_parent(cat_find(p_id))
+#     return c
+#
+#
+# def all_cat_find():
+#     cat_dict = {}
+#     for c in all_categories:
+#         c: Category
+#         cat_dict[c._id] = cat_parent(c).name
+#     return cat_dict
+#
+# def menu_set():
+#     cat_items ={}
+#     cat_dict = all_cat_find()
+#     for i in all_items:
+#         i:MenuItems
+#         alias = cat_dict[i.category_id]
+#         if cat_items.get(alias, None):
+#             cat_items[alias] .append(i)
+#         else:
+#             cat_items[alias] = [i]
+#     return cat_items
+

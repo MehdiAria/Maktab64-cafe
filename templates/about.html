@@ -15,32 +15,33 @@
             color: white;
         }
     </style>
-    <div class="text-md-center">
-        <div id="img" style="margin: 1rem">
-            <img class="img-fluid" src="{{ url_for('static', filename='images/about.jpg') }}" alt="">
-        </div>
-        <h1 class="text-center" id="tit">{{ data.title }}</h1>
-        <center>
-        <div id="par" style="width: 90%; font-size: 18px">
-            <p class="font-weight-normal">
-                Cafe Matab project created by five passioned Maktab students, first phase of the project started a
-                week ago and back in 2020 but that's still in development hoping to be finished within one week and then
-                the team is going to be ready for the second phase of the project.
-            </p>
-            <p class="font-weight-normal">
-                Please let us know whenever you find any bug or
-                glitch by opening a ticket on your official github page.
-            </p>
-        </div>
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="col-11 justify-content-center">
+            <div id="img" style="margin: 1rem;">
+                <img class="img-fluid" src="{{ url_for('static', filename='images/about.jpg') }}" style="width: 100%"
+                     alt="">
+            </div>
+            <h1 class="text-center" id="tit">{{ data.title }}</h1>
+            <center>
+                <div id="par" style="font-size: 18px">
+                    <p class="font-weight-normal">
+                        Cafe Matab project created by five passioned Maktab students, first phase of the project started
+                        a
+                        week ago and back in 2021 but that's still in development hoping to be finished within one week
+                        and then
+                        the team is going to be ready for the second phase of the project.
+                    </p>
+                    <p class="font-weight-normal">
+                        Please let us know whenever you find any bug or
+                        glitch by opening a ticket on your official github page.
+                    </p>
+                </div>
             </center>
-        <div class="blockquote-footer m-2">
-            Created for maktab-64 course
-        </div>
-    </div>
+            <div class="blockquote-footer m-2">
+                Created for maktab-64 course
+            </div>
 
-
-
-    <div class="container-fluid ">
+            <div class="container-fluid ">
         <div class="card-columns">
             <div class="card bg-light" style="background-color: chocolate!important;">
                 <div class="card-body text-center">
@@ -70,6 +71,14 @@
 
         </div>
     </div>
+
+
+
+        </div>
+    </div>
+
+
+
 
 
 {% endblock %}

@@ -27,11 +27,13 @@ class DBModel(ABC):  # abstract base Database model
         return base_dict
 
     @classmethod
-    def class_aliases(cls):
+    def class_aliases(cls, to_str: bool = False):
         base_dict = vars(cls).get('__annotations__', None)
         aliases = cls.aliases
         alias_list = list(
             map(lambda x: f"{cls.TABLE}.{x}" if x not in aliases.keys() else f"{cls.TABLE}.{aliases[x]}", base_dict))
+        if to_str:
+            return ", ".join(alias_list)
         return alias_list
 
     # def data_type_check(self, data: any, data_type: type, error: Exception, **kwargs):
@@ -145,15 +147,20 @@ class DBManager:
                     models_dict = curs.fetchall()
                     return models_dict
 
-    def read_filter(self, model_class: type, condition):
+    def read_filter(self, model_class: type, condition, fetch="all"):
         assert issubclass(model_class, DBModel)
-        model_dict = self.query(f"SELECT * FROM {model_class.TABLE} WHERE {condition}", fetch='all')
-        res = []
-        for i in model_dict:
+        model_dict = self.query(f"SELECT * FROM {model_class.TABLE} WHERE {condition}", fetch=fetch)
+        if fetch == "all":
+            res = []
+            for i in model_dict:
+                reverse_alias = {value: key for key, value in model_class.aliases.items()}
+                i = alias_for_model(i, reverse_alias)
+                res.append(model_class(**dict(i)))
+            return res
+        elif fetch == "one":
             reverse_alias = {value: key for key, value in model_class.aliases.items()}
-            i = alias_for_model(i, reverse_alias)
-            res.append(model_class(**dict(i)))
-        return res
+            res = alias_for_model(model_dict, reverse_alias)
+            return model_class(**dict(res))
 
     def all_query(self, model_class: type, condition, fetch="all"):  # TODO change condition to query
         assert issubclass(model_class, DBModel)

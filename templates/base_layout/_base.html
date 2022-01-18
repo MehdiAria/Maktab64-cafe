@@ -6,21 +6,77 @@
 
 {% include 'base_layout/cdns.html' %}
 
+
+<style>
+        .menu_container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between /*TODO space between space _around ...  */
+        }
+
+        .item-footer {
+            text-align: left !important;
+            display: flex !important;
+            align-items: center;
+            margin-bottom: 10px !important;
+        }
+        {#TODO css in external file!!!! #}
+        @media only screen and (max-width: 442px) {
+            .menu_container {
+                justify-content: center
+            }
+
+            .menu-item {
+                flex-basis: 14.5rem
+            }
+
+            .add-but {
+                margin: 0 0 0 45px !important;
+                padding: 2.5px 31px !important;
+            }
+
+            .item-price {
+                flex-basis: 22px !important;
+            }
+            .collapse-icon{
+                margin: 0 0 0 50vw;
+                cursor: pointer;
+            }
+        }
+    .rotate-icon{
+        transform:rotate(180deg)!important;
+    }
+    </style>
+    {%block extra_head%}{% endblock %}
 </head>
 <body style="background-color: rgb(49,49,49)">
-    <div class="welcome" style="background-color: black;">
-        <center>
-        <img src="/./static/images/index/23.jpg" alt="welcome" class="welcome" style=" height: 10%;width: 70%" >
-        </center>
-    </div>
+{#    <div class="welcome" style="background-color: black;">#}
+{#        <center>#}
+{#        <img src="/./static/images/index/23.jpg" alt="welcome" class="welcome" style=" height: 10%;width: 70%" >#}
+{#        </center>#}
+{#    </div>#}
 
 {% include 'base_layout/_nav.html' %}
-
+  <div id="aj">
 {% block body %}
 
 {% block menu_items %}{% endblock %}
-{% endblock %}
 
+{% endblock %}
+  </div>
 {% include 'base_layout/_footer.html' %}
+
+
+<script>
+     $(".aj").click(function (){
+
+        $.ajax({url:$(this).attr("link"),
+    success: function(res) {
+        $("#aj").html(res)
+        console.log(res)
+
+    }})
+    })
+</script>
 </body>
 </html>
