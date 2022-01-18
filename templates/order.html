@@ -8,9 +8,10 @@
             justify-content: space-around;
             flex-wrap: wrap;
         }
-        @media only screen and (max-width: 769px){
-            .item-name-display{
-                flex-basis:60px;
+
+        @media only screen and (max-width: 769px) {
+            .item-name-display {
+                flex-basis: 60px;
             }
         }
 
@@ -46,7 +47,7 @@
                 {#                </thead>#}
                 <tbody>
                 {% for i in data.item %}
-                    <tr id="tr-{{ i.id }}"
+                    <tr id="tr-{{ i.id }}" class="trow-item"
                         style="display: flex;justify-content: space-around;border-bottom: 1px solid gray;align-items: center">
                         {#                    <td>#}
                         {#                        <img src="{{ data.item[i].image_url}}">#}
@@ -72,11 +73,14 @@
                             {% endif %}
                         </td>
                         <td class="{{ i.id }} td-res">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
-                        <td class="{{ i.id }} td-res td-discount">{% if data.item[i].discount == none %}
-                            No discount
-                        {% else %}
-                            dis: {{ data.item[i].discount }}
-                        {% endif %}
+                        <td class="{{ i.id }} td-res td-discount">
+                            {% if data.item[i].discount == none %}
+                                No discount
+                            {% else %}
+                                <span class="span-discount">
+                                    dis:{{ data.item[i].discount }}
+                                </span>
+                            {% endif %}
                         </td>
                         {% if i.status_id == 1 %}
                             <td class="{{ i.id }} td-res order-operation">
@@ -94,7 +98,8 @@
                     <th colspan='5' class="d-flex align-items-center justify-content-between">
                         <span id="total_price">Total: {{ data.price.total_price }}$</span>
                         <span id="final_price">Final: {{ data.price.final_price }}$</span>
-                        <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order") }}" style="display: none">
+                        <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order") }}"
+                                style="display: none">
                             Check Out
                         </button>
                     </th>
@@ -162,6 +167,17 @@
 
             $("#check-out-btn").click(function () {
                 let link = $(this).attr("link")
+                let trs = $(".trow-item")
+                let discount = 0
+                for (let trow of trs) {
+                    if ($(trow).find("a")[0]) {
+                        let itemDis = $(trow).find(".span-discount")[0]
+                        let discountNumber = $(itemDis).html().split(":")[1][0]
+                            discount += Number(discountNumber)
+                        }
+                    }
+                console.log(discount)
+                console.log(itemDis.html)()
                 $.get({
                     url: link,
                     success: function (response) {
@@ -169,14 +185,15 @@
                         $(".order-btn").remove()
                         $("#check-out-btn").remove()
                         let count = $(".count-item")
-                        for (let c of count){
-                            if (!isNaN(c.innerHTML)){
-                                c.innerHTML= "count: "+c.innerHTML
+                        for (let c of count) {
+                            if (!isNaN(c.innerHTML)) {
+                                c.innerHTML = "count: " + c.innerHTML
                             }
                         }
                     }
                 })
             })
+
             function CheckOutBtnDisplay() {
                 let orderBtn = $("#orders-table").find("a")[0]
                 if (orderBtn) {
@@ -184,6 +201,7 @@
 
                 }
             }
+
             CheckOutBtnDisplay()
         </script>
     {% else %}
