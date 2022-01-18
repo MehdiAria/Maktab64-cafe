@@ -1,34 +1,84 @@
 {% extends "base_layout/_base.html" %}
 
 {% block body %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/static/css/login.css">
+    {#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">#}
+    {#    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>#}
+    {#    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>#}
+    {#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>#}
+    {##}
+    {#    <div class="container">#}
+    {#        <h2 class="text-warning">Login to Panel</h2>#}
+    {#        <form action="{{ url_for('login') }}" method="POST">#}
+    {#            <div class="mb-3 mt-3">#}
+    {#                <label for="username" class="text-warning">Username:</label>#}
+    {#                <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">#}
+    {#            </div>#}
+    {#            <div class="mb-3">#}
+    {#                <label for="password" class="text-warning">Password:</label>#}
+    {#                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">#}
+    {#            </div>#}
+    {#            <button type="submit" class="btn btn-warning m-2">Login</button>#}
+    {#            <div id="msg">#}
+    {#                                <div id="{{ error.massage }}"></div>#}
+    {#                {% if error!='' %}#}
+    {##}
+    {#                    <div class="alert alert-danger alert-dismissible fade show">#}
+    {#                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>#}
+    {#                        <strong>{{ error['error'] }}</strong>#}
+    {#                    </div>#}
+    {#                {% endif %}#}
+    {#            </div>#}
+    {#        </form>#}
+    {#    </div>#}
 
-    <div class="container mt-3">
-        <h2 class="text-warning">Login to Panel</h2>
-        <form action="{{ url_for('login') }}" method="POST">
-            <div class="mb-3 mt-3">
-                <label for="username" class="text-warning">Username:</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="text-warning">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
-            </div>
-            <button type="submit" class="btn btn-warning m-2">Login</button>
-            <div id="msg">
-                {#                <div id="{{ error.massage }}"></div>#}
-                {% if error!='' %}
-
-                    <div class="alert alert-danger alert-dismissible fade show">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>{{ error['error'] }}</strong>
+    <div class="container-fluide login_bg_img">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3 m-5 p-5 login_bg">
+                <form action=" {{ url_for('login') }}" method="POST">
+                    <div class="row text-chocolate">
+                        <div class="col-12">
+                            <h2>Login</h2>
+                        </div>
+                        <div class="form-floating col-12 mt-4">
+                            <input type="text" id="uname" class="form-control" placeholder="Enter username"
+                                   name="username">
+                            <label for="uname" class="text-chocolate mx-2">Username</label>
+                        </div>
+                        <div class="form-floating col-12 mt-4">
+                            <input type="password" id="password-field" class="form-control" placeholder="Enter Password"
+                                   name="password">
+                            <label for="password-field" class="text-chocolate mx-2">Password</label>
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-chocolate form-control">Login</button>
+                        </div>
+                        <div id="msg" class="text-chocolate m-2">
+                            <div id="{{ error.massage }}"></div>
+                            {% if error!='' %}
+                                <div class="alert alert-danger alert-dismissible fade show">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    <strong>{{ error['error'] }}</strong>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
-                {% endif %}
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
+    <script>
+        $(".toggle-password").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            console.log(input);
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
 {% endblock %}
