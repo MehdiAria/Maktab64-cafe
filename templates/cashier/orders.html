@@ -41,7 +41,7 @@
                                 {{ i.status_name }}
                             </button>
                             <input style="display: none" disabled type="text" name="status_name" id="{{ i.id }}"
-                                   value="">
+                                   value="{{ i.status_name }}">
                             <ul class="dropdown-menu">
                                 {% for j in status %}
                                     <li class="dropdown-item">
