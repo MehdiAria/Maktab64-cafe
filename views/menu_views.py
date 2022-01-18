@@ -150,11 +150,19 @@ def plus_order():
     # TODO - count!  total_price ! merge to dec_order
     if request.method == 'POST':
         order_id = int(request.form.get('order_id'))
+        receipt_id = int(request.cookies.get("receipt_id"))
+        table_order: Order
+        receipt: Receipt
+        receipt = db.read_filter(Receipt, f"id = {receipt_id} AND is_del = false", fetch="one")
         table_order = db.read(Order, order_id)
+        item_price = db.query(f"SELECT price FROM menu_items WHERE id = {table_order.item_id}", fetch="one")["price"]
+        receipt.total_price += item_price
+        receipt.final_price += item_price
         table_order.number_item = table_order.number_item + 1
+        db.update(receipt)
         db.update(table_order)
         print({'number_item': table_order.number_item, "order_id": table_order.id})
-        return {'number_item': table_order.number_item, "order_id": table_order.id}
+        return {'number_item': table_order.number_item, "order_id": table_order.id, "receipt_price": receipt.total_price}
 
 
 def check_out_order():

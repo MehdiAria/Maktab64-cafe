@@ -141,6 +141,7 @@
                     success: function (response) {
                         let count = $(`#num_${response['order_id']}`)
                         count.html(response['number_item'])
+                        $("#total_price").html(`Total price: ${response["receipt_price"]}$`)
                         let new_count = Number(count.html())
                         if (new_count === 0) {
                             let elem = count.closest('tr')
