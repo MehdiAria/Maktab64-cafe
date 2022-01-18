@@ -31,29 +31,31 @@
             </tr>
             </thead>
             {% for i in data %}
-                <tr id="trow-{{ i.id }}">
-                    <td class="text-dark">{{ i.id }}
-                        <input type="number" style="display: none" value="{{ i.id }}" name="id">
-                    </td>
-                    <td>
-                        <input type="number" class="form-control" name="space" required
-                               oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}">
-                    </td>
-                    <td>
-                        <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_empty"
-                                {% if i.is_empty %} checked {% endif %}>
-                    </td>
-                    <td>
-                        <button id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-warning bt_color" value="Apply">
-                            Apply
-                        </button>
-                    </td>
-                    <td>
-                        <button id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn btn-danger bt_color">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
+                {% if not i.is_del %}
+                    <tr id="trow-{{ i.id }}">
+                        <td class="text-dark">{{ i.id }}
+                            <input type="number" style="display: none" value="{{ i.id }}" name="id">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" name="space" required
+                                   oninput="absNumber(this.value)" value="{{ i.space }}" form="{{ i.id }}">
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-check-input" form="{{ i.id }}" name="is_empty"
+                                    {% if i.is_empty %} checked {% endif %}>
+                        </td>
+                        <td>
+                            <button id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-warning bt_color" value="Apply">
+                                Apply
+                            </button>
+                        </td>
+                        <td>
+                            <button id="{{ i.id }}" onclick="deleteTable({{ i.id }})" class="btn btn-danger bt_color">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </table>
     </div>
@@ -104,10 +106,23 @@
             url: "http://127.0.0.1:5000/cashier/tables",
             data: PostJson,
             success: function (response) {
-                alert(response)
+                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
+                        <strong>Success!</strong> ${response}
+                    </div>`)
+                msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
+
             },
-            error: function (response) {
-                alert(response)
+            error: function () {
+                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error while adding order!</strong>
+                              </div>`)
+                msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
             }
         })
     }
@@ -122,7 +137,7 @@
             '<td>' +
             '</td>' +
             '<td>' +
-            '<button class="btn bt_color btn-warning" onclick="add_table(this)" style="width: 66px;">Add' +
+            '<button onclick="add_table(this)" class="btn bt_color btn-warning"  style="width: 66px;">Add' +
             '</button>' +
             '</td>' +
             '<td>' +
@@ -137,7 +152,6 @@
         $(tag).parents('tr').remove();
     }
 
-
     function add_table(elm) {
         let trow = $(elm).closest('tr')
         let value = $(trow).find('input').val()
@@ -147,7 +161,23 @@
             url: "http://127.0.0.1:5000/cashier/add_table",
             data: data,
             success: function (response) {
-                alert(response)
+                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
+                        <strong>Success!</strong> ${response}
+                    </div>`)
+                msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
+
+            },
+            error: function () {
+                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error while adding order!</strong>
+                              </div>`)
+                msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
             }
         })
     }
@@ -159,7 +189,23 @@
             url: "http://127.0.0.1:5000/cashier/del_table",
             data: data,
             success: function (response) {
-                alert(response)
+                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
+                        <strong>Success!</strong> ${response}
+                    </div>`)
+                msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
+
+            },
+            error: function () {
+                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error while adding order!</strong>
+                              </div>`)
+                msg.appendTo($(`#msg-container`))
+                setTimeout(() => {
+                    $(`#msg-container`).slideToggle();
+                }, 2000)
             }
         })
     }
