@@ -1,7 +1,7 @@
 from flask import render_template, request, Response, redirect, url_for, escape
 from models.model import *
 from datetime import datetime, timedelta
-from views.utils import set_user_token, check_table_id, get_cashier_by_cookie
+from views.utils import set_user_token, check_table_id, get_cashier_by_cookie, order_operation
 from models.menu_funcs import menu_categories
 from core.logger import create_logger
 logger = create_logger(__file__, file_skip=0)
@@ -58,7 +58,6 @@ def order(table_id):
             for i in order_list:
                 i: Order
                 order_item[i] = db.read(MenuItems, i.item_id)
-            print(order_item)
             price_list = db.all_query(Receipt, f"SELECT * FROM receipt where id={receipt_id} and receipt.is_del = false;")
             # price_list_2 = db.read_filter(Receipt,f"id= {receipt_id} AND is_del = false")
             data = {'receipt': receipt_id, 'order': order_list, 'item': order_item, 'price': price_list[0],"error": None}
@@ -137,25 +136,13 @@ def del_order():
 
 
 def dec_order():
-    # TODO price decrease!!!
     if request.method == 'POST':
-        order_id = int(request.form.get('order_id'))
-        table_order = db.read(Order, order_id)
-        table_order.number_item = table_order.number_item - 1
-        db.update(table_order)
-        print({'number_item': table_order.number_item, "order_id": table_order.id})
-        return {'number_item': table_order.number_item, "order_id": table_order.id}
+        return order_operation(request, "-")
 
 
 def plus_order():
-    # TODO - count!  total_price ! merge to dec_order
     if request.method == 'POST':
-        order_id = int(request.form.get('order_id'))
-        table_order = db.read(Order, order_id)
-        table_order.number_item = table_order.number_item + 1
-        db.update(table_order)
-        print({'number_item': table_order.number_item, "order_id": table_order.id})
-        return {'number_item': table_order.number_item, "order_id": table_order.id}
+        return order_operation(request, "+")
 
 
 def check_out_order():
