@@ -4,6 +4,12 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(name)s %(levelnam
 
 
 def create_logger(file, file_skip=None):
+    """
+    creates a logger and use file_skip
+    :param file:
+    :param file_skip:
+    :return: logger obj
+    """
     file: str
     if file_skip:
         assert isinstance(file_skip, int)
