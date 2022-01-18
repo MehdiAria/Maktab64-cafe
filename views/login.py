@@ -10,6 +10,11 @@ db = DBManager()
 
 
 def login():
+
+    """
+    View function for login page:
+    :return Status:
+    """
     if request.method == "GET":
         # form view !
         cashier = get_cashier_by_cookie(request)
