@@ -177,9 +177,12 @@
                         }
                     }
                 console.log(discount)
-                console.log(itemDis.html)()
-                $.get({
+                $.ajax({
                     url: link,
+                    type:"POST",
+                    data:{
+                        "discount": discount
+                    },
                     success: function (response) {
                         $(".order-operation").remove()
                         $(".order-btn").remove()
@@ -190,6 +193,8 @@
                                 c.innerHTML = "count: " + c.innerHTML
                             }
                         }
+                        $("#total_price").html(`Total: ${response["total_price"]}`)
+                        $("#final_price").html(`Final: ${response["final_price"]}`)
                     }
                 })
             })
