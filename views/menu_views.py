@@ -146,8 +146,12 @@ def plus_order():
 
 
 def check_out_order():
-    receipt_id = request.cookies.get("receipt_id", None)
-    if receipt_id:
-        db.query(f"UPDATE orders SET status_id = 2 WHERE orders.receipt_id = {receipt_id} AND orders.is_del = false AND orders.status_id = 1")
-        return "Success! orders checked"
-
+    if request.method == "POST":
+        receipt_id = request.cookies.get("receipt_id", None)
+        discount = int(request.form.get('discount'))
+        receipt = db.read(Receipt, receipt_id)
+        receipt.final_price -= discount
+        db.update(receipt)
+        if receipt_id:
+            db.query(f"UPDATE orders SET status_id = 2 WHERE orders.receipt_id = {receipt_id} AND orders.is_del = false AND orders.status_id = 1")
+            return {"total_price": receipt.total_price, "final_price":receipt.final_price}
