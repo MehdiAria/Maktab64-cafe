@@ -112,12 +112,18 @@
             url: "http://127.0.0.1:5000/cashier/edit_items",
             data: PostJson,
             success: function (response) {
-                let msg = $(`<div>${response}</div>`)
-                msg.appendTo($(`#msg-container`))
+                Swal.fire(
+                    'Good job!',
+                    'Edit done!',
+                    'success'
+                )
             },
             error: function () {
-                let msg = $(`<div>error!!!!!</div>`)
-                msg.appendTo($(`#msg-container`))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Order didn\'t edit!',
+                })
             }
         })
     }
