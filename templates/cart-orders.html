@@ -1,181 +1,184 @@
 {% if not data.error %}
-        <div class="container" id="all-orders">
-            {#        TODO cappochino has many char!!!#}
-            <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
-                table: {{ data.order[0].table_id }}</h3>
-            <table class="table col6 table-borderless" id="orders-table" style="color: antiquewhite">
-                {#                <thead>#}
-                {#                <tr id="tr">#}
-                {#                    <th>Image</th>#}
-                {#                    <th>Product</th>#}
-                {#                    <th>Count</th>#}
-                {#                    <th>Price</th>#}
-                {#                    <th>Discount$</th>#}
-                {#                    <th>+-delete</th>#}
-                {#                </tr>#}
-                {#                </thead>#}
-                <tbody>
-                {% for i in data.item %}
-                    <tr id="tr-{{ i.id }}" class="trow-item"
-                        style="display: flex;justify-content: space-around;border-bottom: 1px solid gray;align-items: center">
-                        {#                    <td>#}
-                        {#                        <img src="{{ data.item[i].image_url}}">#}
-                        {#                    </td>#}
-                        <td class="{{ i.id }} item-name-display" style="width:10%">
-                            <div>{{ data.item[i].name }}</div>
-                        </td>
-                        <td class="{{ i.id }} td-res" style="display: flex;align-items: center">
-                            {% if i.status_id == 1 %}
-                                <a style="cursor: pointer ; text-decoration: none" order_id="{{ i.id }}"
-                                   class="order-btn"
-                                   link="{{ url_for("plus_order") }}">
-                                    <i class="bi bi-plus-square-fill" style="color: #549153"></i>
-                                </a>
-                                <span class="mx-2 count-item" id="num_{{ i.id }}">{{ i.number_item }}</span>
-                                <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
-                                   class="order-btn"
-                                   link="{{ url_for("decrease") }}">
-                                    <i style="color: #bf3a3a; " class="bi bi-dash-square-fill"></i>
-                                </a>
-                            {% else %}
-                                <span class="mx-2 count-item" id="num_{{ i.id }}">count: {{ i.number_item }}</span>
-                            {% endif %}
-                        </td>
-                        <td class="{{ i.id }} td-res">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
-                        <td class="{{ i.id }} td-res td-discount">
-                            {% if data.item[i].discount == none %}
-                                No discount
-                            {% else %}
-                                <span class="span-discount">
+    <div class="container" id="all-orders">
+        {#        TODO cappochino has many char!!!#}
+        <h3 class="text-center m-3" style="color: antiquewhite;">Receipt ID: {{ data.receipt }} For
+            table: {{ data.order[0].table_id }}</h3>
+        <table class="table col6 table-borderless" id="orders-table" style="color: antiquewhite">
+            {#                <thead>#}
+            {#                <tr id="tr">#}
+            {#                    <th>Image</th>#}
+            {#                    <th>Product</th>#}
+            {#                    <th>Count</th>#}
+            {#                    <th>Price</th>#}
+            {#                    <th>Discount$</th>#}
+            {#                    <th>+-delete</th>#}
+            {#                </tr>#}
+            {#                </thead>#}
+            <tbody>
+            {% for i in data.item %}
+                <tr id="tr-{{ i.id }}" class="trow-item"
+                    style="display: flex;justify-content: space-around;border-bottom: 1px solid gray;align-items: center">
+                    {#                    <td>#}
+                    {#                        <img src="{{ data.item[i].image_url}}">#}
+                    {#                    </td>#}
+                    <td class="{{ i.id }} item-name-display" style="width:10%">
+                        <div>{{ data.item[i].name }}</div>
+                    </td>
+                    <td class="{{ i.id }} td-res" style="display: flex;align-items: center">
+                        {% if i.status_id == 1 %}
+                            <a style="cursor: pointer ; text-decoration: none" order_id="{{ i.id }}"
+                               class="order-btn"
+                               link="{{ url_for("plus_order") }}">
+                                <i class="bi bi-plus-square-fill" style="color: #549153"></i>
+                            </a>
+                            <span class="mx-2 count-item" id="num_{{ i.id }}">{{ i.number_item }}</span>
+                            <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
+                               class="order-btn"
+                               link="{{ url_for("decrease") }}">
+                                <i style="color: #bf3a3a; " class="bi bi-dash-square-fill"></i>
+                            </a>
+                        {% else %}
+                            <span class="mx-2 count-item" id="num_{{ i.id }}">count: {{ i.number_item }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="{{ i.id }} td-res">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
+                    <td class="{{ i.id }} td-res td-discount">
+                        {% if data.item[i].discount == none %}
+                            No discount
+                        {% else %}
+                            <span class="span-discount">
                                     dis:{{ data.item[i].discount }}
                                 </span>
-                            {% endif %}
-                        </td>
-                        {% if i.status_id == 1 %}
-                            <td class="{{ i.id }} td-res order-operation">
-                                <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
-                                   class="order-delete-btn"
-                                   number_item={{ i.number_item }} link="{{ url_for("delete") }}"
-                                   item_price= {{ data.item[i].price }}>
-                                    <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
-                                </a>
-                            </td>
                         {% endif %}
-                    </tr>
-                {% endfor %}
-                <tr>
-                    <th colspan='5' class="d-flex align-items-center justify-content-between">
-                        <span id="total_price">Total: {{ data.price.total_price }}$</span>
-                        <span id="final_price">Final: {{ data.price.final_price }}$</span>
-                        <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order") }}"
-                                style="display: none">
-                            Check Out
-                        </button>
-                    </th>
+                    </td>
+                    {% if i.status_id == 1 %}
+                        <td class="{{ i.id }} td-res order-operation">
+                            <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
+                               class="order-delete-btn"
+                               number_item={{ i.number_item }} link="{{ url_for("delete") }}"
+                               item_price= {{ data.item[i].price }}>
+                                <i style="color: #bf3a3a" class="bi bi-trash-fill"></i>
+                            </a>
+                        </td>
+                    {% endif %}
                 </tr>
-                </tbody>
-            </table>
-        </div>
-        <script>
+            {% endfor %}
+            <tr>
+                <th colspan='5' class="d-flex align-items-center justify-content-between">
+                    <span id="total_price">Total: {{ data.price.total_price }}$</span>
+                    <span id="final_price">Final: {{ data.price.final_price }}$</span>
+                    <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order") }}"
+                            style="display: none">
+                        Check Out
+                    </button>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
 
-            $(".order-delete-btn").click(function () {
-                let link = $(this).attr("link")
-                let order_id = $(this).attr("order_id")
-                let number_item = $(this).attr("number_item")
-                let item_price = $(this).attr("item_price")
-                $.ajax({
-                    type: "POST",
-                    url: link,
-                    data: {
-                        'order_id': order_id,
-                        'number_item': number_item,
-                        'item_price': item_price
-                    },
-                    success: function (response) {
-                        $(`#tr-${order_id}`).empty()
-                        let resp_price = Number(response)
-                        $("#total_price").html(`Total price: ${resp_price}$`)
-                        let trows = $(`#orders-table tr`)
-                        if (trows.length === 2) {
-                            $("#all-orders").html(`<h3 class="text-danger p-4 text-center">
+        $(".order-delete-btn").click(function () {
+            let link = $(this).attr("link")
+            let order_id = $(this).attr("order_id")
+            let number_item = $(this).attr("number_item")
+            let item_price = $(this).attr("item_price")
+            $.ajax({
+                type: "POST",
+                url: link,
+                data: {
+                    'order_id': order_id,
+                    'number_item': number_item,
+                    'item_price': item_price
+                },
+                success: function (response) {
+                    $(`#tr-${order_id}`).empty()
+                    let resp_price = Number(response)
+                    $("#total_price").html(`Total price: ${resp_price}$`)
+                    let trows = $(`#orders-table tr`)
+                    if (trows.length === 2) {
+                        $("#all-orders").html(`<h3 class="text-danger p-4 text-center">
                                                         <i class="bi bi-info-circle-fill m-3 fs-3"></i>
                                                     you have no orders!
                                                     </h3>`)
-                        }
                     }
-                })
-
+                }
             })
 
-            $(".order-btn").click(function () {
-                console.log(this)
-                let link = $(this).attr("link")
-                let order_id = $(this).attr("order_id")
-                $.ajax({
-                    type: "POST",
-                    url: link,
-                    data: {
-                        'order_id': order_id
-                    },
-                    success: function (response) {
-                        let count = $(`#num_${response['order_id']}`)
-                        count.html(response['number_item'])
-                        $("#total_price").html(`Total: ${response["total_price"]}$`)
-                        $("#final_price").html(`Final: ${response["final_price"]}$`)
-                        let new_count = Number(count.html())
-                        if (new_count === 0) {
-                            let elem = count.closest('tr')
-                            let deleteButton = (elem.find('a')[2])
-                            deleteButton.click()
-                        }
+        })
 
+        $(".order-btn").click(function () {
+            {#console.log(this)#}
+            let link = $(this).attr("link")
+            let order_id = $(this).attr("order_id")
+            let asd = this
+            $.ajax({
+                type: "POST",
+                url: link,
+                data: {
+                    'order_id': order_id
+                },
+                success: function (response) {
+                    let count = $(`#num_${response['order_id']}`)
+                    count.html(response['number_item'])
+                    $("#total_price").html(`Total: ${response["total_price"]}$`)
+                    $("#final_price").html(`Final: ${response["final_price"]}$`)
+                    let number_item = response["number_item"]
+                    $($(asd).closest("tr").find("a")[2]).attr("number_item", number_item)
+                    let new_count = Number(count.html())
+                    if (new_count === 0) {
+                        let elem = count.closest('tr')
+                        let deleteButton = (elem.find('a')[2])
+                        deleteButton.click()
                     }
-                })
-
-            })
-
-            $("#check-out-btn").click(function () {
-                let link = $(this).attr("link")
-                {#let trs = $(".trow-item")#}
-                {#let discount = 0#}
-                {#for (let trow of trs) {#}
-                {#    if ($(trow).find("a")[0]) {#}
-                {#        let itemDis = $(trow).find(".span-discount")[0]#}
-                {#        let discountNumber = $(itemDis).html().split(":")[1][0]#}
-                {#            discount += Number(discountNumber)#}
-                {#        }#}
-                {#    }#}
-                {#console.log(discount)#}
-                $.ajax({
-                    url: link,
-                    success: function (response) {
-                        $(".order-operation").remove()
-                        $(".order-btn").remove()
-                        $("#check-out-btn").remove()
-                        let count = $(".count-item")
-                        for (let c of count) {
-                            if (!isNaN(c.innerHTML)) {
-                                c.innerHTML = "count: " + c.innerHTML
-                            }
-                        }
-                        $("#total_price").html(`Total: ${response["total_price"]}`)
-                        $("#final_price").html(`Final: ${response["final_price"]}`)
-                    }
-                })
-            })
-
-            function CheckOutBtnDisplay() {
-                let orderBtn = $("#orders-table").find("a")[0]
-                if (orderBtn) {
-                    $("#check-out-btn").css("display", "block")
 
                 }
-            }
+            })
 
-            CheckOutBtnDisplay()
-        </script>
-    {% else %}
-        <h3 class="text-danger p-4 text-center">
-            <i class="bi bi-info-circle-fill m-3 fs-3"></i>{{ data.error }}
-        </h3>
-    {% endif %}
+        })
+
+        $("#check-out-btn").click(function () {
+            let link = $(this).attr("link")
+            {#let trs = $(".trow-item")#}
+            {#let discount = 0#}
+            {#for (let trow of trs) {#}
+            {#    if ($(trow).find("a")[0]) {#}
+            {#        let itemDis = $(trow).find(".span-discount")[0]#}
+            {#        let discountNumber = $(itemDis).html().split(":")[1][0]#}
+            {#            discount += Number(discountNumber)#}
+            {#        }#}
+            {#    }#}
+            {#console.log(discount)#}
+            $.ajax({
+                url: link,
+                success: function (response) {
+                    $(".order-operation").remove()
+                    $(".order-btn").remove()
+                    $("#check-out-btn").remove()
+                    let count = $(".count-item")
+                    for (let c of count) {
+                        if (!isNaN(c.innerHTML)) {
+                            c.innerHTML = "count: " + c.innerHTML
+                        }
+                    }
+                    $("#total_price").html(`Total: ${response["total_price"]}`)
+                    $("#final_price").html(`Final: ${response["final_price"]}`)
+                }
+            })
+        })
+
+        function CheckOutBtnDisplay() {
+            let orderBtn = $("#orders-table").find("a")[0]
+            if (orderBtn) {
+                $("#check-out-btn").css("display", "block")
+
+            }
+        }
+
+        CheckOutBtnDisplay()
+    </script>
+{% else %}
+    <h3 class="text-danger p-4 text-center">
+        <i class="bi bi-info-circle-fill m-3 fs-3"></i>{{ data.error }}
+    </h3>
+{% endif %}

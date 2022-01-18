@@ -11,12 +11,6 @@ app = Flask(__name__, template_folder="templates")
 
 # JINJA_ENVIRONMENT.globals['STATIC_PREFIX'] = '/'
 
-@app.route("/mn_2")
-def new_menu():
-    data = {}
-    data["menu_items"] = menu_categories()
-    print(data)
-    return render_template("items.html", data=data)
 
 app.add_url_rule("/", "home", index)
 app.add_url_rule("/menu", "menu", menu)
