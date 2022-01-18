@@ -50,7 +50,7 @@
                             <input type="number" name="final_price" class="form-control"
                                    value={{ receipt.fianl_price if receipt.fianl_price else receipt.total_price }}>
                         </td>
-                        <td class="text-white">{{ receipt.time_stamp }}</td>
+                        <td class="text-white">{{ receipt.time_stamp.strftime('%y-%m-%d | %H:%m') }}</td>
                         <td class="">
                             <center>
                                 <input type="checkbox" class="form-check-input" name="is_del"
