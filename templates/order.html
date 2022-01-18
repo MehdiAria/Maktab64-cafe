@@ -8,6 +8,11 @@
             justify-content: space-around;
             flex-wrap: wrap;
         }
+        @media only screen and (max-width: 769px){
+            .item-name-display{
+                flex-basis:60px;
+            }
+        }
 
         @media only screen and (max-width: 288px) {
             .td-res {
@@ -46,7 +51,7 @@
                         {#                    <td>#}
                         {#                        <img src="{{ data.item[i].image_url}}">#}
                         {#                    </td>#}
-                        <td class="{{ i.id }}" style="width:10%; flex-basis: 60px">
+                        <td class="{{ i.id }} item-name-display" style="width:10%">
                             <div>{{ data.item[i].name }}</div>
                         </td>
                         <td class="{{ i.id }} td-res" style="display: flex;align-items: center">
@@ -56,14 +61,14 @@
                                    link="{{ url_for("plus_order") }}">
                                     <i class="bi bi-plus-square-fill" style="color: #549153"></i>
                                 </a>
-                                <span class="mx-2" id="num_{{ i.id }}">{{ i.number_item }}</span>
+                                <span class="mx-2 count-item" id="num_{{ i.id }}">{{ i.number_item }}</span>
                                 <a style="cursor: pointer; text-decoration: none" order_id="{{ i.id }}"
                                    class="order-btn"
                                    link="{{ url_for("decrease") }}">
                                     <i style="color: #bf3a3a; " class="bi bi-dash-square-fill"></i>
                                 </a>
                             {% else %}
-                                <span class="mx-2" id="num_{{ i.id }}">count: {{ i.number_item }}</span>
+                                <span class="mx-2 count-item" id="num_{{ i.id }}">count: {{ i.number_item }}</span>
                             {% endif %}
                         </td>
                         <td class="{{ i.id }} td-res">{% set total = data.item[i].price %}{{ data.item[i].price }}$</td>
@@ -86,8 +91,9 @@
                     </tr>
                 {% endfor %}
                 <tr>
-                    <th colspan='5' id="total_price" class="d-flex align-items-center justify-content-between">
-                        Total price: {{ data.price.total_price }}$
+                    <th colspan='5' class="d-flex align-items-center justify-content-between">
+                        <span id="total_price">Total: {{ data.price.total_price }}$</span>
+                        <span id="final_price">Final: {{ data.price.final_price }}$</span>
                         <button class="btn btn-danger" id="check-out-btn" link="{{ url_for("check_out_order") }}" style="display: none">
                             Check Out
                         </button>
@@ -95,8 +101,6 @@
                 </tr>
                 </tbody>
             </table>
-
-
         </div>
         <script>
 
@@ -142,6 +146,8 @@
                     success: function (response) {
                         let count = $(`#num_${response['order_id']}`)
                         count.html(response['number_item'])
+                        $("#total_price").html(`Total: ${response["total_price"]}$`)
+                        $("#final_price").html(`Final: ${response["final_price"]}$`)
                         let new_count = Number(count.html())
                         if (new_count === 0) {
                             let elem = count.closest('tr')
@@ -159,9 +165,15 @@
                 $.get({
                     url: link,
                     success: function (response) {
-                        $(".order-delete-btn").remove()
+                        $(".order-operation").remove()
                         $(".order-btn").remove()
                         $("#check-out-btn").remove()
+                        let count = $(".count-item")
+                        for (let c of count){
+                            if (!isNaN(c.innerHTML)){
+                                c.innerHTML= "count: "+c.innerHTML
+                            }
+                        }
                     }
                 })
             })
