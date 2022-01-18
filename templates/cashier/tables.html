@@ -45,7 +45,8 @@
                                     {% if i.is_empty %} checked {% endif %}>
                         </td>
                         <td>
-                            <button id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-warning bt_color" value="Apply">
+                            <button id="{{ i.id }}" onclick="ApplyEdits(this.id)" class="btn btn-warning bt_color"
+                                    value="Apply">
                                 Apply
                             </button>
                         </td>
@@ -156,46 +157,35 @@
         let trow = $(elm).closest('tr')
         let value = $(trow).find('input').val()
         let data = {'space': value}
-            $.ajax({
+        $.ajax({
             type: "POST",
             url: "http://127.0.0.1:5000/cashier/add_table",
             data: data,
             success: function (response) {
-                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
-                        <strong>Success!</strong> ${response}
-                    </div>`)
-                msg.appendTo($(`#msg-container`))
-                setTimeout(() => {
-                    $(`#msg-container`).slideToggle();
-                }, 2000)
+                Swal.fire(
+                    'Good job!',
+                    'Add done!',
+                    'success'
+                )
 
             },
             error: function () {
-                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
-                                <strong>Error while adding order!</strong>
-                              </div>`)
-                msg.appendTo($(`#msg-container`))
-                setTimeout(() => {
-                    $(`#msg-container`).slideToggle();
-                }, 2000)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Table don\'t add!',
+                })
             }
         })
     }
 
     function deleteTable(id) {
         let data = {'_id': id}
-            $.ajax({
+        $.ajax({
             type: "POST",
             url: "http://127.0.0.1:5000/cashier/del_table",
             data: data,
             success: function (response) {
-                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
-                        <strong>Success!</strong> ${response}
-                    </div>`)
-                msg.appendTo($(`#msg-container`))
-                setTimeout(() => {
-                    $(`#msg-container`).slideToggle();
-                }, 2000)
 
             },
             error: function () {
