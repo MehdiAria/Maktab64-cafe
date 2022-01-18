@@ -18,6 +18,10 @@ class DBModel(ABC):  # abstract base Database model
         cls.aliases[attr] = alias
 
     def with_alias_dict(self):
+        """
+        use model vars and aliases_dict
+        :return: a dict that the key are similar to Table column names in data base
+        """
         base_dict = vars(self)
         for i in self.aliases.keys():
             if i in base_dict.keys():
@@ -148,6 +152,13 @@ class DBManager:
                     return models_dict
 
     def read_filter(self, model_class: type, condition, fetch="all"):
+        """
+
+        :param model_class:
+        :param condition:
+        :param fetch:
+        :return: a list of models if fetch == 'all' else a model obj
+        """
         assert issubclass(model_class, DBModel)
         model_dict = self.query(f"SELECT * FROM {model_class.TABLE} WHERE {condition}", fetch=fetch)
         if fetch == "all":
@@ -163,6 +174,13 @@ class DBManager:
             return model_class(**dict(res))
 
     def all_query(self, model_class: type, condition, fetch="all"):  # TODO change condition to query
+        """
+        execute a query
+        :param model_class:
+        :param condition:
+        :param fetch:
+        :return: a list of models if fetch == 'all' else a model obj
+        """
         assert issubclass(model_class, DBModel)
         model_dict = self.query(f"{condition}", fetch=fetch)
         if fetch == "one":
@@ -179,6 +197,12 @@ class DBManager:
         return res
 
     def join_filter(self, model_class: type, *args):
+        """
+        gets model_class and args that args are similar to (Order, "id = 1")...
+        :param model_class:
+        :param args:
+        :return:
+        """
         assert issubclass(model_class, DBModel)
         aliases = ", ".join(
             model_class.class_aliases())  # TODO class_aliases should return Receipt.asd, Receipt.fdf, ... -> str!
