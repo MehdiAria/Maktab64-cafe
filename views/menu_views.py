@@ -13,13 +13,11 @@ def index():
 
 
 def menu():
-    # data = Category.category_item()
     data = {}
     data["menu_items"] = menu_categories()
     empty_tables = None
     table_id = None
     receipt_id = request.cookies.get('receipt_id', None)
-    # print(receipt_id)
     if receipt_id:
         table_id = db.query(f"""SELECT cafe_table.id FROM cafe_table INNER JOIN orders ON
                                             orders.table_id = cafe_table.id INNER JOIN receipt ON
@@ -118,6 +116,7 @@ def del_order():
         receipt = db.read_filter(Receipt, f"id = {receipt_id}", fetch="one")
         orders = db.read_filter(Order, f"receipt_id = {request.cookies.get('receipt_id', None)} And is_del=false")
         receipt.total_price -= int(request.form.get("number_item")) * int(request.form.get("item_price"))
+        receipt.final_price -= int(request.form.get("number_item")) * int(request.form.get("item_price"))
         db.update(receipt)
         logger.warning(f"changed total_price of {receipt_id} with {order_id} -> {receipt.total_price}")
         resp = Response(f"{receipt.total_price}", status=201)
@@ -146,11 +145,11 @@ def plus_order():
 
 
 def check_out_order():
-    if request.method == "POST":
+    if request.method == "GET":
         receipt_id = request.cookies.get("receipt_id", None)
-        discount = int(request.form.get('discount'))
         receipt = db.read(Receipt, receipt_id)
-        receipt.final_price -= discount
+        discount = db.query(f"SELECT sum(menu_items.discount) as discount_plus from orders INNER join menu_items on orders.item_id = menu_items.id where orders.receipt_id = {receipt_id} and orders.status_id =1", fetch="one")["discount_plus"]
+        receipt.final_price -= int(discount)
         db.update(receipt)
         if receipt_id:
             db.query(f"UPDATE orders SET status_id = 2 WHERE orders.receipt_id = {receipt_id} AND orders.is_del = false AND orders.status_id = 1")
