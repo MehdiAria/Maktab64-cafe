@@ -103,20 +103,19 @@
             url:"http://127.0.0.1:5000/cashier/receipts",
             data: PostJson,
             success: function(response){
-                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
-                        <strong>Success!</strong> ${response}
-                    </div>`)
-                msg.appendTo($(`#msg-container`))
-                setTimeout(() => {
-                    $(`#msg-container`).slideToggle();
-                    }, 2000)
+                Swal.fire(
+                    'Good job!',
+                    'Edit done!',
+                    'success'
+                )
 
             },
             error: function(){
-                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
-                                <strong>Error while adding order!</strong>
-                              </div>`)
-                msg.appendTo($(`#msg-container`))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Receipt didn\'t edit!',
+                })
             }
         })
     }

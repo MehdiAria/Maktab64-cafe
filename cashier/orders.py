@@ -22,7 +22,7 @@ def orders():
     elif request.method == 'POST':
         order = db.read(Order, int(request.form.get('_id')))
         order.is_del = True if request.form.get('is_del') == 'true' else False
-        order.item_id = request.form.get('item_id')
+        # order.item_id = request.form.get('item_id')
         order.number_item = request.form.get('number_item')
         status_name = request.form.get('status_name')
         st = db.read_filter(Status, f"name=\'{status_name}\'")[0].id

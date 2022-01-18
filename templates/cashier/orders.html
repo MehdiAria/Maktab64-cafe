@@ -36,12 +36,13 @@
                         <div class="dropdown btn-group">
                             <button id="drop-stat" type="button"
                                     class="btn dropdown-toggle btn-warning"
-                                    data-bs-toggle="dropdown" style="width: 7rem;background-color: rgb(139,69,19);color: #F5DEB3;">
+                                    data-bs-toggle="dropdown"
+                                    style="width: 7rem;background-color: rgb(139,69,19);color: #F5DEB3;">
 
                                 {{ i.status_name }}
                             </button>
                             <input style="display: none" disabled type="text" name="status_name" id="{{ i.id }}"
-                                   value="">
+                                   value="{{ i.status_name }}">
                             <ul class="dropdown-menu">
                                 {% for j in status %}
                                     <li class="dropdown-item">
@@ -62,7 +63,8 @@
                     <td><input type="checkbox" class="form-check-input" name="is_del" id="is_del"
                             {% if i.is_del %} checked {% endif %} form="{{ i.id }}"></td>
                     <td>
-                        <button class="btn btn-warning" style="background-color: rgb(139,69,19);color: #F5DEB3;" onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit
+                        <button class="btn btn-warning" style="background-color: rgb(139,69,19);color: #F5DEB3;"
+                                onclick="ApplyEdits(this.id)" id="{{ i.id }}">Edit
                         </button>
                     </td>
                 </tr>
@@ -106,23 +108,19 @@
             url: "http://127.0.0.1:5000/cashier/orders",
             data: PostJson,
             success: function (response) {
-                let msg = $(`<div class="alert alert-success alert-dismissible fade show">
-                        <strong>Success!</strong> ${response}
-                    </div>`)
-                msg.appendTo($(`#msg-container`))
-                setTimeout(() => {
-                    $(`#msg-container`).slideToggle();
-                }, 2000)
+                Swal.fire(
+                    'Good job!',
+                    'Edit done!',
+                    'success'
+                )
 
             },
             error: function () {
-                let msg = $(`<div class="alert alert-danger alert-dismissible fade show">
-                                <strong>Error while adding order!</strong>
-                              </div>`)
-                msg.appendTo($(`#msg-container`))
-                setTimeout(() => {
-                    $(`#msg-container`).slideToggle();
-                }, 2000)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Order didn\'t edit!',
+                })
 
             }
         })
