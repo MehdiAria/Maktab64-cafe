@@ -340,4 +340,3 @@ class Receipt(DBModel):
 #         else:
 #             cat_items[alias] = [i]
 #     return cat_items
-

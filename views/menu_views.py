@@ -75,10 +75,9 @@ def order(table_id):
             check_table_id(receipt_id, table_id)
             old_orders = db.read_filter(Order, f"is_del = false AND receipt_id = {int(receipt_id)} AND item_id = {int(item_id)}",
                                         fetch="all")
-
             if old_orders:
                 for o in old_orders:
-                    o:Order
+                    o: Order
                     if o.status_id == 1:
                         o.number_item += int(number_item)
                         db.update(o)
@@ -174,7 +173,6 @@ def check_out_order():
         discount = db.query(
             f"SELECT sum(orders.number_item * menu_items.discount) as discount_plus from orders INNER join menu_items on orders.item_id = menu_items.id where orders.receipt_id = {receipt_id} and orders.status_id =1;",
             fetch="one")["discount_plus"]
-        print(discount, "discount!!!!!")
         receipt.final_price -= int(discount)
         db.update(receipt)
         if receipt_id:
