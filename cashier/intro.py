@@ -1,6 +1,8 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from core.db_manager import DBManager
 from datetime import datetime, timedelta
+
+from views.utils import get_cashier_by_cookie
 
 db = DBManager()
 
@@ -50,6 +52,8 @@ def intro():
     finished_orders = db.query(
         f"SELECT count(*) FROM orders WHERE is_del=false AND status_id=4;",
         fetch='one')['count']
+    if not get_cashier_by_cookie(request):
+        return redirect(url_for('panel'))
     return render_template('cashier/intro.html', orders={
         'total_orders': total_orders,
         'new_orders': new_orders,

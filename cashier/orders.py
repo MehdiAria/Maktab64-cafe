@@ -1,6 +1,7 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from core.db_manager import DBManager
 from models.model import Order, Status
+from views.utils import get_cashier_by_cookie
 
 db = DBManager()
 
@@ -18,6 +19,8 @@ def orders():
     #     map(lambda x: 'T'.join(x.time_stamp.__str__().split()), order_list))
     # data = zip(order_list, datetime_list)
     if request.method == 'GET':
+        if not get_cashier_by_cookie(request):
+            return redirect(url_for('panel'))
         return render_template('cashier/orders.html', status=status_list, data=order_list)
     elif request.method == 'POST':
         order = db.read(Order, int(request.form.get('_id')))

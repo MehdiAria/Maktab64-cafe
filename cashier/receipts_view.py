@@ -1,7 +1,9 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from core.db_manager import DBManager
 from models.model import Receipt
 from datetime import datetime, timedelta
+
+from views.utils import get_cashier_by_cookie
 
 db = DBManager()
 
@@ -15,6 +17,8 @@ db = DBManager()
 
 
 def all_receipts():
+    if not get_cashier_by_cookie(request):
+        return redirect(url_for('panel'))
     if request.method == "POST":
         receipt_dict = request.form
         receipt = db.read(Receipt, int(receipt_dict.get("_id")))

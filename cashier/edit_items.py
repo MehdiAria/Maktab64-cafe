@@ -1,7 +1,7 @@
-from flask import render_template, request
+from flask import render_template, request,redirect,url_for
 from core.db_manager import DBManager
 from models.model import MenuItems, Category
-
+from views.utils import get_cashier_by_cookie
 db = DBManager()
 
 
@@ -12,6 +12,8 @@ def edit_items():
     cat_list = db.all_query(Category,
                             f"SELECT * FROM categories where True;")
     if request.method == 'GET':
+        if not get_cashier_by_cookie(request):
+            return redirect(url_for('panel'))
         return render_template('cashier/edit_items.html', cat=cat_list, data=item)
     elif request.method == 'POST':
         # item.category_id = request.form.get('category_id')

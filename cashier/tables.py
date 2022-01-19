@@ -1,7 +1,7 @@
-from flask import render_template,request
+from flask import render_template, request, url_for, redirect
 from core.db_manager import DBManager
 from models.model import CafeTable
-
+from views.utils import get_cashier_by_cookie
 
 db = DBManager()
 
@@ -9,6 +9,8 @@ db = DBManager()
 def tables():
     tables = db.read_all(CafeTable)
     if request.method =='GET':
+        if not get_cashier_by_cookie(request):
+            return redirect(url_for('panel'))
         return render_template('cashier/tables.html', data=tables)
     elif request.method =='POST':
         # print('data:', request.form.get())
