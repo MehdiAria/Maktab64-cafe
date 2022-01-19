@@ -73,12 +73,21 @@ def order(table_id):
             item_id = escape(order_dict.get('item_id', None))
             number_item = escape(order_dict.get('number_item', None))
             check_table_id(receipt_id, table_id)
-            try:
-                old_order = db.read_filter(Order,f"receipt_id = {int(receipt_id)} AND item_id = {int(item_id)}", fetch="one")
-                old_order: Order
-                old_order.number_item += int(number_item)
-                db.update(old_order)
-            except TypeError:
+            old_orders = db.read_filter(Order, f"is_del = false AND receipt_id = {int(receipt_id)} AND item_id = {int(item_id)}",
+                                        fetch="all")
+
+            if old_orders:
+                for o in old_orders:
+                    o:Order
+                    if o.status_id == 1:
+                        o.number_item += int(number_item)
+                        db.update(o)
+                        break
+                else:
+                    table_order = Order(item_id=item_id, table_id=table_id,
+                                        status_id=1, number_item=number_item, receipt_id=receipt_id)
+                    db.create(table_order)
+            else:
                 table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=1, number_item=number_item, receipt_id=receipt_id)
                 db.create(table_order)
@@ -165,6 +174,7 @@ def check_out_order():
         discount = db.query(
             f"SELECT sum(menu_items.discount) as discount_plus from orders INNER join menu_items on orders.item_id = menu_items.id where orders.receipt_id = {receipt_id} and orders.status_id =1",
             fetch="one")["discount_plus"]
+        print(discount, "discount!!!!!")
         receipt.final_price -= int(discount)
         db.update(receipt)
         if receipt_id:
