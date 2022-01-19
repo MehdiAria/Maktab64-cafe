@@ -73,9 +73,15 @@ def order(table_id):
             item_id = escape(order_dict.get('item_id', None))
             number_item = escape(order_dict.get('number_item', None))
             check_table_id(receipt_id, table_id)
-            table_order = Order(item_id=item_id, table_id=table_id,
+            try:
+                old_order = db.read_filter(Order,f"receipt_id = {int(receipt_id)} AND item_id = {int(item_id)}", fetch="one")
+                old_order: Order
+                old_order.number_item += int(number_item)
+                db.update(old_order)
+            except TypeError:
+                table_order = Order(item_id=item_id, table_id=table_id,
                                 status_id=1, number_item=number_item, receipt_id=receipt_id)
-            db.create(table_order)
+                db.create(table_order)
             receipt = db.read_filter(Receipt, f"id = {receipt_id} AND user_token = \'{user_token}\'")[0]
             # TODO handel error in reading receipt
             receipt: Receipt
@@ -121,7 +127,6 @@ def del_order():
         count = int(request.form.get("number_item"))
         pr = int(request.form.get("item_price"))
         price_decrease = count * pr
-        print("delete -> ",price_decrease, "count",count, "price", pr)
         receipt.total_price -= price_decrease
         receipt.final_price -= price_decrease
         db.update(receipt)

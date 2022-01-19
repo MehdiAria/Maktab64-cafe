@@ -5,7 +5,7 @@ from views.login import *
 from cashier import tables, orders, edit_items, intro
 from cashier.receipts_view import *
 from cashier.views_logout import *
-from models.menu_funcs import menu_categories
+# from models.menu_funcs import menu_categories
 from views.spa_views import handler
 app = Flask(__name__, template_folder="templates")
 
