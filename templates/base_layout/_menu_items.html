@@ -79,15 +79,16 @@
                         <div class="invalid-feedback">
                             please fill Count!
                         </div>
-                        <label class="form-label" for="item_type">Item: </label>
-                        <input style="border: 0;background: white"
+                        <label class="form-label d-none" for="item_type">Item: </label>
+                        <input style="border: 0;background: white;display: none"
                                class="form-control" type="text"
                                name="item_type"
                                id="item_type" disabled>
                         <input type="number" class="d-none" id="item_id" name="item_id" required>
-                        <label class="form-label" for="table_id">Table: </label>
+                        <label class="form-label badge badge-success mt-2" for="table_id">Table: </label>
+                        <span id="table_n"></span>
                         <input style="border: 0;background: white"
-                               class="form-control" type="text"
+                               class="form-control d-none" type="text"
                                name="table_id"
                                id="table_id" disabled>
                         <div class="modal-footer">
@@ -149,6 +150,8 @@
 
     function DisableTableSet(value) {
         $(`#table_id`).val(value)
+        $(`#table_n`).html(value)
+
         $(`#available-tables`).empty()
     }
     {% if table_id %}
@@ -157,6 +160,7 @@
     function tableIdSet(TableIdValue) {
         let elem = $(`#${TableIdValue}`).attr('id')
         $(`#table_id`).val(elem)
+        $(`#table_n`).html(elem)
 
     }
 
