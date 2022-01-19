@@ -8,7 +8,7 @@ db = DBManager()
 
 def orders():
     order_list = db.query(
-        f"SELECT {Order.class_aliases(to_str=True)},menu_items.name as item_name,status.name as status_name FROM orders INNER JOIN status ON orders.status_id=status.id INNER JOIN menu_items ON menu_items.id=orders.item_id;",
+        f"SELECT {Order.class_aliases(to_str=True)},menu_items.name as item_name,status.name as status_name FROM orders INNER JOIN status ON orders.status_id=status.id INNER JOIN menu_items ON menu_items.id=orders.item_id ORDER BY orders.id desc;",
         fetch='all')
     # print(order_list)
     status_list = db.all_query(Status,

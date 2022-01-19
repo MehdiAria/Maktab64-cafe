@@ -7,7 +7,7 @@ db = DBManager()
 
 def edit_items():
     item = db.query(
-        f"SELECT {MenuItems.class_aliases(to_str=True)},categories.name as cat_name FROM menu_items INNER JOIN categories ON menu_items.category_id=categories.id;",
+        f"SELECT {MenuItems.class_aliases(to_str=True)},categories.name as cat_name FROM menu_items INNER JOIN categories ON menu_items.category_id=categories.id ORDER BY menu_items.id desc;",
         fetch='all')
     cat_list = db.all_query(Category,
                             f"SELECT * FROM categories where True;")

@@ -118,7 +118,7 @@ class DBManager:
                 curs.execute(f"""DELETE FROM {model_instance.TABLE} WHERE {model_instance.PK} = {model_pk_value};""")
                 delattr(model_instance, 'id')  # deleting attribute 'id' from the deleted instance
 
-    def read_all(self, model_class: type, order="id"):  # get
+    def read_all(self, model_class: type, order="id DESC"):  # get
         assert issubclass(model_class, DBModel)
         with self.conn:
             curs = self.__get_cursor()
