@@ -126,7 +126,7 @@ def del_order():
         receipt.final_price -= price_decrease
         db.update(receipt)
         logger.warning(f"changed total_price of {receipt_id} with {order_id} -> {receipt.total_price}")
-        resp = Response(f"{receipt.total_price}", status=201)
+        resp = Response(f"{receipt.total_price},{receipt.final_price}", status=201)
         if orders and len(orders) == 1:
             receipt.is_del = True
             db.update(receipt)
