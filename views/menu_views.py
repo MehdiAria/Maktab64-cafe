@@ -172,7 +172,7 @@ def check_out_order():
         receipt_id = request.cookies.get("receipt_id", None)
         receipt = db.read(Receipt, receipt_id)
         discount = db.query(
-            f"SELECT sum(menu_items.discount) as discount_plus from orders INNER join menu_items on orders.item_id = menu_items.id where orders.receipt_id = {receipt_id} and orders.status_id =1",
+            f"SELECT sum(orders.number_item * menu_items.discount) as asd from orders INNER join menu_items on orders.item_id = menu_items.id where orders.receipt_id = {receipt_id} and orders.status_id =1;",
             fetch="one")["discount_plus"]
         print(discount, "discount!!!!!")
         receipt.final_price -= int(discount)
