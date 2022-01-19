@@ -47,8 +47,8 @@
                             No discount
                         {% else %}
                             <span class="span-discount">
-                                    dis:{{ data.item[i].discount }}$
-                                </span>
+                                    off:{{ data.item[i].discount }}$
+                            </span>
                         {% endif %}
                     </td>
                     {% if i.status_id == 1 %}
@@ -95,7 +95,7 @@
                     $(`#tr-${order_id}`).empty()
                     let total_price = Number(response.split(",")[0])
                     let final_price = Number(response.split(",")[1])
-                    console.log(total_price, "<- t", final_price,"<-f")
+                    console.log(total_price, "<- t", final_price, "<-f")
                     $("#total_price").html(`Total: ${total_price}$`)
                     $("#final_price").html(`Final: ${final_price}$`)
                     let trows = $(`#orders-table tr`)
@@ -162,7 +162,7 @@
                     let count = $(".count-item")
                     $("#total_price").html(`Total: ${response["total_price"]}`)
                     $("#final_price").html(`Final: ${response["final_price"]}`)
-                    console.log(count , "count ::::")
+                    console.log(count, "count ::::")
                     for (let c of count) {
                         if (!isNaN(c.innerHTML)) {
                             c.innerHTML = "count: " + c.innerHTML
