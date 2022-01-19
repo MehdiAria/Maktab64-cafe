@@ -113,7 +113,7 @@
     <div class="modal-content">
         <div class="modal-header">
         <h4 class="modal-title">Your cart</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" id="close-cart-basket"></button>
       </div>
       <div class="modal-body" id="basket-ajax" style="background: #3c3d3e">
           <span class="text-white">Loading...</span>
@@ -170,7 +170,6 @@
         }
 
     }
-
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -246,6 +245,10 @@
                 $("#basket-ajax").html(response)
             }
         })
+    })
+
+    $("#close-cart-basket").click(function () {
+        $("#basket-ajax").html("<span class=\"text-white\">Loading...</span>")
     })
 
 
