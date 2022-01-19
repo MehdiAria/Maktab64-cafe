@@ -21,7 +21,7 @@
                     {#                    <td>#}
                     {#                        <img src="{{ data.item[i].image_url}}">#}
                     {#                    </td>#}
-                    <td class="{{ i.id }} item-name-display" style="width:10%">
+                    <td class="{{ i.id }} item-name-display" style="width:10% ;flex-basis: 40%">
                         <div>{{ data.item[i].name }}</div>
                     </td>
                     <td class="{{ i.id }} td-res" style="display: flex;align-items: center">
@@ -155,17 +155,20 @@
             $.ajax({
                 url: link,
                 success: function (response) {
+                    console.log(response, "response in check out!!!!")
                     $(".order-operation").remove()
                     $(".order-btn").remove()
                     $("#check-out-btn").remove()
                     let count = $(".count-item")
+                    $("#total_price").html(`Total: ${response["total_price"]}`)
+                    $("#final_price").html(`Final: ${response["final_price"]}`)
+                    console.log(count , "count ::::")
                     for (let c of count) {
                         if (!isNaN(c.innerHTML)) {
                             c.innerHTML = "count: " + c.innerHTML
+                            console.log(c.innerHTML, "c.innerHTML!!!!")
                         }
                     }
-                    $("#total_price").html(`Total: ${response["total_price"]}`)
-                    $("#final_price").html(`Final: ${response["final_price"]}`)
                 }
             })
         })
