@@ -110,25 +110,26 @@
 {#    Open modal#}
 {#</button>#}
 <div class="modal fade" id="ajaxModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h4 class="modal-title">Your cart</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" id="close-cart-basket"></button>
-      </div>
-      <div class="modal-body" id="basket-ajax" style="background: #3c3d3e">
-          <span class="text-white">Loading...</span>
-      </div>
-{#      <div class="modal-footer">#}
-{#        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>#}
-{#      </div>#}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Your cart</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="close-cart-basket"></button>
+            </div>
+            <div class="modal-body" id="basket-ajax" style="background: #3c3d3e">
+                <span class="text-white">Loading...</span>
+            </div>
+            {#      <div class="modal-footer">#}
+            {#        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>#}
+            {#      </div>#}
+        </div>
     </div>
-  </div>
 </div>
 
 {#{% if receipt_id  %}#}
 <div class="rounded-circle px-2" id="basket" style="position: fixed;z-index: 11;bottom:0;right: 0;display: none;">
-    <a style="cursor: pointer" link="{{ url_for("order", table_id=table_id if table_id else 1)}}" id="cart-link" data-bs-toggle="modal" data-bs-target="#ajaxModal">
+    <a style="cursor: pointer" link="{{ url_for("order", table_id=table_id if table_id else 1) }}" id="cart-link"
+       data-bs-toggle="modal" data-bs-target="#ajaxModal">
         <i class="bi bi-cart4" style="font-size: 6vw!important;color: chocolate"></i>
     </a>
 </div>
@@ -141,9 +142,9 @@
     function func(ItemValue) {
         let elem = ItemValue.split(' ')
         $(`#item_id`).val(elem[0])
-        $(`#item_type`).val(elem.slice(1,-1).join(' '))
-        $(`#item_n`).html(elem.slice(1,-1).join(' '))
-        console.log(elem.slice(1,-1))
+        $(`#item_type`).val(elem.slice(1, -1).join(' '))
+        $(`#item_n`).html(elem.slice(1, -1).join(' '))
+        console.log(elem.slice(1, -1))
         $(`#count`).val(1)
 
     }
@@ -206,47 +207,52 @@
 
             },
             success: function (response) {
-                let parrent = $("#msg")
-                let msg = $(` <div class="alert alert-success alert-dismissible fade show">
-                        <strong>Success!</strong> ${response}
-                    </div>`)
-                $('#basket').css('display', 'flex')
-
-                msg.appendTo(parrent)
-                demo(3000)
-                DisableTableSet(t_id)
-                window.setTimeout(function () {
-                    $(".flash").fadeTo(500, 0).slideUp(500, function () {
-                        $(this).remove();
-                    });
-                }, 3000);
-                demo(3000)
-                $('#basket').css('display', 'flex')
+                {#let parrent = $("#msg")#}
+                {#let msg = $(` <div class="alert alert-success alert-dismissible fade show">#}
+                {#        <strong>Success!</strong> ${response}#}
+                {#    </div>`)#}
+                {#$('#basket').css('display', 'flex')#}
+                {##}
+                {#msg.appendTo(parrent)#}
+                {#demo(3000)#}
+                {#DisableTableSet(t_id)#}
+                {#window.setTimeout(function () {$(".flash").fadeTo(500, 0).slideUp(500, function () {$(this).remove();});}, 3000);demo(3000)$('#basket').css('display', 'flex')#}
+                Swal.fire(
+                    'Job done!',
+                    'Successfully Added!',
+                    'success'
+                )
 
             },
             error: function () {
-                let parrent = $("#msg")
-                let msg = $(` <div class="alert alert-danger alert-dismissible fade show">
-                                <strong>Error while adding order!</strong>
-                              </div>`)
-                msg.appendTo(parrent)
-                demo(3000)
-                window.setTimeout(function () {
-                    $(".flash").fadeTo(500, 0).slideUp(500, function () {
-                        $(this).remove();
-                    });
-                }, 3000);
-                demo(3000)
+                {##}
+                {#let parrent = $("#msg")#}
+                {#let msg = $(` <div class="alert alert-danger alert-dismissible fade show">#}
+                {#                <strong>Error while adding order!</strong>#}
+                {#              </div>`)#}
+                {#msg.appendTo(parrent)#}
+                {#demo(3000)#}
+                {#window.setTimeout(function () {#}
+                {#    $(".flash").fadeTo(500, 0).slideUp(500, function () {$(this).remove();});},3000);#}
+                {#demo(3000)#}
+                {##}
+                {##}
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Error while adding order!',
+                })
+
 
             }
         })
     }
 
-    $("#cart-link").click(function(){
+    $("#cart-link").click(function () {
         let link = $(this).attr("link")
         $.ajax({
-            url:link,
-            success:function(response){
+            url: link,
+            success: function (response) {
                 $("#basket-ajax").html(response)
             }
         })
