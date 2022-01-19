@@ -52,7 +52,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Adding items to cart</h4>
+                <h4 class="modal-title">Adding <span id="item_n"></span> to cart</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -140,7 +140,8 @@
     function func(ItemValue) {
         let elem = ItemValue.split(' ')
         $(`#item_id`).val(elem[0])
-        $(`#item_type`).val(elem.slice(1,-1))
+        $(`#item_type`).val(elem.slice(1,-1).join(' '))
+        $(`#item_n`).html(elem.slice(1,-1).join(' '))
         console.log(elem.slice(1,-1))
         $(`#count`).val(1)
 
